@@ -1,0 +1,5 @@
+spring\practice\home\board\mapper\BoardMapper.class
+spring\practice\home\board\service\BoardService.class
+spring\practice\home\board\vo\BoardVO.class
+spring\practice\home\board\service\serviceImpl\BoardServiceImpl.class
+spring\practice\home\board\controller\BoardController.class
