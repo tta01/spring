@@ -1,5 +1,4 @@
-spring\practice\home\board\mapper\BoardMapper.class
-spring\practice\home\board\service\BoardService.class
-spring\practice\home\board\vo\BoardVO.class
-spring\practice\home\board\service\serviceImpl\BoardServiceImpl.class
-spring\practice\home\board\controller\BoardController.class
+spring\practice\home\NoticeBoard\service\NoticeBoardService.class
+spring\practice\home\NoticeBoard\vo\NoticeBoardVO.class
+spring\practice\home\NoticeBoard\controller\NoticeBoardController.class
+module\paging\vo\PagingVO.class

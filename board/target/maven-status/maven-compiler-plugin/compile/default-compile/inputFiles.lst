@@ -1,5 +1,7 @@
-C:\Users\TG\git\spring\board\src\main\java\spring\practice\home\board\controller\BoardController.java
-C:\Users\TG\git\spring\board\src\main\java\spring\practice\home\board\mapper\BoardMapper.java
-C:\Users\TG\git\spring\board\src\main\java\spring\practice\home\board\service\serviceImpl\BoardServiceImpl.java
-C:\Users\TG\git\spring\board\src\main\java\spring\practice\home\board\service\BoardService.java
-C:\Users\TG\git\spring\board\src\main\java\spring\practice\home\board\vo\BoardVO.java
+C:\Users\TG\git\spring\board\src\main\java\module\paging\vo\PagingVO.java
+C:\Users\TG\git\spring\board\src\main\java\spring\practice\home\NoticeBoard\service\serviceImpl\NoticeBoardServiceImpl.java
+C:\Users\TG\git\spring\board\src\main\java\spring\practice\home\NoticeBoard\mapper\NoticeBoardMapper.java
+C:\Users\TG\git\spring\board\src\main\java\spring\practice\home\NoticeBoard\vo\NoticeBoardVO.java
+C:\Users\TG\git\spring\board\src\main\java\spring\practice\home\NoticeBoard\controller\NoticeBoardController.java
+C:\Users\TG\git\spring\board\src\main\java\Util\ArticlePage.java
+C:\Users\TG\git\spring\board\src\main\java\spring\practice\home\NoticeBoard\service\NoticeBoardService.java
