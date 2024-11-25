@@ -7,6 +7,9 @@
 		<setting name="mapUnderscoreToCamelCase" value="true"></setting>
 		<!--  파라미터에 Null 값이 있을 경우 에러 처리 -->
 		<setting name="jdbcTypeForNull" value="VARCHAR"></setting>
+		
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+		
 	</settings>
     
     <typeAliases>

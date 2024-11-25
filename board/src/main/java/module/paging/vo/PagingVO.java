@@ -2,7 +2,7 @@ package module.paging.vo;
 
 public class PagingVO {
 	
-	private int page;
+	private int page = 1;
 	private int pageRowCnt = 5;
 	private int startRownum;
 	private int endRownum;

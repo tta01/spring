@@ -1,4 +1,7 @@
+spring\practice\home\NoticeBoard\service\serviceImpl\NoticeBoardServiceImpl.class
+spring\practice\home\NoticeBoard\mapper\NoticeBoardMapper.class
 spring\practice\home\NoticeBoard\service\NoticeBoardService.class
 spring\practice\home\NoticeBoard\vo\NoticeBoardVO.class
 spring\practice\home\NoticeBoard\controller\NoticeBoardController.class
+Util\ArticlePage.class
 module\paging\vo\PagingVO.class

@@ -67,12 +67,12 @@
     </table>
     
     <!-- 페이지 출력하고, 이전 다음 생성 -->
-    <c:forEach var="i" items="${noticeVOList}" >
-    	<tr>
-    		<td>${i.startPage}</td>
-    		<td>${i.endPage}</td>
-    	</tr>
-    </c:forEach>
+<%--     <c:forEach var="i" items="${noticeVOList}" > --%>
+<!--     	<tr> -->
+<%--     		<td>${i.startPage}</td> --%>
+<%--     		<td>${i.endPage}</td> --%>
+<!--     	</tr> -->
+<%--     </c:forEach> --%>
     
 </body>
 </html>

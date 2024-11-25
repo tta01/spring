@@ -34,11 +34,18 @@ public class NoticeBoardServiceImpl implements NoticeBoardService {
 		int endPage = (int) ((Math.ceil(tmp))*noticeBoardVO.getPagenationCnt());
 		noticeBoardVO.setEndPage(endPage);
 		
+		// 페이징 관련 값 계산 후 로그 추가
+		System.out.println("Current Page: " + noticeBoardVO.getPage());
+		System.out.println("Start Page: " + noticeBoardVO.getStartPage());
+		System.out.println("End Page: " + noticeBoardVO.getEndPage());
+		System.out.println("Max Page: " + noticeBoardVO.getMaxPage());
+
 		// 2. 리스트 호출
 		List<NoticeBoardVO> noticeVOList = brdMapper.selectBoardList(noticeBoardVO);
 		
 		// 3. 리스트 담기
-		model.addAttribute("noticeVO", noticeVOList);
+		model.addAttribute("noticeVOList", noticeVOList);
+		model.addAttribute("noticeBoardVO", noticeBoardVO);
 		
 		return "noticeBoard/list";
 	}

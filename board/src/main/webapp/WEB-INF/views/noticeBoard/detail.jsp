@@ -140,9 +140,10 @@
     <!-- 수정 및 삭제 버튼 -->
     <div class="form-buttons">
         <a href="<c:url value='/board/updatePost/${noticeBoardVO.boardId}' />">수정</a>
-		<button type="button" id="delete" class="list-btn">삭제</button>
-<%--         <a href="<c:url value='/board/delete?boardId=${noticeBoardVO.boardId}' role="button" class="btn btn-outline-info">삭제</a> --%>
-		<a href="<c:url value='/board/list' />">목록</a>
+<!-- 		<button type="button" id="delete" class="list-btn">삭제</button> -->
+		<a href="#" id="delete">삭제</a>
+<%--         <a href="<c:url value='/board/deletePost?boardId=${noticeBoardVO.boardId}' />">삭제</a> --%>
+		<a href="<c:url value='/board/list?page=${noticeBoardVO.page}' />">목록</a>
     </div>
     </form>
     

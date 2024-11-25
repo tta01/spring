@@ -57,41 +57,35 @@ textarea {
 
 /* 버튼 스타일 */
 button, a {
-    padding: 12px 25px;
+    padding: 8px 20px; /* 버튼 크기 줄이기 */
     border-radius: 30px;
-    font-size: 16px;
+    font-size: 14px; /* 글자 크기 조금 작게 */
     font-weight: bold;
+    color:unset;
     cursor: pointer;
     text-decoration: none; /* 링크에 밑줄 없애기 */
     text-align: center;
     display: inline-block;
-    transition: background-color 0.3s ease-in-out, transform 0.3s ease;
+    transition: background-color 0.3s ease-in-out, transform 0.3s ease, border-color 0.3s ease;
+    border: 2px solid black; 
+    background-color: white; 
+    margin-right: 15px; /* 버튼 간격 넓히기 */
 }
 
-/* 등록 버튼 스타일 */
-button[type="submit"] {
-    background-color: #4caf50;
-    color: white;
+/* 버튼 호버 시 */
+button:hover, a:hover {
+    background-color: aliceblue; /* 호버 시 더 연한 파스텔톤 배경색 (하늘색 계열) */
+    transform: scale(1.05); /* 호버 시 살짝 커지는 효과 */
+    border-color: #80C7E5; /* 하늘색 선 색 */
 }
 
-/* 등록 버튼 호버 효과 */
-button[type="submit"]:hover {
-    background-color: #45a049;
-    transform: translateY(-2px);
+/* 버튼이 마지막인 경우 오른쪽 여백 제거 */
+.form-buttons a:last-child {
+    margin-right: 0;
 }
 
-/* 목록 버튼 스타일 */
-a {
-    background-color: #f44336;
-    color: white;
-    margin-left: 10px; /* 버튼과의 간격 */
-}
 
-/* 목록 버튼 호버 효과 */
-a:hover {
-    background-color: #e53935;
-    transform: translateY(-2px);
-}
+
 
 
 
