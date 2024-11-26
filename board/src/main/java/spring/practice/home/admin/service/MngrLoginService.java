@@ -6,8 +6,6 @@ import spring.practice.home.admin.vo.ManagerVO;
 
 public interface MngrLoginService {
 
-//	public int actionLogin(ManagerVO managerVO);
-
 	public int actionLogin(HttpServletRequest req, ManagerVO managerVO);
 	
 }
