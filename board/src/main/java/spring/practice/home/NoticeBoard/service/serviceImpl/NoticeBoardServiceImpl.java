@@ -1,9 +1,9 @@
 package spring.practice.home.NoticeBoard.service.serviceImpl;
 
 import java.util.List;
-import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.annotation.Resource;
+
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
@@ -14,7 +14,7 @@ import spring.practice.home.NoticeBoard.vo.NoticeBoardVO;
 @Service
 public class NoticeBoardServiceImpl implements NoticeBoardService {
 	
-	@Autowired
+	@Resource
 	NoticeBoardMapper brdMapper;
 
 	@Override
@@ -22,7 +22,7 @@ public class NoticeBoardServiceImpl implements NoticeBoardService {
 		
 		// 1. 페이지 네이션 생성
 		int totalCnt = brdMapper.selectBoardListCnt(noticeBoardVO);
-		double tmp = totalCnt/(double)noticeBoardVO.getPagenationCnt();
+		double tmp = totalCnt/(double)noticeBoardVO.getPageRowCnt();
 		int maxPage = (int) Math.ceil(tmp);
 		noticeBoardVO.setMaxPage(maxPage);
 		
@@ -34,12 +34,6 @@ public class NoticeBoardServiceImpl implements NoticeBoardService {
 		int endPage = (int) ((Math.ceil(tmp))*noticeBoardVO.getPagenationCnt());
 		noticeBoardVO.setEndPage(endPage);
 		
-		// 페이징 관련 값 계산 후 로그 추가
-		System.out.println("Current Page: " + noticeBoardVO.getPage());
-		System.out.println("Start Page: " + noticeBoardVO.getStartPage());
-		System.out.println("End Page: " + noticeBoardVO.getEndPage());
-		System.out.println("Max Page: " + noticeBoardVO.getMaxPage());
-
 		// 2. 리스트 호출
 		List<NoticeBoardVO> noticeVOList = brdMapper.selectBoardList(noticeBoardVO);
 		
@@ -62,14 +56,19 @@ public class NoticeBoardServiceImpl implements NoticeBoardService {
 	}
 
 	@Override
-	public NoticeBoardVO updatePost(NoticeBoardVO noticeBoardVO) {
-		return brdMapper.updatePost(noticeBoardVO);
+	public int updatePost(NoticeBoardVO noticeBoardVO) {
+		int result =  brdMapper.updatePost(noticeBoardVO);
+		return result;
 	}
 
 	@Override
 	public int deletePost(NoticeBoardVO noticeBoardVO) {
+		
 		int result = brdMapper.deletePost(noticeBoardVO);
+		
 		return result;
 	}
+
+
 
 }

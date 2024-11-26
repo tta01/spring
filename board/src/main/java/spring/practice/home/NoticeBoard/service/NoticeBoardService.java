@@ -12,8 +12,9 @@ public interface NoticeBoardService {
 
 	public NoticeBoardVO detail(String boardId);
 
-	public NoticeBoardVO updatePost(NoticeBoardVO noticeBoardVO);
+	public int updatePost(NoticeBoardVO noticeBoardVO);
 
 	public int deletePost(NoticeBoardVO noticeBoardVO);
+
 
 }

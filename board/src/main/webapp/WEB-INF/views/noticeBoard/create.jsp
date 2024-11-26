@@ -83,12 +83,6 @@ button:hover, a:hover {
 .form-buttons a:last-child {
     margin-right: 0;
 }
-
-
-
-
-
-
 </style>
 
 <head>

@@ -41,17 +41,6 @@ public class NoticeBoardController {
 		return "redirect:/board/list";
 	 }
 	
-//	@RequestMapping(value = "/createForm", method = RequestMethod.GET)
-//	public String create(@ModelAttribute("board") NoticeBoardVO board) {
-//	    return "noticeBoard/create"; // create.jsp로 이동
-//	}
-//
-//	@RequestMapping(value="/createForm", method=RequestMethod.POST)
-//	public String createForm(NoticeBoardVO noticeBoardVO) {
-//	    noticeBoardService.createFrom(noticeBoardVO);
-//	    return "redirect:/noticeBoard/list";
-//	}
-	
 	@RequestMapping("/detail")
 	public String detail(NoticeBoardVO noticeBoardVO, Model model) {
 		
@@ -63,20 +52,31 @@ public class NoticeBoardController {
 		return "noticeBoard/detail";
 	}
 	
-	@RequestMapping("/updatePost")
+	@RequestMapping("/detailUpdate")
+	public String detailUpdate(NoticeBoardVO noticeBoardVO, Model model) {
+		
+		noticeBoardVO = noticeBoardService.detail(noticeBoardVO.getBoardId());
+		log.info("noticeBoardController detail : " + noticeBoardVO);
+		
+		model.addAttribute("noticeBoardVO", noticeBoardVO);
+		
+		return "noticeBoard/update";
+	}
+	
+	@RequestMapping(value="/updatePost", method=RequestMethod.POST)
 	public String updatePost(NoticeBoardVO noticeBoardVO) {
 		
-		noticeBoardVO = noticeBoardService.updatePost(noticeBoardVO);
+		int result = noticeBoardService.updatePost(noticeBoardVO);
 		log.info("noticeBoardController updatePost : " + noticeBoardVO);
 
-		return "redirect:/noticeBoard/detail?boardId="+noticeBoardVO.getBoardId();
+//		return result;
+		return "redirect:/board/detail?boardId="+noticeBoardVO.getBoardId();
 	}
 	
 	@RequestMapping(value="/deletePost", method=RequestMethod.POST)
 	public String deletePost(NoticeBoardVO noticeBoardVO) {
 		
 		int result = noticeBoardService.deletePost(noticeBoardVO);
-		log.info("noticeBoardController deletePost : " + noticeBoardVO);
 
 		return "redirect:/board/list";
 	}

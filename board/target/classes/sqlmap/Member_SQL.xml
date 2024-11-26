@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="spring.practice.home.member.mapper.UserLoginMapper">
+
+	<select id="actionLogin" resultType="spring.practice.home.member.vo.MemberVO" parameterType="String">
+		/* actionLogin */
+		SELECT
+		    MNGR_ID,
+		    MNGR_NM,
+		    LGIN_ID,
+		    PSWD,
+		    FSTM_REG_DT,
+		    FSTM_RGSTR_ID
+		FROM
+		    MEMBER
+		WHERE
+			LGIN_ID = #{lginId}
+			
+	</select>
+	
+</mapper>

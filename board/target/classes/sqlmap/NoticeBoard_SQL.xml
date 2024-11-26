@@ -65,16 +65,16 @@
 	
 	</select>
 	
-<!-- 	<update id="updatePost" parameterType="String"> -->
-<!-- 		/* NOTICE_BOARD UPDATE */ -->
-<!-- 		update 	NOTICE_BOARD -->
-<!-- 		SET		BOARD_TITLE = #{boardTitle} -->
-<!-- 				,BOARD_UPDT_DT = SYSDATE -->
-<!-- 				,NTBD_AF_ID = #{ntbdAfId}  -->
-<!-- 				,BOARD_CNTNT = #{boardCntnt} -->
-<!-- 		WHERE 	BOARD_ID = #{boardId}  -->
+	<update id="updatePost" parameterType="String">
+		/* NOTICE_BOARD UPDATE */
+		update 	NOTICE_BOARD
+		SET		BOARD_TITLE = #{boardTitle}
+				,BOARD_UPDT_DT = SYSDATE
+				,NTBD_AF_ID = #{ntbdAfId} 
+				,BOARD_CNTNT = #{boardCntnt}
+		WHERE 	BOARD_ID = #{boardId} 
 	
-<!-- 	</update> -->
+	</update>
 	
 	<delete id="deletePost" parameterType="noticeBoardVO">
 		/* NOTICE_BOARD DELETE */

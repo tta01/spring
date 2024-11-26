@@ -54,40 +54,37 @@
             margin-top: 20px;
         }
 
-        button, a {
-            padding: 12px 25px;
-            border-radius: 30px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            text-decoration: none;
-            text-align: center;
-            display: inline-block;
-            transition: background-color 0.3s ease-in-out, transform 0.3s ease;
-        }
-
-        /* 수정 및 삭제 버튼 스타일 */
-        button[type="submit"] {
-            background-color: #4caf50;
-            color: white;
-        }
-
-        button[type="submit"]:hover {
-            background-color: #45a049;
-            transform: translateY(-2px);
-        }
-
-        a {
-            background-color: #f44336;
-            color: white;
-            margin-left: 10px;
-        }
-
-        a:hover {
-            background-color: #e53935;
-            transform: translateY(-2px);
-        }
-    </style>
+        /* 버튼 스타일 */
+		button, a {
+		    padding: 8px 20px; /* 버튼 크기 줄이기 */
+		    border-radius: 30px;
+		    font-size: 14px; /* 글자 크기 조금 작게 */
+		    font-weight: bold;
+		    color:unset;
+		    cursor: pointer;
+		    text-decoration: none; /* 링크에 밑줄 없애기 */
+		    text-align: center;
+		    display: inline-block;
+		    transition: background-color 0.3s ease-in-out, transform 0.3s ease, border-color 0.3s ease;
+		    border: 2px solid black; 
+		    background-color: white; 
+		    margin-right: 15px; /* 버튼 간격 넓히기 */
+		}
+		
+		/* 버튼 호버 시 */
+		button:hover, a:hover {
+		    background-color: aliceblue; /* 호버 시 더 연한 파스텔톤 배경색 (하늘색 계열) */
+		    transform: scale(1.05); /* 호버 시 살짝 커지는 효과 */
+		    border-color: #80C7E5; /* 하늘색 선 색 */
+		}
+		
+		/* 버튼이 마지막인 경우 오른쪽 여백 제거 */
+		.form-buttons a:last-child {
+		    margin-right: 0;
+		}
+		
+		</style>
+    
 <head>
     <meta charset="UTF-8">
     <title>공지사항 상세보기</title>
@@ -95,7 +92,7 @@
 
 <body>
     <h1>공지사항 상세보기</h1>
-    <form id="frm" name="frm" action="/board/detailUpdate" method="GET" enctype="multipart/form-data">
+    <form id="frm" name="frm" action="/board/detailUpdate" method="GET" >
 	    <input type="hidden" name="boardId" value="${noticeBoardVO.boardId}" />
 	    
 	    <table class="detail-table">
@@ -139,10 +136,9 @@
 
     <!-- 수정 및 삭제 버튼 -->
     <div class="form-buttons">
-        <a href="<c:url value='/board/updatePost/${noticeBoardVO.boardId}' />">수정</a>
+      	<button type="submit" id="update" class="list-btn">수정</button>
 		<button type="button" id="delete" class="list-btn">삭제</button>
-<%--         <a href="<c:url value='/board/delete?boardId=${noticeBoardVO.boardId}' role="button" class="btn btn-outline-info">삭제</a> --%>
-		<a href="<c:url value='/board/list?page=${noticeBoardVO.page}' />">목록</a>
+		<a href="<c:url value='/board/list' />">목록</a>
     </div>
     </form>
     
@@ -162,7 +158,8 @@ $("#delete").on("click",function(){
   // 확인 선택 시 form을 submit
      if (result) {
              $("#frm").attr("method", "post");
-             $("#frm").attr("action", "/board/deletePost");
+             $("#frm").attr("action", "/board/deletePost?boardId=${noticeBoardVO.boardId}");
+	debugger;
              $("#frm").submit();
      } else {
          alert("삭제가 취소되었습니다");

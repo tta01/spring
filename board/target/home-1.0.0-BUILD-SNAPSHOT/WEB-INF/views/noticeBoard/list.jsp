@@ -53,7 +53,7 @@
         </thead>
         
         <tbody>
-<%--         <c:out value="${noticeVOList}" /> --%>
+<%--         <c:out value="${noticeBoardVO}" /> --%>
             <c:forEach var="item" items="${noticeVOList}" varStatus="status">
                 <tr>
                     <td>${item.rnum}</td>
@@ -67,12 +67,29 @@
     </table>
     
     <!-- 페이지 출력하고, 이전 다음 생성 -->
-<%--     <c:forEach var="i" items="${noticeVOList}" > --%>
-<!--     	<tr> -->
-<%--     		<td>${i.startPage}</td> --%>
-<%--     		<td>${i.endPage}</td> --%>
-<!--     	</tr> -->
-<%--     </c:forEach> --%>
+	<div>
+	    <c:if test="${noticeBoardVO.startPage > 1}">
+	        <a href="/board/list?page=${noticeBoardVO.page - 1}">이전</a>
+	    </c:if>
+	    
+	    <!-- 마지막 페이지 생성하는 부분 계산식 필요 -->
+	    <c:forEach var="i" begin="${noticeBoardVO.startPage}" end="${noticeBoardVO.endPage}" step="1">
+	        <c:choose>
+	            <c:when test="${i == noticeBoardVO.page}">
+	                <span style="font-weight: bold; color:red;">${i}</span>
+	            </c:when>
+	            <c:otherwise>
+	                <a href="/board/list?page=${i}">${i}</a>
+	            </c:otherwise>
+	        </c:choose>
+	    </c:forEach>
+	    
+	    <c:if test="${noticeBoardVO.endPage < noticeBoardVO.maxPage}">
+	        <a href="/board/list?page=${noticeBoardVO.page + 1}">다음</a>
+	    </c:if>
+	    
+	</div>
+
     
 </body>
 </html>
