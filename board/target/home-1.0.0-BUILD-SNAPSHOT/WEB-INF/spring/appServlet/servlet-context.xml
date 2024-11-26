@@ -22,21 +22,23 @@
 	</beans:bean>
 	
 	<context:component-scan base-package="spring.practice.home" />
+	
+	<beans:bean id="Interceptor" class="spring.practice.home.admin.Interceptor.AuthLoginInterceptor"/>
+<!-- 			<beans:bean id="Interceptor" class="spring.practice.home.admin.Interceptor.AuthLoginInterceptor" /> -->
 
 	<interceptors>
 		<interceptor>
-			<mapping path="**/mngr/**"/>
+			<mapping path="/mngr/**"/>
 			<exclude-mapping path="/mngr/login"/>
 			<exclude-mapping path="/mngr/login.ajax"/>
-			<beans:bean id="Interceptor" class="spring.practice.home.admin.Interceptor.AuthLoginInterceptor" />
+			<beans:ref bean="Interceptor"/>
 		</interceptor>
-		
-	  <interceptor>
-	    <mapping path="/**"/>
-	    <beans:ref bean="interceptor"/>
-		<beans:bean id="Interceptor" class="spring.practice.home.admin.Interceptor.AuthLoginInterceptor"/>
-	  </interceptor>
-		
+				
+<!-- 		<interceptor> -->
+<!-- 		  <mapping path="/**"/> -->
+<!-- 		  <beans:ref bean="Interceptor"/> -->
+<!-- 		  <beans:ref bean="Interceptor"/> -->
+<!-- 		</interceptor> -->
 	</interceptors>
 	
 
