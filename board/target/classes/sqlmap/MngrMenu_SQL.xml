@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="spring.practice.home.admin.mapper.MngrMenuMapper">
+
+	<select id="selectMenuList" parameterType="spring.practice.home.admin.vo.MngrMenuVO" resultType="spring.practice.home.admin.vo.MngrMenuVO">
+		/* selectMenuList */
+		SELECT
+		    MENU_CD,
+		    PRNT_MENU_CD,
+		    MENU_NM,
+		    ORD,
+		    DEL_YN,
+		    FSTM_RGSTR_ID,
+		    FSTM_REG_DT,
+		    LAST_MODFR_ID,
+		    LAST_MDFCN_DT
+		FROM
+		    T_CMS_MENU_MNG
+	
+	</select>
+
+</mapper>
