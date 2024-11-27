@@ -74,9 +74,9 @@ public class NoticeBoardController {
 	}
 	
 	@RequestMapping(value="/deletePost", method=RequestMethod.POST)
-	public String deletePost(NoticeBoardVO noticeBoardVO) {
+	public String deletePost(String boardId) {
 		
-		int result = noticeBoardService.deletePost(noticeBoardVO);
+		int result = noticeBoardService.deletePost(boardId);
 
 		return "redirect:/board/list";
 	}

@@ -16,7 +16,7 @@ public interface NoticeBoardMapper {
 
 	public int updatePost(NoticeBoardVO noticeBoardVO);
 
-	public int deletePost(NoticeBoardVO noticeBoardVO);
+	public int deletePost(String boardId);
 
 
 }

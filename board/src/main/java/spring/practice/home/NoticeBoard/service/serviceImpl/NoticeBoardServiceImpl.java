@@ -62,9 +62,9 @@ public class NoticeBoardServiceImpl implements NoticeBoardService {
 	}
 
 	@Override
-	public int deletePost(NoticeBoardVO noticeBoardVO) {
+	public int deletePost(String boardId) {
 		
-		int result = brdMapper.deletePost(noticeBoardVO);
+		int result = brdMapper.deletePost(boardId);
 		
 		return result;
 	}

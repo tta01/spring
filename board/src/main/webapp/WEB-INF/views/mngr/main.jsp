@@ -48,13 +48,13 @@
 
 	<div id="body">
 		<ul>
-			<li>
+			<li class="top-menu"> 
 <%-- 			<c:out value="${menuVOList}"></c:out> --%>
 				<!-- 최상위 메뉴  -->
 				<c:if test="${menuVOList[0].prntMenuCd == 'web'}">
-					<a href="javascript:void(0);" class="menu-item">${menuVOList[0].menuNm}</a>
+					<a href="javascript:void(0);" class="top">${menuVOList[0].menuNm}</a>
 				</c:if>
-				<ul>
+				<ul class="all">
 				
 					<li>
 					<!-- 하위 메뉴 (PRNT_MENU_CD == menu.menuCd) -->
@@ -98,7 +98,16 @@
 	$(document).ready(function() {
 	    // 페이지 로딩 시 하위 메뉴는 숨겨두고
 // 	    $(".submenu").hide();
-
+	    
+		 $('.top').click(function() {
+			 console.log("11111");
+			 var top = $(this).next('.all');
+			 console.log("22222");
+			 top.stop(true, true).slideToggle(); // 모든 하위 메뉴 열기/닫기
+			 console.log("33333");
+			 $(this).parent().toggleClass('active');
+		 });
+	    
 	    // 메뉴 클릭 시 하위 메뉴 열고 닫기
 	    $('.menu-item').click(function() {
 	        var submenu = $(this).next('.submenu'); // 클릭한 메뉴의 하위 메뉴
@@ -108,6 +117,18 @@
 	        $(this).parent().toggleClass('active');
 	    });
 
+// 	    $('.menu-item').click(function() {
+//         // 모든 하위 메뉴를 숨기기
+//         $(".submenu").slideUp(); 
+        
+//         // 클릭한 메뉴의 하위 메뉴만 열기
+//         var submenu = $(this).next('.submenu'); // 클릭한 메뉴의 하위 메뉴
+//         submenu.stop(true, true).slideToggle(); // 해당 하위 메뉴 열기/닫기
+
+//         // 해당 메뉴에 active 클래스 추가/삭제
+//         $(this).parent().toggleClass('active');
+//     	});
+	    
 	    // 로그아웃 버튼 클릭 이벤트
 	    $("#logoutBtn").click(function() {
 	        if (confirm("로그아웃 하시겠습니까?")) {
