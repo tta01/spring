@@ -34,7 +34,7 @@
   }  
 
   ul.submenu.active {  
-        display: block; /* active 클래스가 있을 때 표시     */
+    display: block;
   }  
 
 </style>
@@ -95,7 +95,67 @@
 	</div>
 
 <script type="text/javascript">
-	$(document).ready(function() {
+document.addEventListener('DOMContentLoaded', function() {
+    // 페이지 로딩 시 하위 메뉴는 숨겨두기
+//     document.querySelectorAll('.submenu').forEach(function(submenu) {
+//         submenu.style.display = 'none';
+//     });
+
+    // .top 클릭 시
+    const tops = document.querySelectorAll('.top');
+    tops.forEach(function(top) {
+        top.addEventListener('click', function() {
+            console.log("11111");
+            var all = this.nextElementSibling; // .all 요소 가져오기
+            console.log("22222");
+            if (all.style.display === 'none' || all.style.display === '') {
+                all.style.display = 'block'; // 하위 메뉴 보이기
+            } else {
+                all.style.display = 'none'; // 하위 메뉴 숨기기
+            }
+            console.log("33333");
+            this.parentElement.classList.toggle('active'); // 부모에 active 클래스 토글
+        });
+    });
+
+    // 메뉴 클릭 시 하위 메뉴 열고 닫기
+    const menuItems = document.querySelectorAll('.menu-item');
+    menuItems.forEach(function(menuItem) {
+        menuItem.addEventListener('click', function() {
+            var submenu = this.nextElementSibling; // 클릭한 메뉴의 하위 메뉴
+            if (submenu.style.display === 'none' || submenu.style.display === '') {
+                submenu.style.display = 'block'; // 하위 메뉴 보이기
+            } else {
+                submenu.style.display = 'none'; // 하위 메뉴 숨기기
+            }
+            this.parentElement.classList.toggle('active'); // 부모에 active 클래스 토글
+        });
+    });
+
+    $(document).ready(function() {
+        // 로그아웃 버튼 클릭 이벤트
+        $('#logoutBtn').click(function() {
+            if (confirm("로그아웃 하시겠습니까?")) {
+                $.ajax({
+                    url: '/mngr/logout',  // 로그아웃 API URL
+                    type: 'POST',          // POST 요청
+                    success: function() {
+                        alert("로그아웃 되었습니다.");
+                        window.location.href = '/mngr/login';  // 로그인 페이지로 리디렉션
+                    },
+                    error: function() {
+                        alert("로그아웃 중 오류가 발생했습니다.");
+                    }
+                });
+            }
+        });
+    });
+});
+
+
+
+// jQuery 
+/*	$(document).ready(function() {
 	    // 페이지 로딩 시 하위 메뉴는 숨겨두고
 // 	    $(".submenu").hide();
 	    
@@ -116,36 +176,8 @@
 	        // 해당 메뉴에 active 클래스 추가/삭제
 	        $(this).parent().toggleClass('active');
 	    });
-
-// 	    $('.menu-item').click(function() {
-//         // 모든 하위 메뉴를 숨기기
-//         $(".submenu").slideUp(); 
-        
-//         // 클릭한 메뉴의 하위 메뉴만 열기
-//         var submenu = $(this).next('.submenu'); // 클릭한 메뉴의 하위 메뉴
-//         submenu.stop(true, true).slideToggle(); // 해당 하위 메뉴 열기/닫기
-
-//         // 해당 메뉴에 active 클래스 추가/삭제
-//         $(this).parent().toggleClass('active');
-//     	});
-	    
-	    // 로그아웃 버튼 클릭 이벤트
-	    $("#logoutBtn").click(function() {
-	        if (confirm("로그아웃 하시겠습니까?")) {
-	            $.ajax({
-	                url : '/mngr/logout',
-	                type : 'POST',
-	                success : function() {
-	                    alert("로그아웃 되었습니다.");
-	                    window.location.href = '/mngr/login'; // 로그인 페이지로 리디렉션
-	                },
-	                error : function() {
-	                    alert("로그아웃 중 오류가 발생했습니다.");
-	                }
-	            });
-	        }
-	    });
 	});
+	*/
 
 </script>
 </body>
