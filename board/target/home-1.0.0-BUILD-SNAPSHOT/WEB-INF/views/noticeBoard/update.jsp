@@ -95,9 +95,9 @@ button:hover, a:hover {
     <!-- 공지사항 등록 폼 -->
     
 <form name="frm" action="/board/updatePost" method="post"> <%-- enctype="multipart/form-data"> --%>
-<%--     <p><input type="hidden" id="memId" name="memId" value="${getCurrentLoginVO.memId}" /></p> --%>
+    <p><input type="hidden" id="memId" name="memId" value="${getCurrentLoginVO.memId}" /></p>
 	<p><input type="hidden" name="boardId" value="${noticeBoardVO.boardId}" /><p>
-    <p><input type="hidden" id="memId" name="memId" value="admin" /></p>
+<!--     <p><input type="hidden" id="memId" name="memId" value="admin" /></p> -->
 
     <table class="form-table">
         <tr>

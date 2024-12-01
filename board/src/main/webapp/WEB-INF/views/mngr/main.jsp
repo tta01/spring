@@ -32,45 +32,35 @@
     <button id="logoutBtn">로그아웃</button>
   </div>
   
-	<ul id="menu">
-		
-	</ul>
+	<div id="menu-container">
+	</div>
 	
 <script type="text/javascript">
-// function fn_openSubMenu() {
 $(document).ready(function() {
-	
     $.ajax({
         url: '/mngr/menuAjax',
         type: 'GET',
-//         data: {
-//             "prntMenuCd": prntMenuCd
-//         },
         dataType: 'json',
         success: function(response) {
-            console.log(response);
-            var str = ""; // HTML을 담을 변수
-            
-            // 최상위 메뉴들을 루프 돌기
+            var str = "";  // str을 빈 문자열로 초기화
+            // 첫 번째 메뉴 처리
             for (var i = 0; i < response.menuVOList.length; i++) {
                 var menuList = response.menuVOList[i];
                 var menuNm = menuList.menuNm;
-                var menuCd = menuList.menuCd; 
-//                 debugger;
-                
-                // 최상위 메뉴의 조건
-                console.log(menuList.prntMenuCd === 'web');
+                var menuCd = menuList.menuCd;
+
+                // 최상위 메뉴 처리
                 if (menuList.prntMenuCd === 'web') {
-                    str += '<li class="root-menu"><a href="javascript:void(0);" class="top-menu" >' + menuNm + '</a>';
-                    str +='<ul class="ul-top">';
-                    
-                    // 하위 메뉴들
+                    str += '<li class="root-menu"><a href="javascript:void(0);" class="top-menu" data-menu-cd="' + menuCd + '" >' + menuNm + '</a>';
+                    str += '<ul class="ul-top">'; // 두 번째 메뉴를 위한 <ul> 생성
+
+                    // 두 번째 메뉴 처리
                     response.menuVOList.forEach(function(secondMenu) {
                         if (secondMenu.prntMenuCd === menuCd) {
-                            str += '<li><a href="javascript:void(0);" class="second-menu">' + secondMenu.menuNm + '</a>';
-                            str += '<ul class="ul-second">';
+                            str += '<li><a href="javascript:void(0);" class="second-menu" data-menu-cd="' + secondMenu.menuCd + '">' + secondMenu.menuNm + '</a>';
+                            str += '<ul class="ul-second">'; // 세 번째 메뉴를 위한 <ul> 생성
                             
-                            // 하위의 하위
+                            // 세 번째 메뉴 처리
                             response.menuVOList.forEach(function(thirdMenu) {
                                 if (thirdMenu.prntMenuCd === secondMenu.menuCd) {
                                     str += '<li><a href="/mngr/main" class="third-menu">' + thirdMenu.menuNm + '</a></li>';
@@ -79,56 +69,69 @@ $(document).ready(function() {
                             str += '</ul></li>';
                         }
                     });
-                    str += '</li></ul></li>';
+                    str += '</ul></li>';
                 }
             }
             
-            // 동적으로 메뉴 업데이트
-            document.getElementById('menu').innerHTML = str;
+            // 최종적으로 생성된 HTML을 menu-container에 삽입
+            $('#menu-container').html('<ul>' + str + '</ul>');
+            
+            // 메뉴 클릭 시 하위 메뉴 추가/삭제
+            $(".top-menu").click(function() {
+                var menuCd = $(this).data("menu-cd");
+                var ul = $(this).next("ul");
+                
+                // 하위 메뉴가 없으면 추가, 있으면 삭제
+                if (ul.hasClass("ul-top")) {
+                    // ul-top 하위 메뉴가 없으면 생성
+                    if (ul.children().length === 0) {
+                        response.menuVOList.forEach(function(secondMenu) {
+                            if (secondMenu.prntMenuCd === menuCd) {
+                                var secondMenuHTML = '<li><a href="javascript:void(0);" class="second-menu" data-menu-cd="' + secondMenu.menuCd + '">' + secondMenu.menuNm + '</a>';
+                                secondMenuHTML += '<ul class="ul-second">';
+                                
+                                response.menuVOList.forEach(function(thirdMenu) {
+                                    if (thirdMenu.prntMenuCd === secondMenu.menuCd) {
+                                        secondMenuHTML += '<li><a href="/mngr/main" class="third-menu">' + thirdMenu.menuNm + '</a></li>';
+                                    }
+                                });
+                                secondMenuHTML += '</ul></li>';
+                                ul.append(secondMenuHTML);
+                            }
+                        });
+                    } else {
+                        // 하위 메뉴가 있으면 삭제
+                        ul.empty();
+                    }
+                }
+            });
+
+            // 두 번째 메뉴 클릭 시 하위 메뉴 추가/삭제
+            $(".second-menu").click(function() {
+                var menuCd = $(this).data("menu-cd");
+                var ul = $(this).next("ul");
+
+                // 하위 메뉴가 없으면 생성, 있으면 삭제
+                if (ul.hasClass("ul-second")) {
+                    // ul-second 하위 메뉴가 없으면 생성
+                    if (ul.children().length === 0) {
+                        response.menuVOList.forEach(function(thirdMenu) {
+                            if (thirdMenu.prntMenuCd === menuCd) {
+                                ul.append('<li><a href="/mngr/main" class="third-menu">' + thirdMenu.menuNm + '</a></li>');
+                            }
+                        });
+                    } else {
+                        // 하위 메뉴가 있으면 삭제
+                        ul.empty();
+                    }
+                }
+            });
         },
         error: function(xhr, status, error) {
             console.error("전송실패", status, error);
         }
     });
-}); 
-
-// 로그아웃 버튼 클릭 시 처리
-$('#logoutBtn').click(function() {
-    if (confirm("로그아웃 하시겠습니까?")) {
-        $.ajax({
-            url: '/mngr/logout',
-            type: 'POST',
-            success: function() {
-                alert("로그아웃 되었습니다.");
-                window.location.href = '/mngr/login'; 
-            },
-            error: function() {
-                alert("로그아웃 중 오류가 발생했습니다.");
-            }
-        });
-    }
 });
-
-$(document).ready(function() {
-    // 최상위 메뉴 클릭 시 하위 메뉴 열기/닫기
-    $(document).on('click', '.root-menu', function() {
-        // 해당 메뉴에 연결된 하위 메뉴 열기/닫기
-        $(this).next('.ul-top').stop(true, true).slideToggle();
-        $(this).parent().toggleClass('active'); // 해당 메뉴에 active 클래스 추가/삭제
-        
-        // 다른 최상위 메뉴의 하위 메뉴가 열려있으면 닫기
-        $('.root-menu').not(this).next('.ul-top').slideUp();
-        $('.root-menu').not(this).parent().removeClass('active');
-    });
-
-    // 두 번째 레벨 메뉴 클릭 시 하위 메뉴 열기/닫기
-    $(document).on('click', '.second-menu', function() {
-        // 해당 메뉴에 연결된 하위 메뉴 열기/닫기
-        $(this).next('.ul-second').stop(true, true).slideToggle();
-        $(this).parent().toggleClass('active'); // 해당 메뉴에 active 클래스 추가/삭제
-    });
-});
-
 </script>
 
 </body>

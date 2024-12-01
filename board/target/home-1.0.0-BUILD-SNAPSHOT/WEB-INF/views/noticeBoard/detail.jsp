@@ -150,16 +150,17 @@
 $(function(){
 $("#delete").on("click",function(){
 	console.log("오니");
+	var boardId = "";
 	
 	let result = confirm("삭제하시겠습니까?");
     console.log("Confirm 결과:", result);
-    alert(result);
-	debugger;
+//     alert(result);
+// 	debugger;
   // 확인 선택 시 form을 submit
      if (result) {
              $("#frm").attr("method", "post");
-             $("#frm").attr("action", "/board/deletePost?boardId=${noticeBoardVO.boardId}");
-	debugger;
+             $("#frm").attr("action", "/board/deletePost");
+// 	debugger;  ?boardId=${noticeBoardVO.boardId}
              $("#frm").submit();
      } else {
          alert("삭제가 취소되었습니다");
