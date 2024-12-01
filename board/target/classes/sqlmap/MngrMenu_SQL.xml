@@ -17,9 +17,6 @@
 		    LAST_MDFCN_DT
 		FROM
 		    T_CMS_MENU_MNG
-<!-- 		WHERE  -->
-<!-- 			PRNT_MENU_CD = #{prntMenuCd} 
-parameterType="spring.practice.home.admin.vo.MngrMenuVO" -->
 	
 	</select>
 

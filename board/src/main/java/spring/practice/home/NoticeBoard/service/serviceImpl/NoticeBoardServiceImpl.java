@@ -30,8 +30,10 @@ public class NoticeBoardServiceImpl implements NoticeBoardService {
 		int startPage = (int) (((Math.ceil(tmp)-1)*noticeBoardVO.getPagenationCnt())+1);
 		noticeBoardVO.setStartPage(startPage);
 		
-		tmp = noticeBoardVO.getPage()/(double)noticeBoardVO.getPagenationCnt();
 		int endPage = (int) ((Math.ceil(tmp))*noticeBoardVO.getPagenationCnt());
+		if(endPage > maxPage) {
+			endPage = maxPage;
+		}
 		noticeBoardVO.setEndPage(endPage);
 		
 		// 2. 리스트 호출
