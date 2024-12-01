@@ -6,6 +6,6 @@ import spring.practice.home.admin.vo.MngrMenuVO;
 
 public interface MngrMenuMapper {
 
-	public List<MngrMenuVO> selectMenuList(MngrMenuVO menuVO);
+	public List<MngrMenuVO> selectMenuVOList(MngrMenuVO menuVO);
 	
 }

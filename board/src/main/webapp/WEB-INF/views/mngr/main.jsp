@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
@@ -10,175 +9,127 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Mngr Main</title>
+<title>admin Main</title>
 <style>
   ul {  
-  	padding-left: 20px;  
+    padding-left: 20px;  
   }  
 
   li {  
-  	padding: 5px;  
+    padding: 5px;  
   }  
 
   a {  
-  	text-decoration: none;  
-  	cursor: pointer;  
+    text-decoration: none;  
+    cursor: pointer;  
   }  
-
-  ul.submenu {  
-  	display: block;  
-  }  
-
-  .active>.submenu {  
-  	display: block;  
-  }  
-
-  ul.submenu.active {  
-    display: block;
-  }  
-
 </style>
 </head>
 
 <body>
-	<div id="title">
-		<p>관리자 메인 페이지</p>
-		<button id="logoutBtn">로그아웃</button>
-	</div>
-
-	<div id="body">
-		<ul>
-			<li class="top-menu"> 
-<%-- 			<c:out value="${menuVOList}"></c:out> --%>
-				<!-- 최상위 메뉴  -->
-				<c:if test="${menuVOList[0].prntMenuCd == 'web'}">
-					<a href="javascript:void(0);" class="top">${menuVOList[0].menuNm}</a>
-				</c:if>
-				<ul class="all">
-				
-					<li>
-					<!-- 하위 메뉴 (PRNT_MENU_CD == menu.menuCd) -->
-		     			<a href="javascript:void(0);" class="menu-item">${menuVOList[1].menuNm}</a>
-						<ul class="submenu">
-							<c:forEach var="menu" items="${menuVOList}">
-						        <c:if test="${menu.prntMenuCd == 'web_S'}">
-			       					<li><a href="javascript:void(0);" class="menu-item">${menu.menuNm}</a></li>
-						        </c:if>
-						    </c:forEach>														
-						</ul>
-					</li>
-					
-					<!-- 그 하위 메뉴 -->
-					<li>
-		     			<a href="javascript:void(0);" class="menu-item">${menuVOList[4].menuNm}</a>
-						<c:forEach var="menu" items="${menuVOList}">
-							<c:if test="${menu.prntMenuCd == 'web_B'}">
-								<li><a href="#">${menu.menuNm}</a></li>
-							</c:if>
-						</c:forEach>
-					</li>
-					
-						<!-- 그 하위에 하위 메뉴 -->
-					<li>
-	     				<a href="javascript:void(0);" class="menu-item">${menuVOList[5].menuNm}</a>
-							<ul class="submenu">
-								<c:forEach var="menu" items="${menuVOList}">
-									<c:if test="${menu.prntMenuCd == 'web_N'}">
-										<li><a href="#">${menu.menuNm}</a></li>
-									</c:if>
-								</c:forEach>
-							</ul>
-					</li>
-				</ul>
-			</li>
-		</ul>
-	</div>
-
+  <div id="title">
+    <p>관리자 메인 페이지</p>
+    <button id="logoutBtn">로그아웃</button>
+  </div>
+  
+	<ul id="menu">
+		
+	</ul>
+	
 <script type="text/javascript">
-document.addEventListener('DOMContentLoaded', function() {
-    // 페이지 로딩 시 하위 메뉴는 숨겨두기
-//     document.querySelectorAll('.submenu').forEach(function(submenu) {
-//         submenu.style.display = 'none';
-//     });
-
-    // .top 클릭 시
-    const tops = document.querySelectorAll('.top');
-    tops.forEach(function(top) {
-        top.addEventListener('click', function() {
-            console.log("11111");
-            var all = this.nextElementSibling; // .all 요소 가져오기
-            console.log("22222");
-            if (all.style.display === 'none' || all.style.display === '') {
-                all.style.display = 'block'; // 하위 메뉴 보이기
-            } else {
-                all.style.display = 'none'; // 하위 메뉴 숨기기
+// function fn_openSubMenu() {
+$(document).ready(function() {
+	
+    $.ajax({
+        url: '/mngr/menuAjax',
+        type: 'GET',
+//         data: {
+//             "prntMenuCd": prntMenuCd
+//         },
+        dataType: 'json',
+        success: function(response) {
+            console.log(response);
+            var str = ""; // HTML을 담을 변수
+            
+            // 최상위 메뉴들을 루프 돌기
+            for (var i = 0; i < response.menuVOList.length; i++) {
+                var menuList = response.menuVOList[i];
+                var menuNm = menuList.menuNm;
+                var menuCd = menuList.menuCd; 
+//                 debugger;
+                
+                // 최상위 메뉴의 조건
+                console.log(menuList.prntMenuCd === 'web');
+                if (menuList.prntMenuCd === 'web') {
+                    str += '<li class="root-menu"><a href="javascript:void(0);" class="top-menu" >' + menuNm + '</a>';
+                    str +='<ul class="ul-top">';
+                    
+                    // 하위 메뉴들
+                    response.menuVOList.forEach(function(secondMenu) {
+                        if (secondMenu.prntMenuCd === menuCd) {
+                            str += '<li><a href="javascript:void(0);" class="second-menu">' + secondMenu.menuNm + '</a>';
+                            str += '<ul class="ul-second">';
+                            
+                            // 하위의 하위
+                            response.menuVOList.forEach(function(thirdMenu) {
+                                if (thirdMenu.prntMenuCd === secondMenu.menuCd) {
+                                    str += '<li><a href="/mngr/main" class="third-menu">' + thirdMenu.menuNm + '</a></li>';
+                                }
+                            });
+                            str += '</ul></li>';
+                        }
+                    });
+                    str += '</li></ul></li>';
+                }
             }
-            console.log("33333");
-            this.parentElement.classList.toggle('active'); // 부모에 active 클래스 토글
+            
+            // 동적으로 메뉴 업데이트
+            document.getElementById('menu').innerHTML = str;
+        },
+        error: function(xhr, status, error) {
+            console.error("전송실패", status, error);
+        }
+    });
+}); 
+
+// 로그아웃 버튼 클릭 시 처리
+$('#logoutBtn').click(function() {
+    if (confirm("로그아웃 하시겠습니까?")) {
+        $.ajax({
+            url: '/mngr/logout',
+            type: 'POST',
+            success: function() {
+                alert("로그아웃 되었습니다.");
+                window.location.href = '/mngr/login'; 
+            },
+            error: function() {
+                alert("로그아웃 중 오류가 발생했습니다.");
+            }
         });
+    }
+});
+
+$(document).ready(function() {
+    // 최상위 메뉴 클릭 시 하위 메뉴 열기/닫기
+    $(document).on('click', '.root-menu', function() {
+        // 해당 메뉴에 연결된 하위 메뉴 열기/닫기
+        $(this).next('.ul-top').stop(true, true).slideToggle();
+        $(this).parent().toggleClass('active'); // 해당 메뉴에 active 클래스 추가/삭제
+        
+        // 다른 최상위 메뉴의 하위 메뉴가 열려있으면 닫기
+        $('.root-menu').not(this).next('.ul-top').slideUp();
+        $('.root-menu').not(this).parent().removeClass('active');
     });
 
-    // 메뉴 클릭 시 하위 메뉴 열고 닫기
-    const menuItems = document.querySelectorAll('.menu-item');
-    menuItems.forEach(function(menuItem) {
-        menuItem.addEventListener('click', function() {
-            var submenu = this.nextElementSibling; // 클릭한 메뉴의 하위 메뉴
-            if (submenu.style.display === 'none' || submenu.style.display === '') {
-                submenu.style.display = 'block'; // 하위 메뉴 보이기
-            } else {
-                submenu.style.display = 'none'; // 하위 메뉴 숨기기
-            }
-            this.parentElement.classList.toggle('active'); // 부모에 active 클래스 토글
-        });
-    });
-
-    $(document).ready(function() {
-        // 로그아웃 버튼 클릭 이벤트
-        $('#logoutBtn').click(function() {
-            if (confirm("로그아웃 하시겠습니까?")) {
-                $.ajax({
-                    url: '/mngr/logout',  // 로그아웃 API URL
-                    type: 'POST',          // POST 요청
-                    success: function() {
-                        alert("로그아웃 되었습니다.");
-                        window.location.href = '/mngr/login';  // 로그인 페이지로 리디렉션
-                    },
-                    error: function() {
-                        alert("로그아웃 중 오류가 발생했습니다.");
-                    }
-                });
-            }
-        });
+    // 두 번째 레벨 메뉴 클릭 시 하위 메뉴 열기/닫기
+    $(document).on('click', '.second-menu', function() {
+        // 해당 메뉴에 연결된 하위 메뉴 열기/닫기
+        $(this).next('.ul-second').stop(true, true).slideToggle();
+        $(this).parent().toggleClass('active'); // 해당 메뉴에 active 클래스 추가/삭제
     });
 });
 
-
-
-// jQuery 
-/*	$(document).ready(function() {
-	    // 페이지 로딩 시 하위 메뉴는 숨겨두고
-// 	    $(".submenu").hide();
-	    
-		 $('.top').click(function() {
-			 console.log("11111");
-			 var top = $(this).next('.all');
-			 console.log("22222");
-			 top.stop(true, true).slideToggle(); // 모든 하위 메뉴 열기/닫기
-			 console.log("33333");
-			 $(this).parent().toggleClass('active');
-		 });
-	    
-	    // 메뉴 클릭 시 하위 메뉴 열고 닫기
-	    $('.menu-item').click(function() {
-	        var submenu = $(this).next('.submenu'); // 클릭한 메뉴의 하위 메뉴
-	        // 현재 하위 메뉴를 열거나 닫기
-	        submenu.stop(true, true).slideToggle(); // stop()을 추가하여 애니메이션을 중단하고, 모든 상태를 초기화
-	        // 해당 메뉴에 active 클래스 추가/삭제
-	        $(this).parent().toggleClass('active');
-	    });
-	});
-	*/
-
 </script>
+
 </body>
 </html>
