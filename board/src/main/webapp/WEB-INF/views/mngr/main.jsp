@@ -26,7 +26,7 @@
 
 /* 좌측 메뉴 */
 .left {
-    width: 50%; /* 좌측 영역 너비 50% */
+    width: 20%; /* 좌측 영역 너비 50% */
 /*     background: #ff0; */
     padding: 20px;
     overflow-y: auto; /* 내용이 넘치면 스크롤이 생기도록 설정 */
@@ -34,7 +34,7 @@
 
 /* 우측 콘텐츠 */
 .right {
-    width: 50%; /* 우측 영역 너비 50% */
+    width: 80%; /* 우측 영역 너비 50% */
 /*     background: #0ff; */
     padding: 20px;
     overflow-y: auto; /* 내용이 넘치면 스크롤이 생기도록 설정 */
@@ -77,11 +77,13 @@ a {
         </div>
         
         <div class="right">
-        	<div id="content"> </div>
+        	<div id="content">
+        		<button type="button" id="deleteBtn">메뉴 삭제</button>
+        	</div>
         </div>
 	</div>
     
-    
+    <!-- jsp 화면 두 개 띄우는 방법 -->
 	
 	<div id="content"> </div>
 	
@@ -106,7 +108,6 @@ $(document).ready(function() {
                     str += '<ul class="ul-top"></ul>'; // 두 번째 메뉴는 아직 추가하지 않음
                     str += '</li>';
                 }
-            }
             
             // 최종적으로 생성된 HTML을 menu-container에 삽입
             $('#menu-container').html('<ul>' + str + '</ul>');
@@ -136,10 +137,13 @@ $(document).ready(function() {
                     }
                 }
             });
-
+            }; // for
+            
             // 두 번째 메뉴 클릭 시 하위 메뉴 추가/삭제
-            $(document).on("click", ".second-menu", function(event) {
-                event.stopPropagation();  // 클릭 이벤트 여기서만
+            $(document).on("click", ".second-menu", function(e) {
+                e.stopPropagation();  // 클릭 이벤트 여기서만
+                
+                // $(this). => 같은 동작을 반복할 때? 클래스명 다 똑같이 주고 동작하게끔 / 아니면 id값을 각각주고 각각 실행해야 함
                 var menuCd = $(this).data("menu-cd"); // data- 뒤에 붙은  id 값으로 불러올 수 있음
                 var ul = $(this).next("ul");
 
@@ -147,10 +151,11 @@ $(document).ready(function() {
                 if (ul.hasClass("ul-second")) {
                     // ul-second 하위 메뉴가 없으면 생성
                     if (ul.children().length === 0) {
-                        response.menuVOList.forEach(function(thirdMenu) {
+						console.log("aa"+ul.children().length);
+                    	response.menuVOList.forEach(function(thirdMenu) {
                             // 최하위 메뉴가 하위 메뉴에 속하면 생성하게 / 두 번째 부모코드와 메뉴코드가 일치하는 것만 출력
                             if (thirdMenu.prntMenuCd === menuCd) {
-                                ul.append('<li><a href="javascript:location.href="/mngr/main"" class="third-menu">' + thirdMenu.menuNm + '</a></li>');
+                                ul.append('<li><a href="javascript:void(0);" class="third-menu">' + thirdMenu.menuNm + '</a></li>');
                             }
                         });
                     } else {
@@ -166,6 +171,36 @@ $(document).ready(function() {
             console.error("전송실패", status, error);
         }
     });
+});
+
+/* .load(url[, data] [, complete])
+ 	url : 데이터를 받을 url
+ 	data : 선택적인 인자. url로 요청을 보낼 때 같이 보낼 데이터로 자바 스크립트 객체 또는 문자열
+ 	complete : 요청이 완료되면 호출되어질 콜백 함수 function(String responseText, String textStatus, jqXHR jqXHR)
+ */
+//  $("#content").load("/main", function(){
+	
+// });
+
+// 삭제 
+$('#deleteBtn').click(function(){
+	alert("삭제 버튼");
+	$.ajax({
+	    url: '/deleteMenu',
+	    type: 'POST',
+	    data: { "menuCd": menuCd },
+	    dataType: 'json', 
+	    success: function(response) {
+	        if (response.success) {
+	            alert("삭제 성공");  
+	        } else {
+	            alert('실패: ' + response.message);
+	        }
+	    },
+	    error: function(xhr, status, error) {
+	        alert('서버 오류: ' + error);
+	    }
+	});
 });
 
 
