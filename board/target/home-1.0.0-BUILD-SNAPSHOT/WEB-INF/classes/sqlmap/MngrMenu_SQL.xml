@@ -17,10 +17,77 @@
 		    LAST_MDFCN_DT
 		FROM
 		    T_CMS_MENU_MNG
-<!-- 		WHERE  -->
-<!-- 			PRNT_MENU_CD = #{prntMenuCd} 
-parameterType="spring.practice.home.admin.vo.MngrMenuVO" -->
+		WHERE PRNT_MENU_CD = #{prntMenuCd}
 	
 	</select>
+	
+	<select id="menuDetail" resultType="spring.practice.home.admin.vo.MngrMenuVO" >
+		/* menuDetail */
+		SELECT
+		    MENU_CD,
+		    PRNT_MENU_CD,
+		    MENU_NM,
+		    ORD,
+		    DEL_YN,
+		    FSTM_RGSTR_ID,
+		    FSTM_REG_DT,
+		    LAST_MODFR_ID,
+		    LAST_MDFCN_DT
+		FROM
+		    T_CMS_MENU_MNG
+		WHERE MENU_CD = #{menuCd}
+	
+	</select>
+	
+	<insert id="createMenu" parameterType="spring.practice.home.admin.vo.MngrMenuVO" >
+		/* insertMenu */
+		 INSERT INTO
+		 	T_CMS_MENU_MNG (
+			    MENU_CD,
+			    PRNT_MENU_CD,
+			    MENU_NM,
+			    ORD,
+			    DEL_YN,
+			    FSTM_RGSTR_ID,
+			    FSTM_REG_DT,
+			    LAST_MODFR_ID,
+			    LAST_MDFCN_DT
+		) VALUES (#{menuCd},#{prntMenuCd},#{menuNm},#{ord},#{delYn},#{mngrId},SYSDATE,#{mngrId},SYSDATE)
+		
+	</insert>
+	
+	<update id="updateMenu" parameterType="spring.practice.home.admin.vo.MngrMenuVO">
+		/* updateMenu */
+		UPDATE
+			T_CMS_MENU_MNG
+		SET
+			MENU_CD = #{menuCd},
+			PRNT_MENU_CD = #{prntMenuCd},
+			MENU_NM	= #{menuNm},
+			ORD = #{ord},
+			DEL_YN = #{delYn}
+			LAST_MODFR_ID = #{mngrId},
+			LAST_MDFCN_DT = SYSDATE
+		WHERE MENU_CD = #{menuCd}
+			
+	</update>
+	
+	<delete id="deleteMenu" parameterType="String">
+		/* deleteMenu */
+
+		DELETE FROM T_CMS_MENU_MNG
+		WHERE MENU_CD = #{menuCd}
+		
+	</delete>
+	
+<!-- 	<update id="delete" parameterType="String"> -->
+<!-- 	/* delete-update */ -->
+<!-- 		UPDATE -->
+<!-- 			T_CMS_MENU_MNG -->
+<!-- 		SET -->
+<!-- 			DEL_YN = 'Y' -->
+<!-- 		WHERE MENU_CD = #{menuCd} -->
+		
+<!-- 	</update> -->
 
 </mapper>

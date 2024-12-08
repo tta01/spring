@@ -7,14 +7,14 @@ public class MngrMenuVO {
 	
 	private String menuCd;
     private String prntMenuCd;
+    private String prntMenuNm;
     private String menuNm;
     private String ord;
     private String delYn;
     private String fstmRgstrId;
     private String fstmRegDt;
     private String lastModfrId;
-    private String lastMdfcnD;
-    
+    private String lastMdfcnDt;
     
 	public String getMenuCd() {
 		return menuCd;
@@ -27,6 +27,12 @@ public class MngrMenuVO {
 	}
 	public void setPrntMenuCd(String prntMenuCd) {
 		this.prntMenuCd = prntMenuCd;
+	}
+	public String getPrntMenuNm() {
+		return prntMenuNm;
+	}
+	public void setPrntMenuNm(String prntMenuNm) {
+		this.prntMenuNm = prntMenuNm;
 	}
 	public String getMenuNm() {
 		return menuNm;
@@ -64,18 +70,19 @@ public class MngrMenuVO {
 	public void setLastModfrId(String lastModfrId) {
 		this.lastModfrId = lastModfrId;
 	}
-	public String getLastMdfcnD() {
-		return lastMdfcnD;
+	public String getLastMdfcnDt() {
+		return lastMdfcnDt;
 	}
-	public void setLastMdfcnD(String lastMdfcnD) {
-		this.lastMdfcnD = lastMdfcnD;
+	public void setLastMdfcnDt(String lastMdfcnDt) {
+		this.lastMdfcnDt = lastMdfcnDt;
 	}
 	
 	@Override
 	public String toString() {
 		return "MngrMenuVO [menuCd=" + menuCd + ", prntMenuCd=" + prntMenuCd + ", menuNm=" + menuNm + ", ord=" + ord
 				+ ", delYn=" + delYn + ", fstmRgstrId=" + fstmRgstrId + ", fstmRegDt=" + fstmRegDt + ", lastModfrId="
-				+ lastModfrId + ", lastMdfcnD=" + lastMdfcnD + "]";
+				+ lastModfrId + ", lastMdfcnDt=" + lastMdfcnDt + "]";
 	}
     
+	
 }

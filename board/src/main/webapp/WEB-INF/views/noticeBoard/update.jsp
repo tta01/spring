@@ -87,12 +87,12 @@ button:hover, a:hover {
 
 <head>
     <meta charset="UTF-8">
-    <title>공지사항 등록</title>
+    <title>공지사항 수정</title>
 </head>
 <body>
-    <h1>공지사항 등록</h1>
+    <h1>공지사항 수정</h1>
 
-    <!-- 공지사항 등록 폼 -->
+    <!-- 공지사항 수정 폼 -->
     
 <form name="frm" action="/board/updatePost" method="post"> <%-- enctype="multipart/form-data"> --%>
     <p><input type="hidden" id="memId" name="memId" value="${getCurrentLoginVO.memId}" /></p>

@@ -10,6 +10,7 @@ public class MemberVO {
 	private String pswd;
 	private Date fdtmRegDt;
 	private String fdtmRgstrId;
+	
 	public String getMngrId() {
 		return mngrId;
 	}
@@ -52,7 +53,5 @@ public class MemberVO {
 		return "MemberVO [mngrId=" + mngrId + ", mngrNm=" + mngrNm + ", lginId=" + lginId + ", pswd=" + pswd
 				+ ", fdtmRegDt=" + fdtmRegDt + ", fdtmRgstrId=" + fdtmRgstrId + "]";
 	}
-	
-	
 	
 }

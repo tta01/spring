@@ -26,7 +26,7 @@
 
 /* 좌측 메뉴 */
 .left {
-    width: 20%; /* 좌측 영역 너비 50% */
+    width: 45%; /* 좌측 영역 너비 50% */
 /*     background: #ff0; */
     padding: 20px;
     overflow-y: auto; /* 내용이 넘치면 스크롤이 생기도록 설정 */
@@ -34,7 +34,7 @@
 
 /* 우측 콘텐츠 */
 .right {
-    width: 80%; /* 우측 영역 너비 50% */
+    width: 55%; /* 우측 영역 너비 50% */
 /*     background: #0ff; */
     padding: 20px;
     overflow-y: auto; /* 내용이 넘치면 스크롤이 생기도록 설정 */
@@ -61,14 +61,18 @@ a {
     border-left: 2px solid #ddd;
     height: calc(100vh - 40px); /* 우측 영역 높이에서 padding 40px (상하 20px) 제외 */
     overflow-y: auto; /* 내용이 넘치면 스크롤 */
-    
+}
+
+.active > a {
+	color: red;
+}
 </style>
 </head>
 
 <body>
   <div id="title">
     <p>관리자 메인 페이지</p>
-    <button id="logoutBtn">로그아웃</button>
+    <button id="logoutBtn" onclick="logoutBtn()">로그아웃</button>
   </div>
   
 	<div class="container">
@@ -78,134 +82,171 @@ a {
         
         <div class="right">
         	<div id="content">
-        		<button type="button" id="deleteBtn">메뉴 삭제</button>
+		        		<button type="button" id="createBtn" onclick="createMenu()">메뉴 등록</button>
+		        		<button type="button" id="deleteBtn" onclick="deleteMenu()">메뉴 삭제</button>
+		        		<button type="button" id="updateBtn" onclick="updateMenu()">메뉴 수정</button>
+        		
+        				<br/>
+		        			<div id="menu-list">
+				        		<p> 상위코드 : <input id="prntMenuCd" name="prntMenuCd" type="text" readonly="readonly"> </p>
+				        		<p> 상위코드명 : <input id="prntMenuNm" name="prntMenuNm" type="text" readonly="readonly"> </p>
+				        		<p> 메뉴코드 : <input id="menuCd" name="menuCd" type="text" readonly="readonly"> </p>
+				        		<p> 메뉴명 : <input id="menuNm" name="menuNm" type="text"> </p>
+				        		<p> 순번 : <input id="ord" name="ord" type="number"> </p>
+				        		<p> 등록자 : <input id="fstmRgstrId" name="fstmRgstrId" type="text" readonly="readonly"> </p>
+				        		<p> 수정자 : <input id="lastModfrId" name="lastModfrId" type="text" readonly="readonly"> </p>
+	        				</div>
+<!-- 	        					<button type="button" id="updateSave" onclick="fn_update()">수정</button> -->
+	        					<button type="button" id="insertSave" onclick="fn_save()">저장</button>
+	        				
         	</div>
+        	
         </div>
 	</div>
     
-    <!-- jsp 화면 두 개 띄우는 방법 -->
-	
 	<div id="content"> </div>
 	
 <script type="text/javascript">
 $(document).ready(function() {
-    $.ajax({
+	fn_menu_click("web", "menu-container");
+});
+
+function fn_menu_click(menuCd, prntElId) {
+	$("#menuCd").attr("readonly", true);
+	$("#menuNm").attr("readonly", true);
+	$("#ord").attr("readonly", true);
+	
+// 	var menuNm = document.getElementById("menuNm").value;
+	var subMenuExistYn = false;
+	if($("#" + menuCd + "_li ul").length > 0) {
+		subMenuExistYn = true;
+  	}
+	
+	$.ajax({
         url: '/mngr/menuAjax',
+        data: {"prntMenuCd" : menuCd
+        	, "menuCd":menuCd}, // 부모코드 받아와서 menuCd로 
         type: 'GET',
         dataType: 'json',
         success: function(response) {
-            var str = "";  // str을 빈 문자열로 초기화
-
-            // 첫 번째 메뉴 처리 (최상위 메뉴)
-            for (var i = 0; i < response.menuVOList.length; i++) {
-                var menuList = response.menuVOList[i];
-                var menuNm = menuList.menuNm;
-                var menuCd = menuList.menuCd;
-
-                // 최상위 메뉴 처리
-                if (menuList.prntMenuCd === 'web') {
-                    str += '<li class="root-menu"><a href="javascript:void(0);" class="top-menu" data-menu-cd="' + menuCd + '" >' + menuNm + '</a>';
-                    str += '<ul class="ul-top"></ul>'; // 두 번째 메뉴는 아직 추가하지 않음
-                    str += '</li>';
-                }
-            
-            // 최종적으로 생성된 HTML을 menu-container에 삽입
-            $('#menu-container').html('<ul>' + str + '</ul>');
-            
-            // 메뉴 클릭 시 하위 메뉴 추가/삭제
-            $(".top-menu").click(function() {
-                var menuCd = $(this).data("menu-cd");
-                var ul = $(this).next("ul");
-
-                // 하위 메뉴가 없으면 추가, 있으면 삭제
-                if (ul.hasClass("ul-top")) {
-                    // ul-top 하위 메뉴가 없으면 생성
-                    if (ul.children().length === 0) {
-                        response.menuVOList.forEach(function(secondMenu) {
-                            // 두 번째 메뉴만 추가
-                            if (secondMenu.prntMenuCd === menuCd) {
-                                var secondMenuHTML = '<li><a href="javascript:void(0);" class="second-menu" data-menu-cd="' + secondMenu.menuCd + '">' + secondMenu.menuNm + '</a>';
-                                secondMenuHTML += '<ul class="ul-second"></ul>';
-
-                                secondMenuHTML += '</ul></li>';
-                                ul.append(secondMenuHTML); // 두 번째 메뉴 추가
-                            }
-                        });
-                    } else {
-                        // 하위 메뉴가 있으면 삭제
-                        ul.empty();
-                    }
-                }
-            });
-            }; // for
-            
-            // 두 번째 메뉴 클릭 시 하위 메뉴 추가/삭제
-            $(document).on("click", ".second-menu", function(e) {
-                e.stopPropagation();  // 클릭 이벤트 여기서만
-                
-                // $(this). => 같은 동작을 반복할 때? 클래스명 다 똑같이 주고 동작하게끔 / 아니면 id값을 각각주고 각각 실행해야 함
-                var menuCd = $(this).data("menu-cd"); // data- 뒤에 붙은  id 값으로 불러올 수 있음
-                var ul = $(this).next("ul");
-
-                // 하위 메뉴가 없으면 생성, 있으면 삭제
-                if (ul.hasClass("ul-second")) {
-                    // ul-second 하위 메뉴가 없으면 생성
-                    if (ul.children().length === 0) {
-						console.log("aa"+ul.children().length);
-                    	response.menuVOList.forEach(function(thirdMenu) {
-                            // 최하위 메뉴가 하위 메뉴에 속하면 생성하게 / 두 번째 부모코드와 메뉴코드가 일치하는 것만 출력
-                            if (thirdMenu.prntMenuCd === menuCd) {
-                                ul.append('<li><a href="javascript:void(0);" class="third-menu">' + thirdMenu.menuNm + '</a></li>');
-                            }
-                        });
-                    } else {
-                        // 하위 메뉴가 있으면 삭제. 동적으로 추가된 메뉴들만 제거
-                        // remove();를 사용하면 DOM에서 해당 태그를 포함하여 하위(자식) 다 삭제
-//                         ul.remove();
-                        ul.empty();
-                    }
-                }
-            });
+        	var menuVO = response.menuVO;
+        	var menuList = response.menuVOList;
+        	console.log(response.menuVO);
+        	console.log(response.menuVOList);
+        	
+        	var html = ""; // html 초기화
+        	if (response.menuVOList.length > 0) { // menu 리스트에 메뉴가 하나 이상 있으면
+        		html += "<ul>";
+        		
+	        	for(var i=0; i < menuList.length; i++) { // <li id="web_S_li">< a href='javascript:fn_menu_click("web_S", web_S_li");'>"시스템관리"</a> </li>""
+	        		html += "<li id='" + menuList[i].menuCd + "_li'><a href='javascript:fn_menu_click(\"" + menuList[i].menuCd + "\", \"" + menuList[i].menuCd + "_li\");'>" + menuList[i].menuNm + "</a></li>";
+	        	}
+	        	html += "</ul>";
+	        	$("#" + prntElId).append(html);
+        	}
+        	
+       		$("#menu-container li").removeClass("active");
+       		$("#" + menuCd + "_li").addClass("active");
+        	
+        	
+        	if (menuVO != null) {
+        		$("#menuCd").val(menuVO.menuCd);
+                $("#menuNm").val(menuVO.menuNm);
+                $("#prntMenuCd").val(menuVO.prntMenuCd);  
+                $("#prntMenuNm").val(menuVO.prntMenuNm);  
+                $("#ord").val(menuVO.ord); 
+                $("#fstmRgstrId").val(menuVO.fstmRgstrId);  
+                $("#lastModfrId").val(menuVO.lastModfrId);  
+        	}
+        	
+        	if(subMenuExistYn) {
+        		// 하위 엘리먼트 삭제
+          		$("#" + menuCd + "_li ul").remove();
+        	}
         },
         error: function(xhr, status, error) {
             console.error("전송실패", status, error);
+            return false;
+        }
+	});
+}
+
+function createMenu() {
+	$("#menuCd").val("");
+	$("#menuCd").attr("readonly", false);
+	$("#menuNm").val("");
+	$("#menuNm").attr("readonly", false);
+	$("#ord").val("");
+	$("#ord").attr("readonly", false);
+}
+
+function fn_save() {
+	alert("fn_save");
+	
+    $.ajax({
+        url: '/mngr/createMenu', 
+        type: 'POST',
+        data: {"prntMenuCd" : menuCd},
+        dataType: 'json',
+        success: function(response) {
+          	 console.log("createMenu :"+response);
+          	 
+        },
+        error: function(xhr, status, error) {
+            console.error("메뉴 생성 중 오류 발생", status, error);
+            alert("서버 오류: " + error);
         }
     });
-});
+}
 
-/* .load(url[, data] [, complete])
- 	url : 데이터를 받을 url
- 	data : 선택적인 인자. url로 요청을 보낼 때 같이 보낼 데이터로 자바 스크립트 객체 또는 문자열
- 	complete : 요청이 완료되면 호출되어질 콜백 함수 function(String responseText, String textStatus, jqXHR jqXHR)
- */
-//  $("#content").load("/main", function(){
+// 수정
+function updateMenu() {
+// 	var menuCd = document.getElementById("menuCd").value;
+// 	alert("updateMenu : " + mssenuCd);
 	
-// });
+	var menuVO = $("#frm").serialize();
+	alert(menuVO);
+	
+    $.ajax({
+        url: '/mngr/updateMenu', 
+        type: 'POST',
+        data: { "menuVO" : menuVO},
+        dataType: 'json',
+        success: function(response) {
+       	 console.log("updateMenu :"+response);
+			
+        },
+        error: function(xhr, status, error) {
+            console.error("메뉴 수정 중 오류 발생", status, error);
+            alert("서버 오류: " + error);
+        }
+    });
+}
 
-// 삭제 
-$('#deleteBtn').click(function(){
-	alert("삭제 버튼");
-	$.ajax({
-	    url: '/deleteMenu',
-	    type: 'POST',
-	    data: { "menuCd": menuCd },
-	    dataType: 'json', 
-	    success: function(response) {
-	        if (response.success) {
-	            alert("삭제 성공");  
-	        } else {
-	            alert('실패: ' + response.message);
-	        }
-	    },
-	    error: function(xhr, status, error) {
-	        alert('서버 오류: ' + error);
-	    }
-	});
-});
+// 삭제
+function deleteMenu() {
+	var menuCd = document.getElementById("menuCd").value;
+	console.log("menuCd : "+menuCd);
+    if (confirm("삭제 하시겠습니까?")) {
+	 $.ajax({	
+	     url: '/mngr/deleteMenu', 
+	     type: 'POST',
+	     data: { "menuCd": menuCd },
+	     dataType: 'json',
+	     success: function(response) {
+	         alert("메뉴가 성공적으로 삭제되었습니다.");
+	    	 console.log("deleteMenu :"+response);
+	     },
+	     error: function(xhr, status, error) {
+	         console.error("메뉴 삭제 중 오류 발생", status, error);
+	         alert("서버 오류: " + error);
+	     }
+	 });
+    }
+}
 
-
-// 로그아웃 버튼 클릭 시 처리
-$('#logoutBtn').click(function() {
+// 로그아웃
+function logoutBtn(){
     if (confirm("로그아웃 하시겠습니까?")) {
         $.ajax({
             url: '/mngr/logout',
@@ -219,7 +260,7 @@ $('#logoutBtn').click(function() {
             }
         });
     }
-});
+}
 
 </script>
 
