@@ -13,9 +13,16 @@
 <link rel="stylesheet" href="/resources/css/common.css">
 
 <style>
-#admintiles{
-	margin-left:280px;
+.container{
+	display: flex;
+    flex-direction: row;
 }
+
+.admintiles {
+    margin-left: 0;
+    width: 80%;
+}
+
 </style>
 
 <meta charset="UTF-8">
@@ -26,9 +33,9 @@
 	
 	<tiles:insertAttribute name="header" />
 	
-	<div>
+	<div class="container">
 		<tiles:insertAttribute name="aside"/>
-				<div id="admintiles" >
+				<div class="admintiles" id="admintiles" >
 					
 					<tiles:insertAttribute name="body" />
 				

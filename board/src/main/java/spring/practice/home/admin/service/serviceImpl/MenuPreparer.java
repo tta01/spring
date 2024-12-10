@@ -16,14 +16,15 @@ import spring.practice.home.admin.vo.MngrMenuVO;
 public class MenuPreparer implements ViewPreparer {
 
     @Resource
-    private MngrMenuService menuService;  // MngrMenuService를 의존성 주입 받습니다.
+    private MngrMenuService menuService; 
 
     @Override
     public void execute(Request tilesContext, AttributeContext attributeContext) throws PreparerException {
         MngrMenuVO menuVO = new MngrMenuVO();
         
-        List<MngrMenuVO> menuList = menuService.selectMenuList(menuVO); 
-        
+        List<MngrMenuVO> menuList = menuService.selectMenuList(menuVO);
+        System.out.println("Menu List Size: " + (menuList != null ? menuList.size() : 0));
+
         // 메뉴 리스트를 타일즈 컨텍스트에 저장
         // "menuList" 이름으로 데이터를 전달하며, true를 설정하여 JSP에서 사용할 수 있도록 함.
         attributeContext.putAttribute("menuList", new Attribute(menuList), true);
