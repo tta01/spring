@@ -82,9 +82,9 @@ a {
         
         <div class="right">
         	<div id="content">
-		        		<button type="button" id="createBtn" onclick="createMenu()">메뉴 등록</button>
+		        		<button type="button" id="createBtn" onclick="fn_save()">메뉴 등록</button>
 		        		<button type="button" id="deleteBtn" onclick="deleteMenu()">메뉴 삭제</button>
-		        		<button type="button" id="updateBtn" onclick="updateMenu()">메뉴 수정</button>
+		        		<button type="button" id="updateBtn" onclick="fn_update()">메뉴 수정</button>
         		
         				<br/>
 		        			<div id="menu-list">
@@ -96,8 +96,8 @@ a {
 				        		<p> 등록자 : <input id="fstmRgstrId" name="fstmRgstrId" type="text" readonly="readonly"> </p>
 				        		<p> 수정자 : <input id="lastModfrId" name="lastModfrId" type="text" readonly="readonly"> </p>
 	        				</div>
-<!-- 	        					<button type="button" id="updateSave" onclick="fn_update()">수정</button> -->
-	        					<button type="button" id="insertSave" onclick="fn_save()">저장</button>
+	        					<button type="button" id="updateSave" onclick="updateMenu()">수정</button>
+	        					<button type="button" id="insertSave" onclick="createMenu()">저장</button>
 	        				
         	</div>
         	
@@ -171,7 +171,7 @@ function fn_menu_click(menuCd, prntElId) {
 	});
 }
 
-function createMenu() {
+function fn_save() {
 	$("#menuCd").val("");
 	$("#menuCd").attr("readonly", false);
 	$("#menuNm").val("");
@@ -180,17 +180,40 @@ function createMenu() {
 	$("#ord").attr("readonly", false);
 }
 
-function fn_save() {
-	alert("fn_save");
+function createMenu() {
+	var menuCd = $("#menuCd").val();
+    var menuNm = $("#menuNm").val();
+    var ord = $("#ord").val();
+    var prntMenuCd = $("#prntMenuCd").val();
+    var prntMenuNm = $("#prntMenuNm").val();
+    var fstmRgstrId = $("#fstmRgstrId").val();
+    var lastModfrId = $("#lastModfrId").val();
 	
     $.ajax({
         url: '/mngr/createMenu', 
         type: 'POST',
-        data: {"prntMenuCd" : menuCd},
+        data: {
+        	"prntMenuCd": prntMenuCd,  
+            "prntMenuNm":prntMenuNm,
+            "menuCd": menuCd,          
+            "menuNm": menuNm,          
+            "ord": ord,                 
+            "fstmRgstrId":fstmRgstrId,
+            "lastModfrId":lastModfrId
+        	},
         dataType: 'json',
         success: function(response) {
-          	 console.log("createMenu :"+response);
-          	 
+          	console.log("createMenu :"+response);
+          	
+          	var menuVO = response.menuVO;
+
+            // 응답 받은 데이터를 폼에 반영
+//             $("#menuCd").val(menuVO.menuCd);
+//             $("#menuNm").val(menuVO.menuNm);
+//             $("#ord").val(menuVO.ord);
+
+            // 성공 메시지
+            alert("메뉴가 생성되었습니다.");
         },
         error: function(xhr, status, error) {
             console.error("메뉴 생성 중 오류 발생", status, error);
@@ -199,22 +222,47 @@ function fn_save() {
     });
 }
 
+function fn_update(){
+	$("#menuNm").attr("readonly", false);
+	$("#ord").attr("readonly", false);
+}
+
 // 수정
 function updateMenu() {
-// 	var menuCd = document.getElementById("menuCd").value;
-// 	alert("updateMenu : " + mssenuCd);
+	alert("!@#123");
+	var menuCd = $("#menuCd").val();
+    var menuNm = $("#menuNm").val();
+    var ord = $("#ord").val();
+    var lastModfrId = $("#lastModfrId").val();
 	
-	var menuVO = $("#frm").serialize();
-	alert(menuVO);
-	
+//     var menuVO = {
+//         menuCd: $("#menuCd").val(),
+//         menuNm: $("#menuNm").val(),
+//         ord: $("#ord").val(),
+//         lastModfrId: $("#lastModfrId").val()
+//     };
+
     $.ajax({
         url: '/mngr/updateMenu', 
         type: 'POST',
-        data: { "menuVO" : menuVO},
+//         data: JSON.stringify(menuVO), // JSON 형식으로 데이터 전송
+		data: {
+            "menuCd": menuCd,          
+            "menuNm": menuNm,
+            "ord": ord,                 
+            "lastModfrId":lastModfrId
+        	},
         dataType: 'json',
         success: function(response) {
-       	 console.log("updateMenu :"+response);
-			
+            console.log("updateMenu :"+response);
+            
+         // 응답 받은 데이터를 폼에 반영
+//          $("#menuCd").val(menuVO.menuCd);
+//          $("#menuNm").val(menuVO.menuNm);
+//          $("#ord").val(menuVO.ord);
+//          $("#lastModfrId").val(menuVO.lastModfrId);
+
+            alert("메뉴가 성공적으로 수정되었습니다.");
         },
         error: function(xhr, status, error) {
             console.error("메뉴 수정 중 오류 발생", status, error);

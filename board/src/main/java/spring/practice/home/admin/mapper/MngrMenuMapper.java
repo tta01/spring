@@ -10,11 +10,14 @@ public interface MngrMenuMapper {
 
 	public MngrMenuVO menuDetail(MngrMenuVO menuVO);
 
-	public MngrMenuVO createMenu(MngrMenuVO menuVO);
+	public int createMenu(MngrMenuVO menuVO);
 
-	public MngrMenuVO updateMenu(MngrMenuVO menuVO);
+	public int updateMenu(MngrMenuVO menuVO);
 
 	public int deleteMenu(String menuCd);
+
+	// 일반 main 
+	public List<MngrMenuVO> selectMenuList(MngrMenuVO menuVO);
 
 	
 }

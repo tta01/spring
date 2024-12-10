@@ -20,12 +20,12 @@
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
+		<beans:property name="order" value="2" />
 	</beans:bean>
 	
 	<context:component-scan base-package="spring.practice.home" />
 	
 	<beans:bean id="Interceptor" class="spring.practice.home.admin.Interceptor.AuthLoginInterceptor"/>
-<!-- 			<beans:bean id="Interceptor" class="spring.practice.home.admin.Interceptor.AuthLoginInterceptor" /> -->
 
 	<interceptors>
 		<interceptor>
@@ -34,13 +34,22 @@
 			<exclude-mapping path="/mngr/login.ajax"/>
 			<beans:ref bean="Interceptor"/>
 		</interceptor>
-				
-<!-- 		<interceptor> -->
-<!-- 		  <mapping path="/**"/> -->
-<!-- 		  <beans:ref bean="Interceptor"/> -->
-<!-- 		  <beans:ref bean="Interceptor"/> -->
-<!-- 		</interceptor> -->
 	</interceptors>
 	
+	<!-- tiles 설정 -->
+	<beans:bean id="tilesViewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+	    <beans:property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView" />
+	    <beans:property name="order" value="1" />
+	</beans:bean>
+	 
+	<beans:bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+	    <beans:property name="definitions">
+	        <beans:list>
+	            <beans:value>/WEB-INF/spring/tiles-config.xml</beans:value>
+	        </beans:list>
+	    </beans:property>
+	    <!-- header.jsp에서 출력되는 동적인 값 사용하려고 추가  -->
+	    <beans:property name="preparerFactoryClass" value="org.springframework.web.servlet.view.tiles3.SimpleSpringPreparerFactory"/>
+	</beans:bean>
 
 </beans:beans>

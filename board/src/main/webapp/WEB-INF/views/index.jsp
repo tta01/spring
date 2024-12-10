@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 
 <script type="text/javascript" src="/resources/js/jquery-3.6.0.js"></script>
 
@@ -9,8 +10,10 @@
 <html>
 
 <head>
+<link rel="stylesheet" href="/resources/css/common.css">
+
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>user main</title>
 </head>
 
 <body>

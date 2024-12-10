@@ -72,7 +72,6 @@
 	        <a href="/board/list?page=${noticeBoardVO.page - 1}">이전</a>
 	    </c:if>
 	    
-	    <!-- 마지막 페이지 생성하는 부분 계산식 필요 -->
 	    <c:forEach var="i" begin="${noticeBoardVO.startPage}" end="${noticeBoardVO.endPage}" step="1">
 	        <c:choose>
 	            <c:when test="${i == noticeBoardVO.page}">

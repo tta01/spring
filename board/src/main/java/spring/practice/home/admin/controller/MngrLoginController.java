@@ -27,21 +27,23 @@ public class MngrLoginController {
 	@RequestMapping("/login")
 	public String login(HttpSession session, Model model) {
 		Map<String, String> response = new HashMap<>();
-
-		Object managerVO = session.getAttribute("managerVO");
+		
+		// object에서 ManagerVO로 변경하고 캐스팅
+		ManagerVO managerVO = (ManagerVO) session.getAttribute("managerVO");
+		
 		// 로그인시 로그인페이지로 가는거 방지하는데, redirect가 무한으로 걸림..
 		 // 이미 리다이렉트된 상태라면 다시 리다이렉트하지 않게
 	    if (managerVO != null) {
 	        if (session.getAttribute("isRedirect") != null) {
 	            // 리다이렉트 플래그가 있으면 리다이렉트하지 않음
 	        	session.removeAttribute("isRedirect");  
-	            return "redirect:/mngr/main"; // 이미 로그인되어 있으면 메인 페이지로 이동하게!!
+	            return "redirect:/mngr/common/main"; // 이미 로그인되어 있으면 메인 페이지로 이동하게!!
 	        }
 	        // 리다이렉트 플래그를 설정 => 로그인되어 있다는걸로 보면 됨
 	        session.setAttribute("isRedirect", true);
-	        return "redirect:/mngr/mngrLogin"; 
+	        return "redirect:/mngr/common/login/mngrLogin"; 
 	    }
-		return "mngr/mngrLogin";
+		return "mngr/common/login/mngrLogin";
 	}
 
 	@RequestMapping(value="/login.ajax", method=RequestMethod.POST)
@@ -62,8 +64,7 @@ public class MngrLoginController {
 		HttpSession session = req.getSession();
 		session.invalidate();
 		
-//		return "redirect:/mngr/login";
-		return "/mngr/main";
+		return "/mngr/common/main";
 		
 	}
 	

@@ -17,6 +17,7 @@ spring\practice\home\admin\controller\MngrLoginController.class
 spring\practice\home\admin\service\MngrLoginService.class
 spring\practice\home\admin\vo\MngrMenuVO.class
 spring\practice\home\NoticeBoard\vo\NoticeBoardVO.class
+spring\practice\home\admin\service\serviceImpl\MenuPreparer.class
 spring\practice\home\admin\mapper\MngrMenuMapper.class
 spring\practice\home\member\mapper\UserLoginMapper.class
 spring\practice\home\admin\vo\ManagerVO.class

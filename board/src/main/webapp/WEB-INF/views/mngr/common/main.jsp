@@ -27,7 +27,6 @@
 /* 좌측 메뉴 */
 .left {
     width: 45%; /* 좌측 영역 너비 50% */
-/*     background: #ff0; */
     padding: 20px;
     overflow-y: auto; /* 내용이 넘치면 스크롤이 생기도록 설정 */
 }
@@ -35,7 +34,6 @@
 /* 우측 콘텐츠 */
 .right {
     width: 55%; /* 우측 영역 너비 50% */
-/*     background: #0ff; */
     padding: 20px;
     overflow-y: auto; /* 내용이 넘치면 스크롤이 생기도록 설정 */
     height: 100vh; /* 우측 영역 높이를 화면에 맞게 설정 */
@@ -57,8 +55,7 @@ a {
 
 #content {
     padding: 20px;
-/*     background-color: #f9f9f9; */
-    border-left: 2px solid #ddd;
+/*     border-left: 2px solid #ddd; */
     height: calc(100vh - 40px); /* 우측 영역 높이에서 padding 40px (상하 20px) 제외 */
     overflow-y: auto; /* 내용이 넘치면 스크롤 */
 }
@@ -82,10 +79,9 @@ a {
         
         <div class="right">
         	<div id="content">
-        			<form role="form" id="frm" name="frm" method="post">
-		        		<button type="button" id="createBtn" onclick="createMenu()">메뉴 등록</button>
+		        		<button type="button" id="createBtn" onclick="fn_save()">메뉴 등록</button>
 		        		<button type="button" id="deleteBtn" onclick="deleteMenu()">메뉴 삭제</button>
-		        		<button type="button" id="updateBtn" onclick="updateMenu()">메뉴 수정</button>
+		        		<button type="button" id="updateBtn" onclick="fn_update()">메뉴 수정</button>
         		
         				<br/>
 		        			<div id="menu-list">
@@ -94,17 +90,17 @@ a {
 				        		<p> 메뉴코드 : <input id="menuCd" name="menuCd" type="text" readonly="readonly"> </p>
 				        		<p> 메뉴명 : <input id="menuNm" name="menuNm" type="text"> </p>
 				        		<p> 순번 : <input id="ord" name="ord" type="number"> </p>
-				        		<!-- <p> 등록자 : <input id="fstmRgstrId" name="fstmRgstrId" type="text" disabled="disabled"> </p>
-				        		<p> 수정자 : <input id="lastModfrId" name="lastModfrId" type="text" disabled="disabled"> </p> -->
+				        		<p> 등록자 : <input id="fstmRgstrId" name="fstmRgstrId" type="text" readonly="readonly"> </p>
+				        		<p> 수정자 : <input id="lastModfrId" name="lastModfrId" type="text" readonly="readonly"> </p>
 	        				</div>
-        			</form>
+	        					<button type="button" id="updateSave" onclick="updateMenu()">수정</button>
+	        					<button type="button" id="insertSave" onclick="createMenu()">저장</button>
+	        				
         	</div>
         	
         </div>
 	</div>
     
-	<div id="content"> </div>
-	
 <script type="text/javascript">
 $(document).ready(function() {
 	fn_menu_click("web", "menu-container");
@@ -112,10 +108,14 @@ $(document).ready(function() {
 
 function fn_menu_click(menuCd, prntElId) {
 	$("#menuCd").attr("readonly", true);
+	$("#menuNm").attr("readonly", true);
+	$("#ord").attr("readonly", true);
+	
 // 	var menuNm = document.getElementById("menuNm").value;
-// 	console.log("menuNm ## : "+menuNm); //typeof(menuNm.value)
-	// class명이 'web_S_li'인 ul 클래스의 갯수를 체크해서 존재하면 그 해당 클래스의 하위 요소 삭제
-	// ajax 안에서 addClass("active"); 를 해줬기 때문에 "active"를 삭제하기 위함
+	var subMenuExistYn = false;
+	if($("#" + menuCd + "_li ul").length > 0) {
+		subMenuExistYn = true;
+  	}
 	
 	$.ajax({
         url: '/mngr/menuAjax',
@@ -148,9 +148,15 @@ function fn_menu_click(menuCd, prntElId) {
         		$("#menuCd").val(menuVO.menuCd);
                 $("#menuNm").val(menuVO.menuNm);
                 $("#prntMenuCd").val(menuVO.prntMenuCd);  
+                $("#prntMenuNm").val(menuVO.prntMenuNm);  
                 $("#ord").val(menuVO.ord); 
                 $("#fstmRgstrId").val(menuVO.fstmRgstrId);  
                 $("#lastModfrId").val(menuVO.lastModfrId);  
+        	}
+        	
+        	if(subMenuExistYn) {
+        		// 하위 엘리먼트 삭제
+          		$("#" + menuCd + "_li ul").remove();
         	}
         },
         error: function(xhr, status, error) {
@@ -158,31 +164,51 @@ function fn_menu_click(menuCd, prntElId) {
             return false;
         }
 	});
-	
-	/* if($("#" + menuCd + "_li ul").length > 0) {
-		// 하위 엘리먼트 삭제
-		$("#" + menuCd + "_li ul").remove();
-	} */
-}
-
-function createMenu() {
-	$("#menuCd").val("");
-	$("#menuCd").attr("readonly", false);
-	$("#menuNm").val("");
-	$("#ord").val("");
 }
 
 function fn_save() {
-	alert("createMenu");
+	$("#menuCd").val("");
+	$("#menuCd").attr("readonly", false);
+	$("#menuNm").val("");
+	$("#menuNm").attr("readonly", false);
+	$("#ord").val("");
+	$("#ord").attr("readonly", false);
+}
+
+function createMenu() {
+	var menuCd = $("#menuCd").val();
+    var menuNm = $("#menuNm").val();
+    var ord = $("#ord").val();
+    var prntMenuCd = $("#prntMenuCd").val();
+    var prntMenuNm = $("#prntMenuNm").val();
+    var fstmRgstrId = $("#fstmRgstrId").val();
+    var lastModfrId = $("#lastModfrId").val();
 	
     $.ajax({
         url: '/mngr/createMenu', 
         type: 'POST',
-        data: {"prntMenuCd" : menuCd},
+        data: {
+        	"prntMenuCd": prntMenuCd,  
+            "prntMenuNm":prntMenuNm,
+            "menuCd": menuCd,          
+            "menuNm": menuNm,          
+            "ord": ord,                 
+            "fstmRgstrId":fstmRgstrId,
+            "lastModfrId":lastModfrId
+        	},
         dataType: 'json',
         success: function(response) {
-          	 console.log("createMenu :"+response);
-          	 
+          	console.log("createMenu :"+response);
+          	
+          	var menuVO = response.menuVO;
+
+            // 응답 받은 데이터를 폼에 반영
+//             $("#menuCd").val(menuVO.menuCd);
+//             $("#menuNm").val(menuVO.menuNm);
+//             $("#ord").val(menuVO.ord);
+
+            // 성공 메시지
+            alert("메뉴가 생성되었습니다.");
         },
         error: function(xhr, status, error) {
             console.error("메뉴 생성 중 오류 발생", status, error);
@@ -191,22 +217,47 @@ function fn_save() {
     });
 }
 
+function fn_update(){
+	$("#menuNm").attr("readonly", false);
+	$("#ord").attr("readonly", false);
+}
+
 // 수정
 function updateMenu() {
-// 	var menuCd = document.getElementById("menuCd").value;
-// 	alert("updateMenu : " + menuCd);
+	alert("!@#123");
+	var menuCd = $("#menuCd").val();
+    var menuNm = $("#menuNm").val();
+    var ord = $("#ord").val();
+    var lastModfrId = $("#lastModfrId").val();
 	
-	var menuVO = $("#frm").serialize();
-	alert(menuVO);
-	
+//     var menuVO = {
+//         menuCd: $("#menuCd").val(),
+//         menuNm: $("#menuNm").val(),
+//         ord: $("#ord").val(),
+//         lastModfrId: $("#lastModfrId").val()
+//     };
+
     $.ajax({
         url: '/mngr/updateMenu', 
         type: 'POST',
-        data: { "menuVO" : menuVO},
+//         data: JSON.stringify(menuVO), // JSON 형식으로 데이터 전송
+		data: {
+            "menuCd": menuCd,          
+            "menuNm": menuNm,
+            "ord": ord,                 
+            "lastModfrId":lastModfrId
+        	},
         dataType: 'json',
         success: function(response) {
-       	 console.log("updateMenu :"+response);
-			
+            console.log("updateMenu :"+response);
+            
+         // 응답 받은 데이터를 폼에 반영
+//          $("#menuCd").val(menuVO.menuCd);
+//          $("#menuNm").val(menuVO.menuNm);
+//          $("#ord").val(menuVO.ord);
+//          $("#lastModfrId").val(menuVO.lastModfrId);
+
+            alert("메뉴가 성공적으로 수정되었습니다.");
         },
         error: function(xhr, status, error) {
             console.error("메뉴 수정 중 오류 발생", status, error);

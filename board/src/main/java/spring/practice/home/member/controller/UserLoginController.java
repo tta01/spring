@@ -24,7 +24,7 @@ public class UserLoginController {
 	@RequestMapping("/login")
 	public String actionLogin() {
 		
-		return "login/login";
+		return "home/login/login";
 	}
 	
 	@RequestMapping(value="/login.ajax", method=RequestMethod.POST)

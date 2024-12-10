@@ -18,7 +18,6 @@ public class MngrMenuServiceImpl implements MngrMenuService {
 	@Resource
 	MngrMenuMapper menuMapper;
 
-
 	@Override
 	public List<MngrMenuVO> selectMenuVOList(MngrMenuVO menuVO) {
 
@@ -37,25 +36,30 @@ public class MngrMenuServiceImpl implements MngrMenuService {
 	}
 
 	@Override
-	public MngrMenuVO createMenu(MngrMenuVO menuVO) {
+	public int createMenu(MngrMenuVO menuVO) {
 		
-		menuVO = menuMapper.createMenu(menuVO);
-
-		return menuVO;
+		int result = menuMapper.createMenu(menuVO);
+		
+		return result;
 	}
 
 	@Override
-	public MngrMenuVO updateMenu(MngrMenuVO menuVO) {
+	public int updateMenu(MngrMenuVO menuVO) {
 		
-		menuVO = menuMapper.updateMenu(menuVO);
+		int result = menuMapper.updateMenu(menuVO);
 
-		return menuVO;
+		return result;
 	}
 
 	@Override
 	public int deleteMenu(String menuCd) {
 		int result = menuMapper.deleteMenu(menuCd);
 		return result;
+	}
+
+	@Override
+	public List<MngrMenuVO> selectMenuList(MngrMenuVO menuVO) {
+		return menuMapper.selectMenuList(menuVO);
 	}
 
 }

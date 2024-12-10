@@ -8,6 +8,7 @@
 		SELECT
 		    MENU_CD,
 		    PRNT_MENU_CD,
+		    PRNT_MENU_NM,
 		    MENU_NM,
 		    ORD,
 		    DEL_YN,
@@ -18,6 +19,7 @@
 		FROM
 		    T_CMS_MENU_MNG
 		WHERE PRNT_MENU_CD = #{prntMenuCd}
+		ORDER BY ORD ASC
 	
 	</select>
 	
@@ -26,6 +28,7 @@
 		SELECT
 		    MENU_CD,
 		    PRNT_MENU_CD,
+		    PRNT_MENU_NM,
 		    MENU_NM,
 		    ORD,
 		    DEL_YN,
@@ -45,28 +48,26 @@
 		 	T_CMS_MENU_MNG (
 			    MENU_CD,
 			    PRNT_MENU_CD,
+			    PRNT_MENU_NM,
 			    MENU_NM,
 			    ORD,
-			    DEL_YN,
 			    FSTM_RGSTR_ID,
 			    FSTM_REG_DT,
 			    LAST_MODFR_ID,
 			    LAST_MDFCN_DT
-		) VALUES (#{menuCd},#{prntMenuCd},#{menuNm},#{ord},#{delYn},#{mngrId},SYSDATE,#{mngrId},SYSDATE)
+		) VALUES (#{menuCd},#{prntMenuCd},#{prntMenuNm},#{menuNm},#{ord},#{fstmRgstrId},SYSDATE,#{lastModfrId},SYSDATE)
 		
 	</insert>
 	
-	<update id="updateMenu" parameterType="spring.practice.home.admin.vo.MngrMenuVO">
+	<update id="updateMenu" parameterType="String">
 		/* updateMenu */
 		UPDATE
 			T_CMS_MENU_MNG
 		SET
-			MENU_CD = #{menuCd},
-			PRNT_MENU_CD = #{prntMenuCd},
+<!-- 			MENU_CD = #{menuCd}, -->
 			MENU_NM	= #{menuNm},
 			ORD = #{ord},
-			DEL_YN = #{delYn}
-			LAST_MODFR_ID = #{mngrId},
+			LAST_MODFR_ID = #{lastModfrId},
 			LAST_MDFCN_DT = SYSDATE
 		WHERE MENU_CD = #{menuCd}
 			
@@ -89,5 +90,23 @@
 <!-- 		WHERE MENU_CD = #{menuCd} -->
 		
 <!-- 	</update> -->
+
+	<select id="selectMenuList" resultType="spring.practice.home.admin.vo.MngrMenuVO">
+		/* MAIN MENU */
+		SELECT
+		    MENU_CD,
+		    PRNT_MENU_CD,
+		    MENU_NM,
+		    ORD,
+		    DEL_YN,
+		    FSTM_RGSTR_ID,
+		    FSTM_REG_DT,
+		    LAST_MODFR_ID,
+		    LAST_MDFCN_DT,
+		    PRNT_MENU_NM
+		FROM
+		    T_CMS_MENU_MNG
+	
+	</select>
 
 </mapper>
