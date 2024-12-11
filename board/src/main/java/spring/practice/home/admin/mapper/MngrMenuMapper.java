@@ -19,5 +19,8 @@ public interface MngrMenuMapper {
 	// 일반 main 
 	public List<MngrMenuVO> selectMenuList(MngrMenuVO menuVO);
 
+	// 계층형 쿼리
+	public List<MngrMenuVO> selectMenu(MngrMenuVO menuVO);
+	
 	
 }

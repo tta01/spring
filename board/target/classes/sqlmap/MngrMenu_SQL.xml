@@ -15,7 +15,8 @@
 		    FSTM_RGSTR_ID,
 		    FSTM_REG_DT,
 		    LAST_MODFR_ID,
-		    LAST_MDFCN_DT
+		    LAST_MDFCN_DT,
+		    URL
 		FROM
 		    T_CMS_MENU_MNG
 		WHERE PRNT_MENU_CD = #{prntMenuCd}
@@ -35,7 +36,8 @@
 		    FSTM_RGSTR_ID,
 		    FSTM_REG_DT,
 		    LAST_MODFR_ID,
-		    LAST_MDFCN_DT
+		    LAST_MDFCN_DT,
+		    URL
 		FROM
 		    T_CMS_MENU_MNG
 		WHERE MENU_CD = #{menuCd}
@@ -54,8 +56,9 @@
 			    FSTM_RGSTR_ID,
 			    FSTM_REG_DT,
 			    LAST_MODFR_ID,
-			    LAST_MDFCN_DT
-		) VALUES (#{menuCd},#{prntMenuCd},#{prntMenuNm},#{menuNm},#{ord},#{fstmRgstrId},SYSDATE,#{lastModfrId},SYSDATE)
+			    LAST_MDFCN_DT,
+			    URL
+		) VALUES (#{menuCd},#{prntMenuCd},#{prntMenuNm},#{menuNm},#{ord},#{fstmRgstrId},SYSDATE,#{lastModfrId},SYSDATE,#{url})
 		
 	</insert>
 	
@@ -64,18 +67,17 @@
 		UPDATE
 			T_CMS_MENU_MNG
 		SET
-<!-- 			MENU_CD = #{menuCd}, -->
 			MENU_NM	= #{menuNm},
 			ORD = #{ord},
 			LAST_MODFR_ID = #{lastModfrId},
-			LAST_MDFCN_DT = SYSDATE
+			LAST_MDFCN_DT = SYSDATE,
+			URL = #{url}
 		WHERE MENU_CD = #{menuCd}
 			
 	</update>
 	
 	<delete id="deleteMenu" parameterType="String">
 		/* deleteMenu */
-
 		DELETE FROM T_CMS_MENU_MNG
 		WHERE MENU_CD = #{menuCd}
 		
@@ -96,6 +98,7 @@
 		SELECT
 		    MENU_CD,
 		    PRNT_MENU_CD,
+		    PRNT_MENU_NM,
 		    MENU_NM,
 		    ORD,
 		    DEL_YN,
@@ -103,10 +106,35 @@
 		    FSTM_REG_DT,
 		    LAST_MODFR_ID,
 		    LAST_MDFCN_DT,
-		    PRNT_MENU_NM
+		    URL
 		FROM
 		    T_CMS_MENU_MNG
 	
 	</select>
+	
+	<select id="selectMenu" resultType="spring.practice.home.admin.vo.MngrMenuVO">
+		/* MAIN MENU */
+		SELECT
+		    MENU_CD,
+		    PRNT_MENU_CD,
+		    PRNT_MENU_NM,
+		    MENU_NM,
+		    ORD,
+		    DEL_YN,
+		    FSTM_RGSTR_ID,
+		    FSTM_REG_DT,
+		    LAST_MODFR_ID,
+		    LAST_MDFCN_DT,
+		    URL
+		FROM
+		    T_CMS_MENU_MNG
+		START WITH
+			PRNT_MENU_CD = 'web'
+		CONNECT BY PRNT_MENU_CD = PRIOR MENU_CD
+		ORDER SIBLINGS BY PRNT_MENU_CD, ORD
+	
+	</select>
+	
+	
 
 </mapper>

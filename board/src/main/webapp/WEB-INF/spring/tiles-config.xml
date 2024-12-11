@@ -31,7 +31,7 @@
     </definition>
     
     <!-- 관리자 레이아웃 -->
-    <definition name="tiles-Admin-layout" template="/WEB-INF/views/tilesAdmin/index.jsp" preparer="spring.practice.home.admin.service.serviceImpl.MenuPreparer">
+    <definition name="tiles-Admin-layout" template="/WEB-INF/views/tilesAdmin/index.jsp" preparer="spring.practice.home.admin.service.serviceImpl.MenuPreparer" >
         <put-attribute name="header" value="/WEB-INF/views/tilesAdmin/header.jsp" />
         <put-attribute name="body" value="" />
 		<put-attribute name="aside" value="/WEB-INF/views/tilesAdmin/aside.jsp" />

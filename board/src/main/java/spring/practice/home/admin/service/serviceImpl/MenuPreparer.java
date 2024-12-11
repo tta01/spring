@@ -22,7 +22,8 @@ public class MenuPreparer implements ViewPreparer {
     public void execute(Request tilesContext, AttributeContext attributeContext) throws PreparerException {
         MngrMenuVO menuVO = new MngrMenuVO();
         
-        List<MngrMenuVO> menuList = menuService.selectMenuList(menuVO);
+//        List<MngrMenuVO> menuList = menuService.selectMenuList(menuVO);
+        List<MngrMenuVO> menuList = menuService.selectMenu(menuVO);
         System.out.println("Menu List Size: " + (menuList != null ? menuList.size() : 0));
 
         // 메뉴 리스트를 타일즈 컨텍스트에 저장

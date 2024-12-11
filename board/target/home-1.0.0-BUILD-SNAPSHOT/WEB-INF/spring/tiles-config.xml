@@ -15,7 +15,7 @@
     </definition>
     
     <definition name="mngr/login" extends="no-tiles">
-        <put-attribute name="body" valuesa="/WEB-INF/views/mngr/common/login/mngrLogin.jsp" />
+        <put-attribute name="body" value="/WEB-INF/views/mngr/common/login/mngrLogin.jsp" />
     </definition>
     
     <!-- 기본 레이아웃 -->
@@ -31,7 +31,7 @@
     </definition>
     
     <!-- 관리자 레이아웃 -->
-    <definition name="tiles-Admin-layout" template="/WEB-INF/views/tilesAdmin/index.jsp" preparer="spring.practice.home.admin.service.serviceImpl.MenuPreparer">
+    <definition name="tiles-Admin-layout" template="/WEB-INF/views/tilesAdmin/index.jsp" preparer="spring.practice.home.admin.service.serviceImpl.MenuPreparer" >
         <put-attribute name="header" value="/WEB-INF/views/tilesAdmin/header.jsp" />
         <put-attribute name="body" value="" />
 		<put-attribute name="aside" value="/WEB-INF/views/tilesAdmin/aside.jsp" />
@@ -43,14 +43,4 @@
         <put-attribute name="body" value="/WEB-INF/views/mngr/{1}/{2}.jsp" />
     </definition>
     
-    <!-- 로그인 페이지와 관리자 로그인 페이지 -->
-    
-<!--     <definition name="no-tiles" template="/WEB-INF/views/notiles/index.jsp"> -->
-<!-- 	    <put-attribute name="header" value="" /> -->
-<!-- 	    <put-attribute name="footer" value="" /> -->
-<!-- 	    <put-attribute name="body" value="" /> -->
-<!-- 	</definition> -->
-
-
-
 </tiles-definitions>

@@ -26,21 +26,6 @@
     height: 100vh; /* 화면 높이를 100%로 설정 */
 }
 
-/* 좌측 메뉴 */
-.left {
-    width: 45%; /* 좌측 영역 너비 50% */
-    padding: 20px;
-    overflow-y: auto; /* 내용이 넘치면 스크롤이 생기도록 설정 */
-}
-
-/* 우측 콘텐츠 */
-.right {
-    width: 55%; /* 우측 영역 너비 50% */
-    padding: 20px;
-    overflow-y: auto; /* 내용이 넘치면 스크롤이 생기도록 설정 */
-    height: 100vh; /* 우측 영역 높이를 화면에 맞게 설정 */
-}
-
 /* 메뉴 리스트 스타일 */
 ul {
     padding-left: 20px;
@@ -66,45 +51,43 @@ a {
 	color: red;
 }
 </style>
+
 </head>
 
 <body>
   <div id="title">
     <p>관리자 메인 페이지</p>
-<!--     <button id="logoutBtn" onclick="logoutBtn()">로그아웃</button> -->
   </div>
   
 	<div class="container">
-<!--         <div class="left"> -->
-			<div id="menu-container"> </div>
-<!--         </div> -->
-        
-<!--         <div class="right"> -->
-        	<div id="content">
-		        		<button type="button" id="createBtn" onclick="fn_save()">메뉴 등록</button>
-		        		<button type="button" id="deleteBtn" onclick="deleteMenu()">메뉴 삭제</button>
-		        		<button type="button" id="updateBtn" onclick="fn_update()">메뉴 수정</button>
-        		
-        				<br/>
-		        			<div id="menu-list">
-				        		<p> 상위코드 : <input id="prntMenuCd" name="prntMenuCd" type="text" readonly="readonly"> </p>
-				        		<p> 상위코드명 : <input id="prntMenuNm" name="prntMenuNm" type="text" readonly="readonly"> </p>
-				        		<p> 메뉴코드 : <input id="menuCd" name="menuCd" type="text" readonly="readonly"> </p>
-				        		<p> 메뉴명 : <input id="menuNm" name="menuNm" type="text"> </p>
-				        		<p> 순번 : <input id="ord" name="ord" type="number"> </p>
-				        		<p> 등록자 : <input id="fstmRgstrId" name="fstmRgstrId" type="text" readonly="readonly"> </p>
-				        		<p> 수정자 : <input id="lastModfrId" name="lastModfrId" type="text" readonly="readonly"> </p>
-	        				</div>
-	        					<button type="button" id="updateSave" onclick="updateMenu()">수정</button>
-	        					<button type="button" id="insertSave" onclick="createMenu()">저장</button>
-	        				
-        	</div>
-        	
-<!--         </div> -->
+		<div id="menu-container"> </div>
+       
+       	<div id="content">
+       		<button type="button" id="createBtn" onclick="fn_save()">메뉴 등록</button>
+       		<button type="button" id="deleteBtn" onclick="deleteMenu()">메뉴 삭제</button>
+       		<button type="button" id="updateBtn" onclick="fn_update()">메뉴 수정</button>
+     		
+     		<br/>
+      			<div id="menu-list">
+	        		<p> 상위코드 : <input id="prntMenuCd" name="prntMenuCd" type="text" readonly="readonly"> </p>
+	        		<p> 상위코드명 : <input id="prntMenuNm" name="prntMenuNm" type="text" readonly="readonly"> </p>
+	        		<p> 메뉴코드 : <input id="menuCd" name="menuCd" type="text" readonly="readonly"> </p>
+	        		<p> 메뉴명 : <input id="menuNm" name="menuNm" type="text"> </p>
+	        		<p> 순번 : <input id="ord" name="ord" type="number"> </p>
+	        		<p> 등록자 : <input id="fstmRgstrId" name="fstmRgstrId" type="text" readonly="readonly"> </p>
+	        		<p> 수정자 : <input id="lastModfrId" name="lastModfrId" type="text" readonly="readonly"> </p>
+	        		<p> URL : <input id="url" name="url" type="text" readonly="readonly"> </p>
+     			</div>
+     			
+    			<button type="button" id="updateSave" onclick="updateMenu()">수정</button>
+    			<button type="button" id="insertSave" onclick="createMenu()">저장</button>
+        				
+       	</div>
 	</div>
     
 <script type="text/javascript">
 
+// 저장 버튼
 function fn_save() {
 	$("#menuCd").val("");
 	$("#menuCd").attr("readonly", false);
@@ -112,8 +95,11 @@ function fn_save() {
 	$("#menuNm").attr("readonly", false);
 	$("#ord").val("");
 	$("#ord").attr("readonly", false);
+	$("#url").val("");
+	$("#url").attr("readonly", false);
 }
 
+// 등록
 function createMenu() {
 	var menuCd = $("#menuCd").val();
     var menuNm = $("#menuNm").val();
@@ -122,6 +108,7 @@ function createMenu() {
     var prntMenuNm = $("#prntMenuNm").val();
     var fstmRgstrId = $("#fstmRgstrId").val();
     var lastModfrId = $("#lastModfrId").val();
+    var url = $("#url").val();
 	
     $.ajax({
         url: '/mngr/createMenu', 
@@ -133,7 +120,8 @@ function createMenu() {
             "menuNm": menuNm,          
             "ord": ord,                 
             "fstmRgstrId":fstmRgstrId,
-            "lastModfrId":lastModfrId
+            "lastModfrId":lastModfrId,
+            "url":url
         	},
         dataType: 'json',
         success: function(response) {
@@ -148,9 +136,11 @@ function createMenu() {
     });
 }
 
+// 수정 버튼
 function fn_update(){
 	$("#menuNm").attr("readonly", false);
 	$("#ord").attr("readonly", false);
+	$("#url").attr("readonly", false);
 }
 
 // 수정
@@ -159,6 +149,7 @@ function updateMenu() {
     var menuNm = $("#menuNm").val();
     var ord = $("#ord").val();
     var lastModfrId = $("#lastModfrId").val();
+    var url = $("#url").val();
 	
     $.ajax({
         url: '/mngr/updateMenu', 
@@ -168,7 +159,8 @@ function updateMenu() {
             "menuCd": menuCd,          
             "menuNm": menuNm,
             "ord": ord,                 
-            "lastModfrId":lastModfrId
+            "lastModfrId":lastModfrId,
+            "url":url
         	},
         dataType: 'json',
         success: function(response) {

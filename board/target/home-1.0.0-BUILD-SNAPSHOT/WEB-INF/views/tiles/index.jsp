@@ -21,7 +21,6 @@
 	
 	<tiles:insertAttribute name="body" />
 	<p>일반 회원 index</p>
-	
 	<tiles:insertAttribute name="footer" />
 	
 </body>

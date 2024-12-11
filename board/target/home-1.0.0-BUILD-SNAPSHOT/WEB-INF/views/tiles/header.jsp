@@ -2,97 +2,112 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
+<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 
-<header>
-<p>일반 타일즈 헤더</p>
-<!--     <div class="header-top-menu"> -->
-<!--         타일즈에서 가져온 메뉴 리스트 -->
-<%--         <tiles:importAttribute name="menuList" /> --%>
-<!--         <ul class="menu-list"> -->
-			
-<!-- 			<div id="body"> -->
-<!-- 				<ul> -->
-<!-- 					<li class="top-menu">  -->
-<!-- 						최상위  -->
-<%-- 						<c:if test="${menuList[0].prntMenuCd == 'web'}"> --%>
-<%-- 							<a href="javascript:void(0);" class="top">${menuList[0].menuNm}</a> --%>
-<%-- 						</c:if> --%>
-<!-- 						<ul class="all"> -->
-						
-<!-- 							<li> -->
-<!-- 							(PRNT_MENU_CD == menu.menuCd) -->
-<%-- 				     			<a href="javascript:void(0);" class="menu-item">${menuList[1].menuNm}</a> --%>
-<!-- 								<ul class="submenu"> -->
-<%-- 									<c:forEach var="menu" items="${menuList}"> --%>
-<%-- 								        <c:if test="${menu.prntMenuCd == 'web_S'}"> --%>
-<%-- 					       					<li><a href="javascript:void(0);" class="menu-item">${menu.menuNm}</a></li> --%>
-<%-- 								        </c:if> --%>
-<%-- 								    </c:forEach>														 --%>
-<!-- 								</ul> -->
-<!-- 							</li> -->
-							
-<!-- 							<li> -->
-<%-- 				     			<a href="javascript:void(0);" class="menu-item">${menuList[4].menuNm}</a> --%>
-<%-- 								<c:forEach var="menu" items="${menuList}"> --%>
-<%-- 									<c:if test="${menu.prntMenuCd == 'web_B'}"> --%>
-<%-- 										<li><a href="#">${menu.menuNm}</a></li> --%>
-<%-- 									</c:if> --%>
-<%-- 								</c:forEach> --%>
-<!-- 							</li> -->
-							
-<!-- 							<li> -->
-<%-- 			     				<a href="javascript:void(0);" class="menu-item">${menuList[5].menuNm}</a> --%>
-<!-- 									<ul class="submenu"> -->
-<%-- 										<c:forEach var="menu" items="${menuList}"> --%>
-<%-- 											<c:if test="${menu.prntMenuCd == 'web_N'}"> --%>
-<%-- 												<li><a href="#">${menu.menuNm}</a></li> --%>
-<%-- 											</c:if> --%>
-<%-- 										</c:forEach> --%>
-<!-- 									</ul> -->
-<!-- 							</li> -->
-<!-- 						</ul> -->
-<!-- 					</li> -->
-<!-- 				</ul> -->
+<html>
+<tiles:importAttribute name="menuList" />
+
+<link rel="stylesheet" href="/resources/css/header.css">
+
+<header class="top-bar con-min-width">
+	<!--header-->
+	<div id="header">
+
+		<div class="div-logo">
+			<h1 class="logo">
+				<a href="#">K-Startup</a>
+			</h1>
+		</div>
+
+		<nav class="menu-header-nav">
+			<div class="menu-top-div">
+				<ul id="gnb">
+					<c:forEach var="menu" items="${menuList}">
+						<c:if test="${menu.prntMenuCd == 'web'}">
+
+							<c:forEach var="subMenu" items="${menuList}">
+								<c:if test="${menu.menuCd == subMenu.prntMenuCd}">
+									<li class="menu-top-li"><span>${subMenu.menuNm}</span>
+
+										<ul class="inner-menu">
+											<c:forEach var="lowestMenu" items="${menuList}"
+												varStatus="stat">
+												<c:if test="${subMenu.menuCd == lowestMenu.prntMenuCd}">
+													<li class="menu-mid-li"><a href="${lowestMenu.url}">${lowestMenu.menuNm}</a></li>
+												</c:if>
+											</c:forEach>
+										</ul></li>
+								</c:if>
+							</c:forEach>
+
+						</c:if>
+					</c:forEach>
+
+				</ul>
+			</div>
+		</nav>
+
+<!-- 		<a href="#" class="menu-bar">  -->
+<!-- 			<span></span>  -->
+<!-- 			<span></span>  -->
+<!-- 			<span></span> -->
+<!-- 		</a> -->
+
+<!-- 		<div class="menu-open"> -->
+<!-- 			<ul> -->
+<!-- 				<li class="dept1"><a href="#">메뉴1</a> -->
+<!-- 					<ul> -->
+<!-- 						<li class="dept2"><a href="#">메뉴1</a></li> -->
+<!-- 						<li class="dept2"><a href="#">메뉴1</a></li> -->
+<!-- 					</ul></li> -->
+<!-- 				<li class="dept1"><a href="#">메뉴2</a> -->
+<!-- 					<ul> -->
+<!-- 						<li class="dept2"><a href="#">메뉴2</a></li> -->
+<!-- 						<li class="dept2"><a href="#">메뉴2</a></li> -->
+<!-- 					</ul></li> -->
+<!-- 			</ul> -->
 <!-- 		</div> -->
-							
-<!--         </ul> -->
-<!--     </div> -->
+
+	</div>
+	<!--header-->
+	<!-- 	<div class="visual"></div> -->
 </header>
 
-<!-- CSS 스타일링 -->
-<style>
-    /* 기본 스타일 */
-    header {
-        background-color: #333;  /* 헤더 배경색 */
-        padding: 10px 20px;       /* 패딩 */
-        color: #fff;              /* 글자색 */
-        font-family: Arial, sans-serif;  /* 기본 글꼴 */
-    }
+ 
+<body>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			var gnb = $('#gnb');
 
-    .header-top-menu {
-        display: flex;
-        justify-content: center;  /* 가운데 정렬 */
-        align-items: center;
-    }
+			// 마우스 over 시
+			gnb.mouseenter(function() {
+				$('.inner-menu').show();
+				// menu bg
+				var menuHeight = $('#header').outerHeight();
+				var inmeHegiht = $('.inner-menu').outerHeight();
+			});
 
-    .menu-list {
-        list-style-type: none;    /* 기본 목록 스타일 제거 */
-        margin: 0;
-        padding: 0;
-        display: flex;            /* 메뉴 항목을 가로로 나열 */
-    }
+			// 마우스  leave 시
+			gnb.mouseleave(function() {
+				$('.inner-menu').hide();
+			});
 
-    .menu-item {
-        margin: 0 15px;           /* 메뉴 항목 간의 간격 */
-        font-size: 16px;          /* 폰트 크기 */
-        text-transform: uppercase; /* 대문자로 변환 */
-        cursor: pointer;         /* 마우스 포인터를 손 모양으로 변경 */
-        transition: color 0.3s ease; /* 색상 변화 애니메이션 */
-    }
+			//dept2 hover시 dept1 active
+			$('.dept1').mouseenter(function() {
+				$(this).children().addClass('active');
+				$(this).siblings().children().removeClass('active')
+			});
+			$('.dept1').mouseleave(function() {
+				$(this).children().removeClass('active');
+			});
 
-    /* 메뉴 항목에 마우스 올렸을 때 색상 변경 */
-    .menu-item:hover {
-        color: #ff6600;           /* 메뉴 항목에 마우스를 올렸을 때 색상 변경 */
-    }
-</style>
+			/* 햄버거 메뉴 */
+			$('.menu-bar').click(function() {
+				$(this).toggleClass('active');
+				$('.menu-open').slideToggle();
+			});
+		});
+	</script>
+
+</body>
+</html>

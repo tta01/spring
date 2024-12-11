@@ -13,13 +13,16 @@
 <link rel="stylesheet" href="/resources/css/common.css">
 
 <style>
-#admintiles{
-	width: 280px !important;
-  	overflow: auto;
-  	height: 100vh;
-  	background-color:#fff;
-/*   	box-shadow: 1px 1px 15px -2px rgba(0,0,0,0.33); */
+.container{
+	display: flex;
+    flex-direction: row;
 }
+
+.admintiles {
+    margin-left: 0;
+    width: 80%;
+}
+
 </style>
 
 <meta charset="UTF-8">
@@ -30,9 +33,9 @@
 	
 	<tiles:insertAttribute name="header" />
 	
-	<div>
+	<div class="container">
 		<tiles:insertAttribute name="aside"/>
-				<div id="admintiles" >
+				<div class="admintiles" id="admintiles" >
 					
 					<tiles:insertAttribute name="body" />
 				

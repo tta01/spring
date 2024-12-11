@@ -1,21 +1,18 @@
 @charset "UTF-8";
-
+/*
 *{
 	margin: 10;
 	padding: 10;
 }
-
+*/
 .header, .content, .footer{
 	width: 100%;
 	float:left;
 }
+
 
 .header, .footer{
 	height: 8em;
 	background-color: balck;
 }
 
-#admintiles{
-	margin-left:280px;
-	background-color: yellow;
-}

@@ -15,6 +15,7 @@ public class MngrMenuVO {
     private String fstmRegDt;
     private String lastModfrId;
     private String lastMdfcnDt;
+    private String url;
     
 	public String getMenuCd() {
 		return menuCd;
@@ -76,12 +77,19 @@ public class MngrMenuVO {
 	public void setLastMdfcnDt(String lastMdfcnDt) {
 		this.lastMdfcnDt = lastMdfcnDt;
 	}
+	public String getUrl() {
+		return url;
+	}
+	public void setUrl(String url) {
+		this.url = url;
+	}
 	
 	@Override
 	public String toString() {
-		return "MngrMenuVO [menuCd=" + menuCd + ", prntMenuCd=" + prntMenuCd + ", menuNm=" + menuNm + ", ord=" + ord
-				+ ", delYn=" + delYn + ", fstmRgstrId=" + fstmRgstrId + ", fstmRegDt=" + fstmRegDt + ", lastModfrId="
-				+ lastModfrId + ", lastMdfcnDt=" + lastMdfcnDt + "]";
+		return "MngrMenuVO [menuCd=" + menuCd + ", prntMenuCd=" + prntMenuCd + ", prntMenuNm=" + prntMenuNm
+				+ ", menuNm=" + menuNm + ", ord=" + ord + ", delYn=" + delYn + ", fstmRgstrId=" + fstmRgstrId
+				+ ", fstmRegDt=" + fstmRegDt + ", lastModfrId=" + lastModfrId + ", lastMdfcnDt=" + lastMdfcnDt
+				+ ", url=" + url + "]";
 	}
     
 	

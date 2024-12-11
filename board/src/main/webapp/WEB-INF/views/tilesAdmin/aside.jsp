@@ -69,6 +69,7 @@ function fn_menu_click(menuCd, prntElId) {
 	$("#menuCd").attr("readonly", true);
 	$("#menuNm").attr("readonly", true);
 	$("#ord").attr("readonly", true);
+	$("#url").attr("readonly", true);
 
 // 	var menuNm = document.getElementById("menuNm").value;
 	var subMenuExistYn = false;
@@ -111,6 +112,7 @@ function fn_menu_click(menuCd, prntElId) {
             $("#ord").val(menuVO.ord); 
             $("#fstmRgstrId").val(menuVO.fstmRgstrId);  
             $("#lastModfrId").val(menuVO.lastModfrId);  
+            $("#url").val(menuVO.url);  
     	}
     	
     	if(subMenuExistYn) {

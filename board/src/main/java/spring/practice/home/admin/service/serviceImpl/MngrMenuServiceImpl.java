@@ -62,4 +62,9 @@ public class MngrMenuServiceImpl implements MngrMenuService {
 		return menuMapper.selectMenuList(menuVO);
 	}
 
+	@Override
+	public List<MngrMenuVO> selectMenu(MngrMenuVO menuVO) {
+		return menuMapper.selectMenu(menuVO);
+	}
+
 }
