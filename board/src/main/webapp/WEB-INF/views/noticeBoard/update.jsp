@@ -2,8 +2,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="decorator" uri="http://www.opensymphony.com/sitemesh/decorator" %>
+<%@ taglib prefix="page" uri="http://www.opensymphony.com/sitemesh/page" %>
 
 <script type="text/javascript" src="/resources/js/jquery-3.6.0.js"></script>
+
+<link rel="stylesheet" href="/resources/css/common.css">
 
 <!DOCTYPE html>
 <html>
@@ -94,7 +98,7 @@ button:hover, a:hover {
 
     <!-- 공지사항 수정 폼 -->
     
-<form name="frm" action="/board/updatePost" method="post"> <%-- enctype="multipart/form-data"> --%>
+<form name="frm" action="/user/board/updatePost" method="post"> <%-- enctype="multipart/form-data"> --%>
     <p><input type="hidden" id="memId" name="memId" value="${getCurrentLoginVO.memId}" /></p>
 	<p><input type="hidden" name="boardId" value="${noticeBoardVO.boardId}" /><p>
 <!--     <p><input type="hidden" id="memId" name="memId" value="admin" /></p> -->
@@ -116,7 +120,7 @@ button:hover, a:hover {
 
     <div class="form-buttons">
         <button type="submit"> 수정 완료  </button>
-        <a href="<c:url value='/board/list'/>" >목록</a>
+        <a href="<c:url value='/user/board/list'/>" >목록</a>
     </div>
 </form>
 

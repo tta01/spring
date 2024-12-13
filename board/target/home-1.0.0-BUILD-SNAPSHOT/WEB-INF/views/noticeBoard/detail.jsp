@@ -2,6 +2,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="decorator" uri="http://www.opensymphony.com/sitemesh/decorator" %>
+<%@ taglib prefix="page" uri="http://www.opensymphony.com/sitemesh/page" %>
+
 
 <script type="text/javascript" src="/resources/js/jquery-3.6.0.js"></script>
 
@@ -84,13 +87,45 @@
 		}
 		
 		</style>
-    
+
 <head>
     <meta charset="UTF-8">
     <title>공지사항 상세보기</title>
 </head>
 
+
 <body>
+
+<script type="text/javascript">
+$(document).ready(function() {
+    console.log("jQuery");
+});
+
+
+$(document).ready(function() {
+    $("#delete").on("click", function() {
+    	console.log("Board ID:", boardId);
+//         debugger;  
+        console.log("오니");
+        var boardId = "";
+        
+        let result = confirm("삭제하시겠습니까?");
+        console.log("Confirm 결과:", result);
+
+        // 확인 선택 시 form을 submit
+        if (result) {
+            $("#frm").attr("method", "post");
+            $("#frm").attr("action", "/user/board/deletePost");
+
+            $("#frm").submit();
+        } else {
+            alert("삭제가 취소되었습니다");
+        }
+    });
+});
+
+</script>   
+
     <h1>공지사항 상세보기</h1>
     <form id="frm" name="frm" action="/board/detailUpdate" method="GET" >
 	    <input type="hidden" name="boardId" value="${noticeBoardVO.boardId}" />
@@ -137,8 +172,8 @@
     <!-- 수정 및 삭제 버튼 -->
     <div class="form-buttons">
       	<button type="submit" id="update" class="list-btn">수정</button>
-		<button type="button" id="delete" class="list-btn">삭제</button>
-		<a href="<c:url value='/board/list' />">목록</a>
+		<button type="button" id="delete" class="list-btn" >삭제</button>
+		<a href="<c:url value='/user/board/list' />">목록</a>
     </div>
     </form>
     
@@ -146,25 +181,4 @@
 
 </html>
 
-<script type="text/javascript">
-$(function(){
-$("#delete").on("click",function(){
-	console.log("오니");
-	var boardId = "";
-	
-	let result = confirm("삭제하시겠습니까?");
-    console.log("Confirm 결과:", result);
-//     alert(result);
-// 	debugger;
-  // 확인 선택 시 form을 submit
-     if (result) {
-             $("#frm").attr("method", "post");
-             $("#frm").attr("action", "/board/deletePost");
-// 	debugger;  ?boardId=${noticeBoardVO.boardId}
-             $("#frm").submit();
-     } else {
-         alert("삭제가 취소되었습니다");
-     }
-	});
-});
-</script>
+

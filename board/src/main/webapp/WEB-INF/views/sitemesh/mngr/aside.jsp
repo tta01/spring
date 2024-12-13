@@ -2,12 +2,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
+<%@ taglib prefix="decorator" uri="http://www.opensymphony.com/sitemesh/decorator" %>
+<%@ taglib prefix="page" uri="http://www.opensymphony.com/sitemesh/page" %>
 
 <script type="text/javascript" src="/resources/js/jquery-3.6.0.js"></script>
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" href="/resources/css/common.css">
+
 <style>
 
 /* 전체 컨테이너를 flexbox로 설정 */
@@ -16,7 +19,7 @@
     height: 100vh; /* 화면 높이를 100%로 설정 */
 }
 
-/* 메뉴 리스트 스타일 
+/* 메뉴 리스트 스타일 */
 ul {
     padding-left: 20px;
 }
@@ -28,28 +31,28 @@ li {
 a {
     text-decoration: none;
     cursor: pointer;
-}*/
+}
 
 .active > a {
 	color: red;
 }
 
 .menu{
+	background-color: aliceblue;
 	width: 20%;
 }
-
-/* 노멀라이즈 시작 */
+/*
 body, ul, li {
   margin: 0;
   padding: 0;
-  list-style: none;   	    /* 해당 태그의 list-style을 none으로 하는 것으로 ●을 제거한다 */
+   list-style: none;   	    /* 해당 태그의 list-style을 none으로 하는 것으로 ●을 제거한다 
 }
+*/
 
 a {
   color: inherit;   	    /* 부모 엘리먼트의 값을 물려받는다 */
   text-decoration: none;    /* 해당 태그의 text-decoration 속성을 none 값으로 하는 것으로 밑줄을 제거한다 */
 }
-/* 노멀라이즈 끝 */
 
 
 </style>
@@ -57,9 +60,9 @@ a {
 
 <body>
 
-		<div class="menu" id="menu-container"> </div>
+	<div class="menu" id="menu-container"> </div>
 
-</body>
+
 <script type="text/javascript">
 $(document).ready(function() {
 	fn_menu_click("web", "menu-container");
@@ -127,5 +130,7 @@ function fn_menu_click(menuCd, prntElId) {
 	});
 }
 </script>
+
+</body>
 
 </html>

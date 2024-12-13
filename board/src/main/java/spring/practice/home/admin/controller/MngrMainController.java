@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -25,7 +26,7 @@ public class MngrMainController {
 	@RequestMapping(value="/main")
 	public String main() {
 		
-		return "mngr/common/main";
+		return "mngr/main";
 	}
 	
 	@RequestMapping(value="/menuAjax" )
@@ -68,5 +69,6 @@ public class MngrMainController {
 	    
 	    return result;
 	}
+	
 	
 }

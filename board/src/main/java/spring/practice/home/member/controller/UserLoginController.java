@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import spring.practice.home.member.service.UserLoginService;
 import spring.practice.home.member.vo.MemberVO;
 
+@RequestMapping("/user")
 @Controller
 public class UserLoginController {
 	
@@ -24,10 +25,10 @@ public class UserLoginController {
 	@RequestMapping("/login")
 	public String actionLogin() {
 		
-		return "home/login/login";
+		return "user/login/login";
 	}
 	
-	@RequestMapping(value="/login.ajax", method=RequestMethod.POST)
+	@RequestMapping(value="/loginAjax", method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String,Object> loginAjax(MemberVO memberVO, HttpServletRequest req, HttpServletResponse res) {
 		

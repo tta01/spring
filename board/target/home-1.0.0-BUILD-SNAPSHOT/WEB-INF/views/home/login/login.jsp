@@ -43,7 +43,7 @@ $(function() {
         $.ajax({
             dataType: "json",
             data: {"lginId":lginId,"pswd":pswd},
-            url: "/login.ajax",
+            url: "/user/login.ajax",
             type: "post",
             success: function(result) {
                 if (result.result == 0) { 

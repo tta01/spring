@@ -2,16 +2,18 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="decorator" uri="http://www.opensymphony.com/sitemesh/decorator" %>
+<%@ taglib prefix="page" uri="http://www.opensymphony.com/sitemesh/page" %>
 
 <script type="text/javascript" src="/resources/js/jquery-3.6.0.js"></script>
+
+<link rel="stylesheet" href="/resources/css/common.css">
 
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="/resources/css/common.css">
-
 <meta charset="UTF-8">
-<title>Admin Main</title>
+	<title> Admin Main </title>
 <style>
 /* 모든 요소에 box-sizing을 border-box로 설정 */
 * {
@@ -51,7 +53,11 @@ a {
 	color: red;
 }
 </style>
-
+	
+<%-- 	<jsp:include page="sitemesh/mngr/header.jsp" /> --%>
+	
+<!-- 	<decorator:head /> -->
+	
 </head>
 
 <body>

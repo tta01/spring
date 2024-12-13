@@ -14,6 +14,38 @@
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 
+	<!-- 인코딩 필터(한글깨짐 방지) -->
+	<filter>
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<!-- tiles대신 sitemesh -->
+	<filter>
+		<filter-name>sitemesh</filter-name>
+		<filter-class>com.opensymphony.module.sitemesh.filter.PageFilter</filter-class>
+		<init-param>
+			<param-name>configFile</param-name>
+			<param-value>/WEB-INF/config/sitemesh.xml</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>sitemesh</filter-name>
+		<url-pattern>/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>ERROR</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+	</filter-mapping>
+	
 	<!-- Processes application requests -->
 	<servlet>
 		<servlet-name>appServlet</servlet-name>
@@ -29,20 +61,6 @@
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
-
-	<!-- 인코딩 필터(한글깨짐 방지) -->
-	<filter>
-		<filter-name>encodingFilter</filter-name>
-		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
-		<init-param>
-			<param-name>encoding</param-name>
-			<param-value>UTF-8</param-value>
-		</init-param>
-	</filter>
-	<filter-mapping>
-		<filter-name>encodingFilter</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
 	
     <!-- 세션 타임아웃 설정 (30분) -->
 	<session-config>

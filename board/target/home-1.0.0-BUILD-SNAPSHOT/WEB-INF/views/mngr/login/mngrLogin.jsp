@@ -42,7 +42,8 @@ $(function(){
 		$.ajax({
 		    dataType : "json",
 			data:{"mngrId":mngrId,"pswd":pswd},
-			url:"/mngr/login.ajax",
+			url:"/mngr/loginAjax",
+			dataType: 'json',
 			type:"post",
 			success:function(result){
 				if (result.result == 0) { 
@@ -58,6 +59,7 @@ $(function(){
                 }
             },
 			error:function(request,status,error){
+				debugger;
 				alert("시스템에 오류가 발생하였습니다. 고객센터로 문의바랍니다.");				
 			
 			}

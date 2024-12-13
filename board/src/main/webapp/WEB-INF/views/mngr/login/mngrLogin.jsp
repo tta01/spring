@@ -10,45 +10,45 @@
 
 <head>
 <meta charset="UTF-8">
-<title>Login</title>
+<title>Admin Login</title>
 </head>
 
 <body>
+
+	<h1>관리자 로그인</h1>
 	
-	<h1>로그인</h1>
-	
-	<form name="loginForm" id="loginForm" action="/login" method="post">
+	<form id="loginFrom" name="loginFrom" action="/mngr/login" method="post">
 		<div>
 			<p>아이디</p>
-			<input type="text" id="lginId" name="lginId" placeholder="아이디" /></td>
+			<input type="text" id="mngrId" name="mngrId" placeholder="아이디" required /></td>
 			
 			<p>비밀번호</p>
-			<input type="text" id="pswd" name="pswd" placeholder="비밀번호" /></td>
+			<input type="text" id="pswd" name=pswd" placeholder="비밀번호" required /></td>
 		</div>
 		
 		<button type="submit" >로그인</button>
 	</form>
 	
 </body>
-
 <script type="text/javascript">
 
-$(function() {
-    $("#loginForm").on("submit", function(e) {
-        e.preventDefault();
-
-        var lginId = $('#lginId').val();
-        var pswd = $('#pswd').val();
-
-        $.ajax({
-            dataType: "json",
-            data: {"lginId":lginId,"pswd":pswd},
-            url: "/login.ajax",
-            type: "post",
-            success: function(result) {
-                if (result.result == 0) { 
+$(function(){
+	$("#loginFrom").on("submit", function(e){
+		e.preventDefault();
+		
+		var mngrId = $("#mngrId").val();
+		var pswd = $("#pswd").val();
+		
+		$.ajax({
+		    dataType : "json",
+			data:{"mngrId":mngrId,"pswd":pswd},
+			url:"/mngr/loginAjax",
+			dataType: 'json',
+			type:"post",
+			success:function(result){
+				if (result.result == 0) { 
                     // 로그인 성공
-                    location.href = "/main";
+                    location.href = "/mngr/main";
                     alert("로그인 되었습니다.");
                 } else if (result.result == 1) {
                     // 아이디가 존재하지 않음
@@ -58,14 +58,14 @@ $(function() {
                     alert("비밀번호가 맞지 않습니다. 다시 로그인해주세요.");
                 }
             },
-            error: function(request, status, error) {
-                alert("시스템에 오류가 발생하였습니다. 고객센터로 문의바랍니다.");
-            }
-        });
-    });
+			error:function(request,status,error){
+				debugger;
+				alert("시스템에 오류가 발생하였습니다. 고객센터로 문의바랍니다.");				
+			
+			}
+		});	 //ajax
+	});
 });
-
-
 </script>
 
 </html>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE decorators>
+
+<decorators defaultdir="/WEB-INF/views">
+    <!-- <excludes> : sitemesh 사용하지 않을 url패턴 넣기 -->
+    <excludes>
+        <pattern>/mngr/login</pattern>
+        <pattern>/user/login</pattern>
+    </excludes>
+    
+    <!-- mngr -->
+    <decorator name="mngr-layout" page="/WEB-INF/views/sitemesh/mngr/index.jsp">
+        <pattern>/mngr/*</pattern>
+        <pattern>/mngr/**/*</pattern>
+    </decorator>
+
+    <!-- user -->
+    <decorator name="user-layout" page="/WEB-INF/views/sitemesh/user/index.jsp">
+        <pattern>/user/*</pattern>
+        <pattern>/user/**/*</pattern>
+    </decorator>
+    
+    <!-- default 비회원시 로그인 여부 확인하는!! 공지사항 그런거 확인할 수 있는걸로 만들어 -->
+    <decorator name="layout" page="/WEB-INF/views/index.jsp">
+<!--         <pattern>/board/*</pattern> -->
+    </decorator>
+
+</decorators>

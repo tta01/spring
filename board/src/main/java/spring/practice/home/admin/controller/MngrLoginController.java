@@ -37,16 +37,16 @@ public class MngrLoginController {
 	        if (session.getAttribute("isRedirect") != null) {
 	            // 리다이렉트 플래그가 있으면 리다이렉트하지 않음
 	        	session.removeAttribute("isRedirect");  
-	            return "redirect:/mngr/common/main"; // 이미 로그인되어 있으면 메인 페이지로 이동하게!!
+	            return "redirect:/mngr/main"; // 이미 로그인되어 있으면 메인 페이지로 이동하게!!
 	        }
 	        // 리다이렉트 플래그를 설정 => 로그인되어 있다는걸로 보면 됨
 	        session.setAttribute("isRedirect", true);
-	        return "redirect:/mngr/common/login/mngrLogin"; 
+	        return "redirect:/mngr/login/mngrLogin"; 
 	    }
-		return "mngr/common/login/mngrLogin";
+		return "mngr/login/mngrLogin";
 	}
 
-	@RequestMapping(value="/login.ajax", method=RequestMethod.POST)
+	@RequestMapping(value="/loginAjax", method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String,Object> actionLogin(ManagerVO managerVO, HttpServletRequest req, HttpServletResponse res) throws Exception {
 		
@@ -64,7 +64,7 @@ public class MngrLoginController {
 		HttpSession session = req.getSession();
 		session.invalidate();
 		
-		return "/mngr/common/main";
+		return "mngr/main";
 		
 	}
 	

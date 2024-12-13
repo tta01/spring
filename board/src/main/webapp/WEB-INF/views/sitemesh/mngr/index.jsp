@@ -2,20 +2,21 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
+<%@ taglib prefix="decorator" uri="http://www.opensymphony.com/sitemesh/decorator" %>
+<%@ taglib prefix="page" uri="http://www.opensymphony.com/sitemesh/page" %>
 
 <script type="text/javascript" src="/resources/js/jquery-3.6.0.js"></script>
 
-<!DOCTYPE html>
-<html>
-
-<head>
 <link rel="stylesheet" href="/resources/css/common.css">
 
+<!DOCTYPE html>
+<html>
+<head>
 <style>
 .container{
 	display: flex;
     flex-direction: row;
+    min-height: 800px;
 }
 
 .admintiles {
@@ -26,24 +27,28 @@
 </style>
 
 <meta charset="UTF-8">
-<title>관리자 인덱스</title>
+	<title> 관리자 main </title>
 </head>
 
 <body>
+
+<%-- 	<decorator:head /> --%>
+
+	<jsp:include page="header.jsp" />
+
+
+<div class="container">
+
+	<jsp:include page="aside.jsp" />
+
+			<div class="admintiles" id="admintiles" >
+
+	<decorator:body />
+			
+			</div>
+</div>
 	
-	<tiles:insertAttribute name="header" />
-	
-	<div class="container">
-		<tiles:insertAttribute name="aside"/>
-				<div class="admintiles" id="admintiles" >
-					
-					<tiles:insertAttribute name="body" />
-				
-				</div>
-	</div>
-	
-	<tiles:insertAttribute name="footer" />
-	
+<jsp:include page="footer.jsp" />	
 				
 </body>
 </html>

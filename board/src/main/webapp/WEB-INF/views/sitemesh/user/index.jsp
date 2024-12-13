@@ -2,31 +2,29 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
+<%@ taglib prefix="decorator" uri="http://www.opensymphony.com/sitemesh/decorator" %>
+<%@ taglib prefix="page" uri="http://www.opensymphony.com/sitemesh/page" %>
 
 <script type="text/javascript" src="/resources/js/jquery-3.6.0.js"></script>
 
-<!DOCTYPE html>
-<html>
-
-<head>
-<style>
-*{
-	padding: 20%;
-	margin: 20%;
-}
-
-</style>
 <link rel="stylesheet" href="/resources/css/common.css">
 
+<!DOCTYPE html>
+<html>
+<head>
 <meta charset="UTF-8">
-<title> main</title>
+	<title> 일반 회원 main </title>
 </head>
 
 <body>
 
-	<tiles:insertAttribute name="body" />
+<%-- 	<decorator:head />	 --%>
+	<c:import url="/user/menuList"></c:import>
 
+	<decorator:body />
+	
+	<jsp:include page="footer.jsp" />
+	
 </body>
 
 </html>

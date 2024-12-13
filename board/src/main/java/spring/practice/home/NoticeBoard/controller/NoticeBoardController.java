@@ -12,7 +12,7 @@ import spring.practice.home.NoticeBoard.service.NoticeBoardService;
 import spring.practice.home.NoticeBoard.vo.NoticeBoardVO;
 
 @Slf4j
-@RequestMapping("/board")
+@RequestMapping("/user/board")
 @Controller
 public class NoticeBoardController {
 	
@@ -38,7 +38,7 @@ public class NoticeBoardController {
 		log.info("noticeBoardController createForm : " + noticeBoardVO);
 		log.info("noticeBoardController createForm : " + result);
 		
-		return "redirect:/board/list";
+		return "redirect:/user/board/list";
 	 }
 	
 	@RequestMapping("/detail")
@@ -70,7 +70,7 @@ public class NoticeBoardController {
 		log.info("noticeBoardController updatePost : " + noticeBoardVO);
 
 //		return result;
-		return "redirect:/board/detail?boardId="+noticeBoardVO.getBoardId();
+		return "redirect:/user/board/detail?boardId="+noticeBoardVO.getBoardId();
 	}
 	
 	@RequestMapping(value="/deletePost", method=RequestMethod.POST)
@@ -78,7 +78,7 @@ public class NoticeBoardController {
 		
 		int result = noticeBoardService.deletePost(boardId);
 
-		return "redirect:/board/list";
+		return "redirect:/user/board/list";
 	}
 	
 }
