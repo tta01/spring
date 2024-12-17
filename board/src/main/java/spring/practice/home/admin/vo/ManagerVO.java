@@ -2,7 +2,6 @@ package spring.practice.home.admin.vo;
 
 /**
  * 관리자 회원 VO
- * @author 
  */
 public class ManagerVO {
 	

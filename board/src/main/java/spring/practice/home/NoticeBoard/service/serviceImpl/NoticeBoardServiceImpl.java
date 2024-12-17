@@ -4,19 +4,28 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.web.multipart.MultipartFile;
 
 import spring.practice.home.NoticeBoard.mapper.NoticeBoardMapper;
 import spring.practice.home.NoticeBoard.service.NoticeBoardService;
 import spring.practice.home.NoticeBoard.vo.NoticeBoardVO;
+import spring.practice.home.common.controller.AtchFileController;
+import spring.practice.home.common.mapper.AtchFileMapper;
+import spring.practice.home.common.util.AtchFileUtil;
+import spring.practice.home.common.vo.AtchFileVO;
 
 @Service
 public class NoticeBoardServiceImpl implements NoticeBoardService {
 	
 	@Resource
 	NoticeBoardMapper brdMapper;
-
+	
+	@Resource
+	AtchFileUtil atchfileUtil;
+	
 	@Override
 	public String selectBoardList(NoticeBoardVO noticeBoardVO, Model model) {
 		
@@ -45,15 +54,21 @@ public class NoticeBoardServiceImpl implements NoticeBoardService {
 		
 		return "noticeBoard/list";
 	}
-
+	
 	@Override
 	public int createForm(NoticeBoardVO noticeBoardVO) {
+		
 	    int result = brdMapper.createForm(noticeBoardVO);
-		return result;
+	    
+	    if(result > 0) {
+	    	result += atchfileUtil.uploadFile(noticeBoardVO.getUploadFile(),noticeBoardVO.getNtbdAfId());
+	    }
+
+	    return result;
 	}
 
 	@Override
-	public NoticeBoardVO detail(String boardId) {
+	public List<NoticeBoardVO> detail(String boardId) {
 		return brdMapper.detail(boardId);
 	}
 
@@ -70,7 +85,5 @@ public class NoticeBoardServiceImpl implements NoticeBoardService {
 		
 		return result;
 	}
-
-
 
 }

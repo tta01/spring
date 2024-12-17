@@ -18,17 +18,17 @@
 </head>
 
 <body>
-  <div id="title">
-    <p>사용자 메인 페이지</p>
-  </div>
-<!-- 	<div class="visual"> -->
+	<div class="main-body">
+	  <div id="title">
+	    <p>사용자 메인 페이지</p>
+	  </div>
+	</div>
 <%-- 	<jsp:include page="/sitemesh/user/header.jsp" /> --%>
 
 <%-- <decorator:body /> --%>
 
 <%-- 	<jsp:include page="sitemesh/user/footer.jsp" /> --%>
 
-<!-- 	</div> -->
 	
 </body>
 

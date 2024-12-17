@@ -24,7 +24,7 @@
 			<input type="text" id="lginId" name="lginId" placeholder="아이디" /></td>
 			
 			<p>비밀번호</p>
-			<input type="text" id="pswd" name="pswd" placeholder="비밀번호" /></td>
+			<input type="password" id="pswd" name="pswd" placeholder="비밀번호" /></td>
 		</div>
 		
 		<button type="submit" >로그인</button>

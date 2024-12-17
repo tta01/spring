@@ -33,11 +33,6 @@
 	
 	<insert id="createForm" parameterType="noticeBoardVO">
 		/* NOTICE_BOARD INSERT */
-		<selectKey resultType="String" order="BEFORE" keyProperty="boardId">
-			SELECT 'NOT' || NVL(TRIM(TO_CHAR(SUBSTR(MAX(BOARD_ID),4) + 1,'00000')),'00001')
-			FROM   NOTICE_BOARD
-		</selectKey>
-		
 		INSERT INTO NOTICE_BOARD (
 				    BOARD_ID,
 				    MEM_ID,
@@ -47,21 +42,17 @@
 				    NTBD_AF_ID,
 				    BOARD_CNTNT
 				) 
-		VALUES (#{boardId},#{memId},#{boardTitle},SYSDATE,SYSDATE,#{ntbdAfId},#{boardCntnt})
+		VALUES (board_id.NEXTVAL, #{memId},#{boardTitle},SYSDATE,SYSDATE,#{ntbdAfId},#{boardCntnt})
 	
 	</insert>
 	
 	<select id="detail" resultType="noticeBoardVO" parameterType="String">
 	 /* NOTICE_BOARD detailPost */
-		SELECT 	BOARD_ID
-				,MEM_ID
-				,BOARD_TITLE
-				,BOARD_WRITING_DT
-				,BOARD_UPDT_DT
-				,NTBD_AF_ID
-				,BOARD_CNTNT
-		FROM	NOTICE_BOARD
-		WHERE 	BOARD_ID = #{boardId}
+		SELECT 	A.BOARD_ID, A.MEM_ID, A.BOARD_TITLE, A.BOARD_WRITING_DT, A.BOARD_UPDT_DT, A.NTBD_AF_ID, A.BOARD_CNTNT
+				,B.AF_ID, B.AF_ORIGIN_NM, B.AF_SAVE_NM, B.AF_FILE_SIZE, B.AF_SAVE_PATH, B.AF_EXTSN, B.FSTM_RGSTR_ID, B.LAST_MODFR_ID, B.LAST_MDFCN_DT 
+		FROM	NOTICE_BOARD A, T_KSO_ATCH_FILE B
+		WHERE 	A.NTBD_AF_ID = B.AF_ID
+		AND 	A.BOARD_ID = #{boardId}
 	
 	</select>
 	

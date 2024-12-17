@@ -5,6 +5,7 @@
     <!-- <excludes> : sitemesh 사용하지 않을 url패턴 넣기 -->
     <excludes>
         <pattern>/mngr/login</pattern>
+        <pattern>/mngr/login.ajax</pattern>
         <pattern>/user/login</pattern>
     </excludes>
     
@@ -24,5 +25,7 @@
     <decorator name="layout" page="/WEB-INF/views/index.jsp">
 <!--         <pattern>/board/*</pattern> -->
     </decorator>
+    
+<!-- 사이트메쉬에서 interceptor 막는거.. 같이 구현해? 여기서 막는 부분 찾아서 구현해두기 -->    
 
 </decorators>

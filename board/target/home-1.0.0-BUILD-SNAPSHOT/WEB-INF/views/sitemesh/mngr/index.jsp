@@ -16,6 +16,7 @@
 .container{
 	display: flex;
     flex-direction: row;
+    min-height: 800px;
 }
 
 .admintiles {
@@ -31,20 +32,21 @@
 
 <body>
 
-<%-- <%@ include file="/WEB-INF/views/sitemesh/mngr/header.jsp" %> --%>
-	
+<%-- 	<decorator:head /> --%>
+
 	<jsp:include page="header.jsp" />
-<!-- <div class="container"> -->
 
 
-<jsp:include page="aside.jsp" />
+<div class="container">
 
-<!-- 			<div class="admintiles" id="admintiles" > -->
-			
+	<jsp:include page="aside.jsp" />
+
+			<div class="admintiles" id="admintiles" >
+
 	<decorator:body />
 			
-<!-- 			</div> -->
-<!-- </div> -->
+			</div>
+</div>
 	
 <jsp:include page="footer.jsp" />	
 				

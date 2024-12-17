@@ -52,18 +52,16 @@ a {
 .active > a {
 	color: red;
 }
+
 </style>
-	
-<%-- 	<jsp:include page="sitemesh/mngr/header.jsp" /> --%>
-	
-<!-- 	<decorator:head /> -->
 	
 </head>
 
 <body>
-  <div id="title">
-    <p>관리자 메인 페이지</p>
-  </div>
+	<div class="main-body">
+  		<div id="title">
+    		<p>관리자 메인 페이지</p>
+  		</div>
   
 	<div class="container">
 		<div id="menu-container"> </div>
@@ -90,7 +88,7 @@ a {
         				
        	</div>
 	</div>
-    
+</div>
 <script type="text/javascript">
 
 // 저장 버튼

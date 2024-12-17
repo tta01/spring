@@ -33,11 +33,6 @@
 	
 	<insert id="createForm" parameterType="noticeBoardVO">
 		/* NOTICE_BOARD INSERT */
-		<selectKey resultType="String" order="BEFORE" keyProperty="boardId">
-			SELECT 'NOT' || NVL(TRIM(TO_CHAR(SUBSTR(MAX(BOARD_ID),4) + 1,'00000')),'00001')
-			FROM   NOTICE_BOARD
-		</selectKey>
-		
 		INSERT INTO NOTICE_BOARD (
 				    BOARD_ID,
 				    MEM_ID,
@@ -47,7 +42,7 @@
 				    NTBD_AF_ID,
 				    BOARD_CNTNT
 				) 
-		VALUES (#{boardId},#{memId},#{boardTitle},SYSDATE,SYSDATE,#{ntbdAfId},#{boardCntnt})
+		VALUES (board_id.NEXTVAL, #{memId},#{boardTitle},SYSDATE,SYSDATE,#{ntbdAfId},#{boardCntnt})
 	
 	</insert>
 	

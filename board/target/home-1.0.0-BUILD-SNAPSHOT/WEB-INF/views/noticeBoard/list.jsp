@@ -43,7 +43,7 @@
 	            <c:forEach var="item" items="${noticeVOList}" varStatus="status">
 	                <tr>
 	                    <td>${item.rnum}</td>
-	                    <td><a href="<c:url value='/board/detail?boardId=${item.boardId}'/>">${item.boardTitle}</a></td>
+	                    <td><a href="<c:url value='/user/board/detail?boardId=${item.boardId}'/>">${item.boardTitle}</a></td>
 	                    <td>${item.memId}</td>
 	                    <td><fmt:formatDate value="${item.boardWritingDt}" pattern="yyyy-MM-dd HH:mm"/></td>
 	                    <td><fmt:formatDate value="${item.boardUpdtDt}" pattern="yyyy-MM-dd HH:mm"/></td>

@@ -1,19 +1,20 @@
 @charset "UTF-8";
-/*
-*{
-	margin: 10;
-	padding: 10;
+.main-body{
+	min-height: 800px;
+    margin: 10px;
+    padding: 40px;
+    width: 1200px;
 }
-*/
-.header, .content, .footer{
+.header, .content {
 	width: 100%;
 	float:left;
 }
 
 .header, .footer{
+    padding: 40px;
+    width: 80%;
 	margin: 20px;
 	height: 8em;
-	background-color: balck;
 }
 
 .board-list {
@@ -70,7 +71,7 @@ form {
 }
 
 /* 입력 필드 및 텍스트 영역 디자인 */
-input[type="text"], textarea, input[type="file"] {
+input[type="text"], input[type="file"], input[type="number"], textarea {
     width: 100%;
     padding: 10px;
     margin: 5px 0 10px;

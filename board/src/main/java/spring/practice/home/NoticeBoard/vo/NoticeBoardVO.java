@@ -1,8 +1,12 @@
 package spring.practice.home.NoticeBoard.vo;
 
+import java.util.Arrays;
 import java.util.Date;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import module.paging.vo.PagingVO;
+import spring.practice.home.common.vo.AtchFileVO;
 
 public class NoticeBoardVO extends PagingVO {
 
@@ -14,6 +18,8 @@ public class NoticeBoardVO extends PagingVO {
     private Date boardUpdtDt;
     private String ntbdAfId;
     private String boardCntnt;
+    
+    private MultipartFile[] uploadFile;
     
 	public int getRnum() {
 		return rnum;
@@ -63,11 +69,20 @@ public class NoticeBoardVO extends PagingVO {
 	public void setBoardCntnt(String boardCntnt) {
 		this.boardCntnt = boardCntnt;
 	}
+	public MultipartFile[] getUploadFile() {
+		return uploadFile;
+	}
+	public void setUploadFile(MultipartFile[] uploadFile) {
+		this.uploadFile = uploadFile;
+	}
+	
 	@Override
 	public String toString() {
 		return "NoticeBoardVO [rnum=" + rnum + ", boardId=" + boardId + ", memId=" + memId + ", boardTitle="
 				+ boardTitle + ", boardWritingDt=" + boardWritingDt + ", boardUpdtDt=" + boardUpdtDt + ", ntbdAfId="
-				+ ntbdAfId + ", boardCntnt=" + boardCntnt + "]";
+				+ ntbdAfId + ", boardCntnt=" + boardCntnt + ", uploadFile=" + Arrays.toString(uploadFile)
+				+ ", atchFileVO="+"]";
 	}
+	
 	
 }

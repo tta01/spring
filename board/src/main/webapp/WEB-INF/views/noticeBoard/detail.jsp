@@ -152,20 +152,20 @@ $(document).ready(function() {
 	            <td>
 	            	<pre class="content">${noticeBoardVO.boardCntnt}</pre> 
 	            </td>
-<!-- 	        </tr> -->
-<!-- 	        <tr> -->
-<!-- 	            <th>첨부파일</th> -->
-<!-- 	            <td> -->
+	        </tr>
+	        <tr>
+	            <th>첨부파일</th>
+	            <td>
 <%-- 	            <c:forEach var="item" items="${brdList}" varStatus="status"> --%>
-<%-- 					    <img src="/resources/upload/${item.ntbdAfId}" /> --%>
+<%-- <%-- 					    <img src="/resources/upload/${item.ntbdAfId}" /> --%> --%>
+<%-- 	                <c:choose> --%>
+<%-- 	                    <c:when test="${not empty item.ntbdAfId}"> --%>
+<%-- 	                        <a href="/file/download/${item.ntbdAfId}" class="file-link" target="_blank">${item.ntbdAfId}</a> --%>
+<%-- 	                    </c:when> --%>
+<%-- 	                    <c:otherwise>첨부파일 없음</c:otherwise> --%>
+<%-- 	                </c:choose> --%>
 <%-- 				</c:forEach> --%>
-	<%--                 <c:choose> --%>
-	<%--                     <c:when test="${not empty noticeBoardVO.ntbdAfId}"> --%>
-	<%--                         <a href="/file/download/${noticeBoardVO.ntbdAfId}" class="file-link" target="_blank">파일 다운로드</a> --%>
-	<%--                     </c:when> --%>
-	<%--                     <c:otherwise>첨부파일 없음</c:otherwise> --%>
-	<%--                 </c:choose> --%>
-<!-- 	            </td> -->
+	            </td>
 	        </tr>
 	    </table>
 

@@ -14,16 +14,15 @@
 <head>
 <meta charset="UTF-8">
 	<title> 일반 회원 main </title>
-<%-- 	<decorator:head />	 --%>
 </head>
 
 <body>
 
-	<jsp:include page="header.jsp" />
-<!-- <sitemesh:body /> -->
+<%-- 	<decorator:head />	 --%>
+	<c:import url="/user/menuList"></c:import>
 
 	<decorator:body />
-
+	
 	<jsp:include page="footer.jsp" />
 	
 </body>

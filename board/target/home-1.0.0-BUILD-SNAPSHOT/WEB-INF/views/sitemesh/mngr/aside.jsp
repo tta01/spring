@@ -38,6 +38,7 @@ a {
 }
 
 .menu{
+	background-color: aliceblue;
 	width: 20%;
 }
 /*
@@ -61,7 +62,6 @@ a {
 
 	<div class="menu" id="menu-container"> </div>
 
-</body>
 
 <script type="text/javascript">
 $(document).ready(function() {
@@ -130,5 +130,7 @@ function fn_menu_click(menuCd, prntElId) {
 	});
 }
 </script>
+
+</body>
 
 </html>

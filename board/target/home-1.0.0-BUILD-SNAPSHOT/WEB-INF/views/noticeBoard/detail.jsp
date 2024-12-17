@@ -127,7 +127,7 @@ $(document).ready(function() {
 </script>   
 
     <h1>공지사항 상세보기</h1>
-    <form id="frm" name="frm" action="/board/detailUpdate" method="GET" >
+    <form id="frm" name="frm" action="/user/board/detailUpdate" method="GET" >
 	    <input type="hidden" name="boardId" value="${noticeBoardVO.boardId}" />
 	    
 	    <table class="detail-table">

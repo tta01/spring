@@ -26,9 +26,6 @@ public class MngrLoginController {
 	
 	@RequestMapping("/login")
 	public String login(HttpSession session, Model model) {
-		Map<String, String> response = new HashMap<>();
-		
-		// object에서 ManagerVO로 변경하고 캐스팅
 		ManagerVO managerVO = (ManagerVO) session.getAttribute("managerVO");
 		
 		// 로그인시 로그인페이지로 가는거 방지하는데, redirect가 무한으로 걸림..
@@ -57,6 +54,31 @@ public class MngrLoginController {
 		
 		return resultMap;
 	}
+	
+//	@RequestMapping("/login")
+//	public String login() {
+//		
+//		return "mngr/login/mngrLogin";
+//	}
+//
+//	@RequestMapping(value="/loginAjax", method=RequestMethod.POST)
+//	@ResponseBody
+//	public Map<String,Object> actionLogin(ManagerVO managerVO, HttpServletRequest request, HttpServletResponse res) throws Exception {
+//
+//	    Map<String,Object> resultMap = new HashMap<String, Object>();
+//	    int result = MngrLoginService.actionLogin(request, managerVO);
+//
+//	    if (result == 0) {  // 로그인 성공 (0: 성공)
+//	        HttpSession session = request.getSession(); // 세션 객체 가져오기
+//	        session.setAttribute("managerVO", managerVO); // 세션에 관리자 정보 저장
+//
+//	        // 세션에 값이 잘 저장되었는지 확인
+//	        System.out.println("로그인 후 세션에 저장된 managerVO: " + session.getAttribute("managerVO"));
+//	    }
+//
+//	    resultMap.put("result", result);
+//	    return resultMap;
+//	}
 	
 	@RequestMapping(value="/logout", method=RequestMethod.POST)
 	public String mngrLogout(HttpServletRequest req) throws Exception {

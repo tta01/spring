@@ -18,21 +18,22 @@ public class MngrLoginServiceImpl implements MngrLoginService {
 
 	@Override
 	public int actionLogin(HttpServletRequest req, ManagerVO managerVO) {
-		HttpSession session = req.getSession();
-	
-		ManagerVO managerVOResult = loginMapper.actionLogin(managerVO);
-		
-		if(managerVOResult == null) {
-			return 1;
-		} else { // 로그인 성공시
-			if(managerVO.getPswd().equals(managerVOResult.getPswd())) {
-				session.setAttribute("managerVO", managerVOResult);
-				return 0;
-			} else {
-				return 2;
-			}
-		}
+	    HttpSession session = req.getSession();
+	    
+	    ManagerVO managerVOResult = loginMapper.actionLogin(managerVO);
+	    
+	    if (managerVOResult == null) {
+	        return 1;  // 아이디 없음
+	    } else {
+	        if (managerVO.getPswd().equals(managerVOResult.getPswd())) {
+	            session.setAttribute("managerVO", managerVOResult);
+	            System.out.println("로그인 성공: " + managerVOResult);  // 세션에 저장된 managerVO 출력
+	            return 0;  // 로그인 성공
+	        } else {
+	            return 2;  // 비밀번호 불일치
+	        }
+	    }
 	}
-	
+
 
 }
