@@ -7,7 +7,5 @@ import spring.practice.home.member.vo.MemberVO;
 public interface UserLoginService {
 
 	public int actionLogin(HttpServletRequest req, MemberVO memberVO);
-	
-	
 
 }

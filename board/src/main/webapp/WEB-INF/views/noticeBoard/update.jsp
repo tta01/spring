@@ -43,11 +43,13 @@ input[type="text"], textarea, input[type="file"] {
     width: 100%;
     padding: 10px;
     margin: 5px 0 10px;
-    border: 1px solid #ddd; /* 테두리 추가 */
-    border-radius: 5px;
+    border: none;
 }
 
 textarea {
+	white-space: pre-wrap;
+	word-break: break-all;
+	overflow: auto;
     resize: vertical;
     height: 150px;
 }
@@ -87,44 +89,106 @@ button:hover, a:hover {
 .form-buttons a:last-child {
     margin-right: 0;
 }
+
+.del-btn{
+	font-size: 12px;
+	width: 100px;
+	height: 32px;
+	border-radius: 5px;
+	border-color: blue;
+}
+img {
+
+}
 </style>
 
 <head>
     <meta charset="UTF-8">
     <title>공지사항 수정</title>
 </head>
+
 <body>
-    <h1>공지사항 수정</h1>
+    <div class="board-list">
+	    <h1>공지사항 수정</h1>
+		<c:out value="${boardVO}"></c:out>    
+		
+    <form name="frm" action="/user/board/updatePost" method="post" enctype="multipart/form-data"> 
+    	<p><input type="hidden" name="boardId" value="${boardVO.boardId}" /></p>
+	    <p><input type="hidden" id="memId" name="memId" value="${mngrId}" /></p>
+	    <p><input type="hidden" id="useYn" name="useYn" value="${useYn}" /></p>
+	
+	    <table class="form-table">
+	    
+	        <tr>
+	            <th>공지사항 제목</th>
+	            <td><input type="text" id="boardTitle" name="boardTitle" placeholder="공지사항 제목입력" value="${boardVO.boardTitle}" required /></td>
+	        </tr>
+	        <tr>
+	            <th>공지사항 내용</th>
+	            <td><textarea id="boardCntnt" name="boardCntnt" required >${boardVO.boardCntnt}</textarea></td>
+	        </tr>
+	        <tr>
+	            <th>공지사항 파일</th>
+<%-- 	            <c:out value="${fileVO}"></c:out> --%>
+	            <td>
+	            	<p class="board-title"> 첨부파일 선택 </p>
+	            	
+<%-- 	            	<c:choose> --%>
+	            		<c:if test="${not empty fileVO}">
+							<c:forEach var="item" items="${fileVO}" varStatus="status">
+									<div id="fileList${status.index}" class="file-link">[ ${item.afOriginNm} ]
+<%-- 									<button type="button" class="del-btn" onclick="fn_fileDelete('${status.index}')">파일삭제</button> --%>
+<%-- 			            		<img src="/resources/upload/${item.afSaveNm}" width="70%" style="margin-top: 20px;" /> --%>
+								<img src="/resources/images/delete.png" onclick="fn_fileDelete(${status.index})"
+								 style="width:20px; height:auto; vertical-align: middle; cursor: pointer;"/></div>					
+							</c:forEach>
+						</c:if>
+<%-- 	            		<c:otherwise>등록된 파일이 없습니다.</c:otherwise> --%>
+<%-- 	            	</c:choose> --%>
+		            	<input type="file" id="uploadFile" name="uploadFile" multiple /> 
+           				<div id="atchfileChange" style="margin-left: 10px; width: 150%; display: flex; flex-direction: column;"></div>
+	            </td>
+	        </tr>
+	        
+	    </table>
+	
+	    <div class="form-buttons">
+	        <button type="submit" onclick="btn_submit()"> 수정 완료 </button>
+	        <a href="<c:url value='/user/board/list'/>" >목록</a>
+	    </div>
+	</form>
 
-    <!-- 공지사항 수정 폼 -->
-    
-<form name="frm" action="/user/board/updatePost" method="post"> <%-- enctype="multipart/form-data"> --%>
-    <p><input type="hidden" id="memId" name="memId" value="${getCurrentLoginVO.memId}" /></p>
-	<p><input type="hidden" name="boardId" value="${noticeBoardVO.boardId}" /><p>
-<!--     <p><input type="hidden" id="memId" name="memId" value="admin" /></p> -->
+</div>
 
-    <table class="form-table">
-        <tr>
-            <th>공지사항 제목</th>
-            <td><input type="text" id="boardTitle" name="boardTitle" value="${noticeBoardVO.boardTitle}" /></td>
-        </tr>
-        <tr>
-            <th>공지사항 내용</th>
-            <td><textarea id="boardCntnt" name="boardCntnt" >${noticeBoardVO.boardCntnt}</textarea></td>
-        </tr>
-        <!-- <tr>
-            <th>공지사항 파일</th>
-            <td><input type="file" id="ntbdAfId" name="ntbdAfId" multiple /></td>
-        </tr> -->
-    </table>
+<script type="text/javascript" src="/resources/js/fileUpdate.js"></script>
+<script type="text/javascript" src="/resources/js/fileCreate.js"></script>
 
-    <div class="form-buttons">
-        <button type="submit"> 수정 완료  </button>
-        <a href="<c:url value='/user/board/list'/>" >목록</a>
-    </div>
-</form>
+<script type="text/javascript">
 
-
+//삭제
+// function delbtn() {
+	
+// 	var file = document.getElementById("fileList").value;
+	
+// 	console.log("file : "+file);
+//     if (confirm("삭제 하시겠습니까?")) {
+// 	 $.ajax({	
+// 	     url: '/user/board/fileAjax', 
+// 	     type: 'POST',
+// 	     data: { "file": file },
+// 	     dataType: 'json',
+// 	     success: function(response) {
+// 	         alert("메뉴가 성공적으로 삭제되었습니다.");
+// 	    	 console.log("deleteMenu :"+response);
+// 	     },
+// 	     error: function(xhr, status, error) {
+// 	         console.error("메뉴 삭제 중 오류 발생", status, error);
+// 	         alert("서버 오류: " + error);
+// 	     }
+// 	 });
+//     }
+// }
+</script>
     
 </body>
 

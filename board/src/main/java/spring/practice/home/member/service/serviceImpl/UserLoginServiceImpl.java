@@ -22,7 +22,7 @@ public class UserLoginServiceImpl implements UserLoginService {
 
 	    MemberVO memberVOResult = loginMapper.actionLogin(memberVO);
 
-	    if (memberVOResult == null) { // 아이디가 존재하지 않는 경우
+	    if (memberVOResult == null) {
 	        return 1; 
 	    } else { // 아이디는 맞고, 비밀번호 확인
 	        if (memberVO.getPswd().equals(memberVOResult.getPswd())) {

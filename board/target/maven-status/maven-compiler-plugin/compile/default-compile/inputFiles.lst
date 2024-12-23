@@ -3,7 +3,6 @@ C:\Users\TG\git\spring\board\src\main\java\spring\practice\home\admin\Intercepto
 C:\Users\TG\git\spring\board\src\main\java\spring\practice\home\admin\mapper\MngrMenuMapper.java
 C:\Users\TG\git\spring\board\src\main\java\spring\practice\home\admin\vo\MngrMenuVO.java
 C:\Users\TG\git\spring\board\src\main\java\spring\practice\home\common\service\AtchFileService.java
-C:\Users\TG\git\spring\board\src\main\java\spring\practice\home\common\controller\AtchFileController.java
 C:\Users\TG\git\spring\board\src\main\java\spring\practice\home\NoticeBoard\service\NoticeBoardService.java
 C:\Users\TG\git\spring\board\src\main\java\spring\practice\home\member\vo\MemberVO.java
 C:\Users\TG\git\spring\board\src\main\java\spring\practice\home\NoticeBoard\service\serviceImpl\NoticeBoardServiceImpl.java
@@ -12,6 +11,7 @@ C:\Users\TG\git\spring\board\src\main\java\spring\practice\home\admin\service\se
 C:\Users\TG\git\spring\board\src\main\java\spring\practice\home\NoticeBoard\controller\NoticeBoardController.java
 C:\Users\TG\git\spring\board\src\main\java\spring\practice\home\admin\service\MngrLoginService.java
 C:\Users\TG\git\spring\board\src\main\java\spring\practice\home\member\service\serviceImpl\UserLoginServiceImpl.java
+C:\Users\TG\git\spring\board\src\main\java\spring\practice\home\common\controller\AtchFileContoller.java
 C:\Users\TG\git\spring\board\src\main\java\spring\practice\home\common\mapper\AtchFileMapper.java
 C:\Users\TG\git\spring\board\src\main\java\spring\practice\home\member\service\UserLoginService.java
 C:\Users\TG\git\spring\board\src\main\java\spring\practice\home\member\controller\UserMainController.java
@@ -19,6 +19,7 @@ C:\Users\TG\git\spring\board\src\main\java\spring\practice\home\NoticeBoard\mapp
 C:\Users\TG\git\spring\board\src\main\java\spring\practice\home\NoticeBoard\vo\NoticeBoardVO.java
 C:\Users\TG\git\spring\board\src\main\java\spring\practice\home\admin\service\MngrMenuService.java
 C:\Users\TG\git\spring\board\src\main\java\spring\practice\home\admin\mapper\MngrLoginMapper.java
+C:\Users\TG\git\spring\board\src\main\java\spring\practice\home\common\util\AtchFileUtil.java
 C:\Users\TG\git\spring\board\src\main\java\spring\practice\home\common\vo\AtchFileVO.java
 C:\Users\TG\git\spring\board\src\main\java\spring\practice\home\admin\controller\MngrMainController.java
 C:\Users\TG\git\spring\board\src\main\java\spring\practice\home\member\mapper\UserLoginMapper.java
@@ -27,4 +28,3 @@ C:\Users\TG\git\spring\board\src\main\java\spring\practice\home\admin\vo\Manager
 C:\Users\TG\git\spring\board\src\main\java\spring\practice\home\member\controller\UserLoginController.java
 C:\Users\TG\git\spring\board\src\main\java\spring\practice\home\admin\service\serviceImpl\MngrLoginServiceImpl.java
 C:\Users\TG\git\spring\board\src\main\java\spring\practice\home\admin\controller\MngrLoginController.java
-C:\Users\TG\git\spring\board\src\main\java\spring\practice\home\common\vo\MultiFileVO.java

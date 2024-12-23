@@ -3,8 +3,8 @@
 
 <mapper namespace="spring.practice.home.common.mapper.AtchFileMapper">
 
-	<!-- <select id="selectFile" parameterType="spring.practice.home.common.vo.AtchFileVO">
-	/* SELECT ATCHFILE */
+	 <select id="selectFileList" resultType="spring.practice.home.common.vo.AtchFileVO">
+	/* SELECT ATCHFILE LIST */
 		SELECT
 		    AF_SEQ,
 		    AF_ID,
@@ -13,15 +13,14 @@
 		    AF_FILE_SIZE,
 		    AF_SAVE_PATH,
 		    AF_EXTSN,
-		    FSTM_RGSTR_ID,
-		    LAST_MODFR_ID,
-		    LAST_MDFCN_DT
+		    LAST_MDFCN_DT,
+		    USE_YN
 		FROM
 		    T_KSO_ATCH_FILE
 				
-	</select> -->
+	</select> 
 
-	<insert id="insertFile" parameterType="spring.practice.home.common.vo.AtchFileVO">
+	<insert id="createFile" parameterType="spring.practice.home.common.vo.AtchFileVO">
 	/* INSERT FILE */
 		INSERT INTO T_KSO_ATCH_FILE (
 	        AF_SEQ,
@@ -31,15 +30,38 @@
 	        AF_FILE_SIZE,
 	        AF_SAVE_PATH,
 	        AF_EXTSN,
-	        FSTM_RGSTR_ID,
-	        LAST_MODFR_ID,
-	        LAST_MDFCN_DT
+	        LAST_MDFCN_DT,
+	        USE_YN
 	    ) 
 	    VALUES
-	    	(af_seq.NEXTVAL, #{afId}, #{afOriginNm}, #{afSaveNm}, #{afFileSize}, #{afSavePath}, #{afExtsn}, #{fstmRgstrId}, #{lastModfrId}, SYSDATE
-	    )
+	    	(af_seq.NEXTVAL, #{afId}, #{afOriginNm}, #{afSaveNm}, #{afFileSize}, #{afSavePath}, #{afExtsn}, SYSDATE, #{useYn} )
     	
 	</insert>
+	
+	<select id="detailFile" parameterType="spring.practice.home.common.vo.AtchFileVO" resultType="spring.practice.home.common.vo.AtchFileVO">
+	/* DETAIL FILE */
+		SELECT 
+			AF_SEQ
+			, AF_ID
+			, AF_ORIGIN_NM
+			, AF_SAVE_NM
+			, AF_FILE_SIZE
+			, AF_SAVE_PATH
+			, AF_EXTSN
+			, LAST_MDFCN_DT
+			, USE_YN
+		FROM
+			T_KSO_ATCH_FILE
+		WHERE AF_ID = #{afId}
+	
+	</select>
+	
+	<delete id="deleteFile" parameterType="String">
+	/* DELETR FILE */
+		DELETE FROM T_KSO_ATCH_FILE
+		WHERE AF_ID = #{afId}
+		
+	</delete>
 
 </mapper> 
 

@@ -14,9 +14,8 @@ public class AtchFileVO {
 	private long afFileSize;		// 파일 크기
 	private String afSavePath;		// 파일 저장 경로
 	private String afExtsn;			// 파일 확장자
-	private String fstmRgstrId;		// 등록자ID
-	private String lastModfrId;		// 수정자ID
 	private Date lastMdfcnDt;		// 마지막 수정일
+	private String useYn;			// 등록여부
 	
 	public int getAfSeq() {
 		return afSeq;
@@ -74,22 +73,6 @@ public class AtchFileVO {
 		this.afExtsn = afExtsn;
 	}
 
-	public String getFstmRgstrId() {
-		return fstmRgstrId;
-	}
-
-	public void setFstmRgstrId(String fstmRgstrId) {
-		this.fstmRgstrId = fstmRgstrId;
-	}
-
-	public String getLastModfrId() {
-		return lastModfrId;
-	}
-
-	public void setLastModfrId(String lastModfrId) {
-		this.lastModfrId = lastModfrId;
-	}
-
 	public Date getLastMdfcnDt() {
 		return lastMdfcnDt;
 	}
@@ -98,13 +81,20 @@ public class AtchFileVO {
 		this.lastMdfcnDt = lastMdfcnDt;
 	}
 
+	public String getUseYn() {
+		return useYn;
+	}
+
+	public void setUseYn(String useYn) {
+		this.useYn = useYn;
+	}
+
 	@Override
 	public String toString() {
 		return "AtchFileVO [afSeq=" + afSeq + ", afId=" + afId + ", afOriginNm=" + afOriginNm + ", afSaveNm=" + afSaveNm
 				+ ", afFileSize=" + afFileSize + ", afSavePath=" + afSavePath + ", afExtsn=" + afExtsn
-				+ ", fstmRgstrId=" + fstmRgstrId + ", lastModfrId=" + lastModfrId + ", lastMdfcnDt=" + lastMdfcnDt
-				+ "]";
+				+ ", lastMdfcnDt=" + lastMdfcnDt + ", useYn=" + useYn + "]";
 	}
-	
+
 
 }

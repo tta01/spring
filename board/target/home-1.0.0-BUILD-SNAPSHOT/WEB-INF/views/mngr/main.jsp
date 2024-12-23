@@ -44,7 +44,7 @@ a {
 
 #content {
     padding: 20px;
-/*     border-left: 2px solid #ddd; */
+    width: 500px;
     height: calc(100vh - 40px); /* 우측 영역 높이에서 padding 40px (상하 20px) 제외 */
     overflow-y: auto; /* 내용이 넘치면 스크롤 */
 }
@@ -59,10 +59,10 @@ a {
 
 <body>
 	<div class="main-body">
-  		<div id="title">
-    		<p>관리자 메인 페이지</p>
+  		<div id="title" style="display: flex; align-items: center;">
+    		<p style="margin-right: 200px;">관리자 메인 페이지</p>
+			  <a href="/user/board/list" >게시판</a>
   		</div>
-  
 	<div class="container">
 		<div id="menu-container"> </div>
        

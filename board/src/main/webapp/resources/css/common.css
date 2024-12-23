@@ -49,7 +49,7 @@ a:hover {
 form {
     margin: 20px auto;
     width: 80%;
-    max-width: 800px;
+    max-width: 1200px;
 }
 
 /* 테이블 디자인 */
@@ -118,4 +118,11 @@ button:hover, a:hover {
 /* 버튼이 마지막인 경우 오른쪽 여백 제거 */
 .form-buttons a:last-child {
     margin-right: 0;
+}
+
+/* file */
+.file-body {
+	margin: 20px;
+	padding: 10px;
+	width: 800px;
 }

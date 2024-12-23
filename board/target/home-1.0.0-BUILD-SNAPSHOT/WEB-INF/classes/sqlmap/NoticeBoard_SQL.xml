@@ -2,11 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="spring.practice.home.NoticeBoard.mapper.NoticeBoardMapper">
-
+	
 	<select id="selectBoardListCnt" parameterType="spring.practice.home.NoticeBoard.vo.NoticeBoardVO" resultType="int">
 		SELECT
 			COUNT(1) AS TOTAL_CNT
 		FROM NOTICE_BOARD
+	</select>
+	
+	<select id="getTotal" resultType="int">
+	
+		SELECT COUNT(*) FROM NOTICE_BOARD
+		
 	</select>
 
 	<select id="selectBoardList" parameterType="spring.practice.home.NoticeBoard.vo.NoticeBoardVO" resultType="spring.practice.home.NoticeBoard.vo.NoticeBoardVO">
@@ -31,36 +37,42 @@
 		    
 	</select>
 	
-	<insert id="createForm" parameterType="noticeBoardVO">
+	<insert id="createForm" parameterType="spring.practice.home.NoticeBoard.vo.NoticeBoardVO">
 		/* NOTICE_BOARD INSERT */
+		<selectKey keyProperty="boardId" resultType="int" order="BEFORE">
+			SELECT BOARD_ID.NEXTVAL FROM DUAL
+		</selectKey>
+		
 		INSERT INTO NOTICE_BOARD (
-				    BOARD_ID,
-				    MEM_ID,
-				    BOARD_TITLE,
-				    BOARD_WRITING_DT,
-				    BOARD_UPDT_DT,
-				    NTBD_AF_ID,
-				    BOARD_CNTNT
+				    BOARD_ID
+				    , MEM_ID
+				    , BOARD_TITLE
+				    , BOARD_WRITING_DT
+				    , BOARD_UPDT_DT
+				    , NTBD_AF_ID
+				    , BOARD_CNTNT
 				) 
-		VALUES (board_id.NEXTVAL, #{memId},#{boardTitle},SYSDATE,SYSDATE,#{ntbdAfId},#{boardCntnt})
+		VALUES (#{boardId}, #{memId}, #{boardTitle}, SYSDATE, SYSDATE, #{ntbdAfId}, #{boardCntnt})
 	
 	</insert>
 	
-	<select id="detail" resultType="noticeBoardVO" parameterType="String">
+	<select id="detail" resultType="spring.practice.home.NoticeBoard.vo.NoticeBoardVO" parameterType="int">
 	 /* NOTICE_BOARD detailPost */
-		SELECT 	BOARD_ID
-				,MEM_ID
-				,BOARD_TITLE
-				,BOARD_WRITING_DT
-				,BOARD_UPDT_DT
-				,NTBD_AF_ID
-				,BOARD_CNTNT
-		FROM	NOTICE_BOARD
-		WHERE 	BOARD_ID = #{boardId}
-	
+		SELECT
+			BOARD_ID
+			,MEM_ID 
+			,BOARD_TITLE
+			,BOARD_WRITING_DT
+			,BOARD_UPDT_DT
+			,NTBD_AF_ID
+			,BOARD_CNTNT
+		FROM 
+			NOTICE_BOARD
+		WHERE BOARD_ID = #{boardId}
+			
 	</select>
 	
-	<update id="updatePost" parameterType="String">
+	<update id="updatePost" parameterType="int">
 		/* NOTICE_BOARD UPDATE */
 		update 	NOTICE_BOARD
 		SET		BOARD_TITLE = #{boardTitle}
@@ -71,17 +83,18 @@
 	
 	</update>
 	
-	<delete id="deletePost" parameterType="noticeBoardVO">
-		/* NOTICE_BOARD DELETE */
+<!-- 	<delete id="deleteFile" parameterType="String">
+	/* FILE DELETE  */
+		DELETE FROM T_KSO_ATCH_FILE
+		WHERE AF_ID = #{afId}
+
+	</delete> -->
+	
+	<delete id="delete" parameterType="spring.practice.home.NoticeBoard.vo.NoticeBoardVO">
+	/* BOARD DELETE */
 		DELETE FROM NOTICE_BOARD
 		WHERE BOARD_ID = #{boardId}
 		
 	</delete>
-	
-	<select id="getTotal" resultType="int">
-	
-		SELECT COUNT(*) FROM NOTICE_BOARD
-		
-	</select>
 	
 </mapper>

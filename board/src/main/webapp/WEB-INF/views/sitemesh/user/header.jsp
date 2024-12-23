@@ -34,8 +34,7 @@
 									<li class="menu-top-li"><span>${subMenu.menuNm}</span>
 
 										<ul class="inner-menu">
-											<c:forEach var="lowestMenu" items="${menuList}"
-												varStatus="stat">
+											<c:forEach var="lowestMenu" items="${menuList}" varStatus="stat">
 												<c:if test="${subMenu.menuCd == lowestMenu.prntMenuCd}">
 													<li class="menu-mid-li"><a href="${lowestMenu.url}">${lowestMenu.menuNm}</a></li>
 												</c:if>

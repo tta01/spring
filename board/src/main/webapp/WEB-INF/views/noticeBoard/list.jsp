@@ -23,7 +23,6 @@
     
     <div>
         <a href="<c:url value='/user/board/create'/>">새글 작성</a>
-    
     </div>
     
 	<div class="tb-body">
@@ -39,16 +38,23 @@
 	        </thead>
 	        
 	        <tbody>
-	<%--         <c:out value="${noticeBoardVO}" /> --%>
-	            <c:forEach var="item" items="${noticeVOList}" varStatus="status">
-	                <tr>
-	                    <td>${item.rnum}</td>
-	                    <td><a href="<c:url value='/user/board/detail?boardId=${item.boardId}'/>">${item.boardTitle}</a></td>
-	                    <td>${item.memId}</td>
-	                    <td><fmt:formatDate value="${item.boardWritingDt}" pattern="yyyy-MM-dd HH:mm"/></td>
-	                    <td><fmt:formatDate value="${item.boardUpdtDt}" pattern="yyyy-MM-dd HH:mm"/></td>
-	                </tr>
-	            </c:forEach>
+<%-- 		       	<c:choose> --%>
+<%-- 			        <c:when test="${noticeVOList == null}">  --%>
+<!-- 			        	<p> 등록된 데이터가 없습니다. </p> -->
+<%-- 		            </c:when> --%>
+		            
+<%-- 	            	<c:otherwise> --%>
+				            <c:forEach var="item" items="${noticeVOList}" varStatus="status">
+				                <tr>
+				                    <td>${item.rnum}</td>
+				                    <td><a href="<c:url value='/user/board/detail?boardId=${item.boardId}'/>">${item.boardTitle}</a></td>
+				                    <td>${item.memId}</td>
+				                    <td><fmt:formatDate value="${item.boardWritingDt}" pattern="yyyy-MM-dd HH:mm"/></td>
+				                    <td><fmt:formatDate value="${item.boardUpdtDt}" pattern="yyyy-MM-dd HH:mm"/></td>
+				                </tr>
+				            </c:forEach>
+<%-- 	            	</c:otherwise> --%>
+<%-- 		       	</c:choose> --%>
 	        </tbody>
 	    </table>
 	</div>

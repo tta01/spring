@@ -25,20 +25,22 @@ public class MngrLoginController {
 	MngrLoginService MngrLoginService;
 	
 	@RequestMapping("/login")
-	public String login(HttpSession session, Model model) {
+	public String login(HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
 		ManagerVO managerVO = (ManagerVO) session.getAttribute("managerVO");
 		
 		// 로그인시 로그인페이지로 가는거 방지하는데, redirect가 무한으로 걸림..
 		 // 이미 리다이렉트된 상태라면 다시 리다이렉트하지 않게
 	    if (managerVO != null) {
-	        if (session.getAttribute("isRedirect") != null) {
-	            // 리다이렉트 플래그가 있으면 리다이렉트하지 않음
-	        	session.removeAttribute("isRedirect");  
-	            return "redirect:/mngr/main"; // 이미 로그인되어 있으면 메인 페이지로 이동하게!!
-	        }
+//	        if (session.getAttribute("isRedirect") != null) {
+//	            // 리다이렉트 플래그가 있으면 리다이렉트하지 않음
+//	        	session.removeAttribute("isRedirect");  
+//	            return "redirect:/mngr/main"; // 이미 로그인되어 있으면 메인 페이지로 이동하게!!
+//	        }
 	        // 리다이렉트 플래그를 설정 => 로그인되어 있다는걸로 보면 됨
-	        session.setAttribute("isRedirect", true);
-	        return "redirect:/mngr/login/mngrLogin"; 
+//	        session.setAttribute("isRedirect", true);
+	        return "redirect:/mngr/main"; 
 	    }
 		return "mngr/login/mngrLogin";
 	}
@@ -46,10 +48,15 @@ public class MngrLoginController {
 	@RequestMapping(value="/loginAjax", method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String,Object> actionLogin(ManagerVO managerVO, HttpServletRequest req, HttpServletResponse res) throws Exception {
+		System.out.println("managerVO : "+managerVO);
 		
-		Map<String,Object> resultMap = new HashMap<String, Object>();
+		HttpSession session = req.getSession();
+		session.setAttribute("mngrId", managerVO.getMngrId());
+		session.setAttribute("pswd", managerVO.getPswd());
+		
 		int result = MngrLoginService.actionLogin(req, managerVO);
 		
+		Map<String,Object> resultMap = new HashMap<String, Object>();
 		resultMap.put("result", result);
 		
 		return resultMap;

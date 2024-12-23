@@ -2,6 +2,7 @@ package spring.practice.home.NoticeBoard.vo;
 
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -11,7 +12,7 @@ import spring.practice.home.common.vo.AtchFileVO;
 public class NoticeBoardVO extends PagingVO {
 
 	private int rnum;
-    private String boardId;
+    private int boardId;
     private String memId;
     private String boardTitle;
     private Date boardWritingDt;
@@ -19,7 +20,11 @@ public class NoticeBoardVO extends PagingVO {
     private String ntbdAfId;
     private String boardCntnt;
     
-    private MultipartFile[] uploadFile;
+    // 첨부파일
+    public MultipartFile[] uploadFile;
+    
+    // 파일 리스트
+    public List<AtchFileVO> atchFileVOList;
     
 	public int getRnum() {
 		return rnum;
@@ -27,10 +32,10 @@ public class NoticeBoardVO extends PagingVO {
 	public void setRnum(int rnum) {
 		this.rnum = rnum;
 	}
-	public String getBoardId() {
+	public int getBoardId() {
 		return boardId;
 	}
-	public void setBoardId(String boardId) {
+	public void setBoardId(int boardId) {
 		this.boardId = boardId;
 	}
 	public String getMemId() {
@@ -76,13 +81,19 @@ public class NoticeBoardVO extends PagingVO {
 		this.uploadFile = uploadFile;
 	}
 	
+	public List<AtchFileVO> getAtchFileVOList() {
+		return atchFileVOList;
+	}
+	public void setAtchFileVOList(List<AtchFileVO> atchFileVOList) {
+		this.atchFileVOList = atchFileVOList;
+	}
+	
 	@Override
 	public String toString() {
 		return "NoticeBoardVO [rnum=" + rnum + ", boardId=" + boardId + ", memId=" + memId + ", boardTitle="
 				+ boardTitle + ", boardWritingDt=" + boardWritingDt + ", boardUpdtDt=" + boardUpdtDt + ", ntbdAfId="
 				+ ntbdAfId + ", boardCntnt=" + boardCntnt + ", uploadFile=" + Arrays.toString(uploadFile)
-				+ ", atchFileVO="+"]";
+				+ ", atchFileVOList=" + atchFileVOList + "]";
 	}
-	
 	
 }

@@ -3,7 +3,6 @@ package spring.practice.home.NoticeBoard.mapper;
 import java.util.List;
 
 import spring.practice.home.NoticeBoard.vo.NoticeBoardVO;
-import spring.practice.home.common.vo.AtchFileVO;
 
 public interface NoticeBoardMapper {
 	
@@ -13,12 +12,11 @@ public interface NoticeBoardMapper {
 
 	public int createForm(NoticeBoardVO noticeBoardVO);
 
-	public List<NoticeBoardVO> detail(String boardId);
+	public NoticeBoardVO detail(int boardId);
 
 	public int updatePost(NoticeBoardVO noticeBoardVO);
 
-	public int deletePost(String boardId);
-
-	public int insertFile(AtchFileVO atchVO);
+	// 게시글 삭제
+	public int deletePost(NoticeBoardVO boardVO);
 
 }

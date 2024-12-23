@@ -23,7 +23,7 @@ public class MngrLoginServiceImpl implements MngrLoginService {
 	    ManagerVO managerVOResult = loginMapper.actionLogin(managerVO);
 	    
 	    if (managerVOResult == null) {
-	        return 1;  // 아이디 없음
+	        return 1; 
 	    } else {
 	        if (managerVO.getPswd().equals(managerVOResult.getPswd())) {
 	            session.setAttribute("managerVO", managerVOResult);

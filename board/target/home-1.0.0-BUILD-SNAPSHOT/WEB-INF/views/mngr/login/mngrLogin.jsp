@@ -37,7 +37,7 @@ $(function() {
 
         var mngrId = $("#mngrId").val();
 		var pswd = $("#pswd").val();
-debugger;
+// debugger;
         $.ajax({
             url: "/mngr/loginAjax",
             type: "POST",

@@ -93,38 +93,57 @@ button:hover, a:hover {
     <meta charset="UTF-8">
     <title>공지사항 수정</title>
 </head>
+
 <body>
-    <h1>공지사항 수정</h1>
+    <div class="board-list">
+	    <h1>공지사항 수정</h1>
+		<c:out value="${boardVO}"></c:out>    
+    <form name="frm" action="/user/board/updatePost" method="post" enctype="multipart/form-data"> 
+	    <p><input type="hidden" id="memId" name="memId" value="${mngrId}" /></p>
+	    <p><input type="hidden" id="useYn" name="useYn" value="${useYn}" /></p>
+	
+	    <table class="form-table">
+	        <tr>
+	            <th>공지사항 제목</th>
+	            <td><input type="text" id="boardTitle" name="boardTitle" placeholder="공지사항 제목입력" value="${boardVO.boardTitle}" required /></td>
+	        </tr>
+	        <tr>
+	            <th>공지사항 내용</th>
+	            <td><pre id="boardCntnt" name="boardCntnt" value="${boardVO.boardCntnt}" required></pre></td>
+	        </tr>
+	        <tr>
+	            <th>공지사항 파일</th>
+<%-- 	            <c:out value="${fileVO}"></c:out> --%>
+	            <td>
+	            	<p class="board-title"> 첨부파일 선택 </p>
+	            	
+	            	<c:choose>
+	            		<c:when test="${not empty fileVO}">
+							<c:forEach var="item" items="${fileVO}" varStatus="status">
+<%-- 								<p>${status.count}. --%>
+								<p><a href="/resources/upload/${item.afSaveNm}" class="file-link" target="_blank">[ ${item.afOriginNm} ]</a></p>
+<%-- 			            		<img src="/resources/upload/${item.afSaveNm}" width="70%" style="margin-top: 20px;" />${item.afOriginNm}</p> --%>
+							</c:forEach>
+						</c:when>
+						
+	            		<c:otherwise>등록된 파일이 없습니다.</c:otherwise>
+	            	</c:choose>
+		            	<input type="file" id="uploadFile" name="uploadFile" multiple /> 
+           				<div id="atchfileChange" style="margin-left: 10px; width: 150%; display: flex; flex-direction: column;"></div>
+	            </td>
+	        </tr>
+	        
+	    </table>
+	
+	    <div class="form-buttons">
+	        <button type="submit" onclick="btn_submit()"> 수정 완료 </button>
+	        <a href="<c:url value='/user/board/list'/>" >목록</a>
+	    </div>
+	</form>
 
-    <!-- 공지사항 수정 폼 -->
-    
-<form name="frm" action="/user/board/updatePost" method="post"> <%-- enctype="multipart/form-data"> --%>
-    <p><input type="hidden" id="memId" name="memId" value="${getCurrentLoginVO.memId}" /></p>
-	<p><input type="hidden" name="boardId" value="${noticeBoardVO.boardId}" /><p>
-<!--     <p><input type="hidden" id="memId" name="memId" value="admin" /></p> -->
+</div>
 
-    <table class="form-table">
-        <tr>
-            <th>공지사항 제목</th>
-            <td><input type="text" id="boardTitle" name="boardTitle" value="${noticeBoardVO.boardTitle}" /></td>
-        </tr>
-        <tr>
-            <th>공지사항 내용</th>
-            <td><textarea id="boardCntnt" name="boardCntnt" >${noticeBoardVO.boardCntnt}</textarea></td>
-        </tr>
-        <!-- <tr>
-            <th>공지사항 파일</th>
-            <td><input type="file" id="ntbdAfId" name="ntbdAfId" multiple /></td>
-        </tr> -->
-    </table>
-
-    <div class="form-buttons">
-        <button type="submit"> 수정 완료  </button>
-        <a href="<c:url value='/user/board/list'/>" >목록</a>
-    </div>
-</form>
-
-
+<script type="text/javascript" src="/resources/js/fileCreate.js"></script>
     
 </body>
 

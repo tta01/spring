@@ -21,38 +21,23 @@ public class AuthLoginInterceptor extends HandlerInterceptorAdapter {
     	System.out.println("〓〓〓〓〓〓〓〓〓〓〓〓   AuthLoginInterceptor Start  〓〓〓〓〓〓〓〓〓〓〓〓");
 
     	HttpSession session = request.getSession();
-//    	ManagerVO managerVO = (ManagerVO) session.getAttribute("managerVO");
+		ManagerVO managerVO = (ManagerVO) session.getAttribute("managerVO");
+		
         String url = request.getRequestURI();  // 현재 URL
         
-//        if(managerVO != null) {
-//        	session.setAttribute("managerVO", managerVO);
-//
+        if(managerVO != null) {
+        	session.setAttribute("managerVO", managerVO);
+        
 //        	// 추후에 권한체크 필요 
-//        	if(!url.contains("/mngr/")) {
-//        		response.setContentType("text/html; charset=UTF-8"); 
-//        		response.getWriter().write("<html><body><h2> 관리자 권한이 없습니다. </h2></body></html>");
-//        		response.sendRedirect("/mngr/login");
-//              return false;
-//        	} 
-//        	
-//        } else {
-//        	response.sendRedirect(request.getContextPath()+"/mngr/login");
-//        	return false;
-//        }
-        
-//        if (url.contains("/mngr/")) {
-//            Object mngrVO = session.getAttribute("managerVO");
-//
-//            if (mngrVO == null || mngrVO.equals("")) {
-//                response.setContentType("text/html; charset=UTF-8"); 
-//                response.getWriter().write("<html><body><h2> 관리자 권한이 없습니다. </h2></body></html>");
-//            	response.sendRedirect("/mngr/login");
-//                return false;
-//            } else { // 로그인한 경우, 관리자 체크
-//
-//            }
-//        }
-        
+        	if(!url.contains("/mngr/")) {
+        		response.setContentType("text/html; charset=UTF-8"); 
+        		response.getWriter().write("<html><body><h2> 관리자 권한이 없습니다. </h2></body></html>");
+        		response.sendRedirect("/mngr/login");
+              return false;
+        	} 
+        } else {
+        	
+        }
         return super.preHandle(request, response, handler);
     }
     

@@ -36,6 +36,7 @@
 			<mapping path="/mngr/**"/>
 			<exclude-mapping path="/mngr/login"/>
 			<exclude-mapping path="/mngr/login.ajax"/>
+			<exclude-mapping path="/mngr/logout"/>
 			<beans:ref bean="Interceptor"/>
 		</interceptor>
 	</interceptors>

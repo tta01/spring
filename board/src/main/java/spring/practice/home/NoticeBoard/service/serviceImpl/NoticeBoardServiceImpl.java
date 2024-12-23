@@ -4,33 +4,39 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 
+import lombok.extern.slf4j.Slf4j;
 import spring.practice.home.NoticeBoard.mapper.NoticeBoardMapper;
 import spring.practice.home.NoticeBoard.service.NoticeBoardService;
 import spring.practice.home.NoticeBoard.vo.NoticeBoardVO;
-import spring.practice.home.common.controller.AtchFileController;
 import spring.practice.home.common.mapper.AtchFileMapper;
 import spring.practice.home.common.util.AtchFileUtil;
 import spring.practice.home.common.vo.AtchFileVO;
 
+@Slf4j
 @Service
 public class NoticeBoardServiceImpl implements NoticeBoardService {
 	
 	@Resource
-	NoticeBoardMapper brdMapper;
+	String uploadFolder;
 	
 	@Resource
-	AtchFileUtil atchfileUtil;
+	NoticeBoardMapper boardMapper;
+	
+	@Resource
+	AtchFileMapper atchMapper;
+	
+	@Resource
+	AtchFileUtil atchUtil;
 	
 	@Override
 	public String selectBoardList(NoticeBoardVO noticeBoardVO, Model model) {
 		
 		// 1. 페이지 네이션 생성
-		int totalCnt = brdMapper.selectBoardListCnt(noticeBoardVO);
+		int totalCnt = boardMapper.selectBoardListCnt(noticeBoardVO);
 		double tmp = totalCnt/(double)noticeBoardVO.getPageRowCnt();
 		int maxPage = (int) Math.ceil(tmp);
 		noticeBoardVO.setMaxPage(maxPage);
@@ -46,7 +52,7 @@ public class NoticeBoardServiceImpl implements NoticeBoardService {
 		noticeBoardVO.setEndPage(endPage);
 		
 		// 2. 리스트 호출
-		List<NoticeBoardVO> noticeVOList = brdMapper.selectBoardList(noticeBoardVO);
+		List<NoticeBoardVO> noticeVOList = boardMapper.selectBoardList(noticeBoardVO);
 		
 		// 3. 리스트 담기
 		model.addAttribute("noticeVOList", noticeVOList);
@@ -58,32 +64,50 @@ public class NoticeBoardServiceImpl implements NoticeBoardService {
 	@Override
 	public int createForm(NoticeBoardVO noticeBoardVO) {
 		
-	    int result = brdMapper.createForm(noticeBoardVO);
-	    
-	    if(result > 0) {
-	    	result += atchfileUtil.uploadFile(noticeBoardVO.getUploadFile(),noticeBoardVO.getNtbdAfId());
-	    }
+		MultipartFile[] uploadFile = noticeBoardVO.getUploadFile();
+		noticeBoardVO.setNtbdAfId(atchUtil.getSaveAfId());
 
+		int result = boardMapper.createForm(noticeBoardVO);
+	    
+	    if (uploadFile != null) {
+	        result += atchUtil.uploadFile(uploadFile, noticeBoardVO.getNtbdAfId());
+	    }
 	    return result;
 	}
-
+	
+	// 게시글 상세 조회
 	@Override
-	public List<NoticeBoardVO> detail(String boardId) {
-		return brdMapper.detail(boardId);
+	public NoticeBoardVO detail(int boardId) {
+		System.out.println("#### impl######## : "+boardId);
+		return boardMapper.detail(boardId); 
 	}
-
+ 
+	// 게시글 수정
 	@Override
 	public int updatePost(NoticeBoardVO noticeBoardVO) {
-		int result =  brdMapper.updatePost(noticeBoardVO);
+		System.out.println("updatePost noticeBoardVO : " +noticeBoardVO );
+		MultipartFile[] uploadFile = noticeBoardVO.getUploadFile();
+//		if(result > 0) {
+			noticeBoardVO.setNtbdAfId(atchUtil.getSaveAfId());
+			int result = atchUtil.uploadFileUpdate(uploadFile, noticeBoardVO.getNtbdAfId());
+//		}
+		
+			result +=  boardMapper.updatePost(noticeBoardVO);
 		return result;
 	}
-
+	
+	// 게시글 삭제
 	@Override
-	public int deletePost(String boardId) {
+	public int deletePost(NoticeBoardVO boardVO) {
 		
-		int result = brdMapper.deletePost(boardId);
+		int result = atchMapper.deleteFile(boardVO.getNtbdAfId());
+		System.out.println("boardVO.getNtbdAfId() : "+boardVO.getNtbdAfId());
+		
+		result += boardMapper.deletePost(boardVO);
 		
 		return result;
 	}
+	
+	
 
 }
